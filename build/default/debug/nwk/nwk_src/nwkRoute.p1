@@ -1,0 +1,785 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"67 nwk/nwk_inc\nwkFrame.h
+[s S7 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S7 . ackRequest security linkLocal multicast reserved ]
+"78
+[s S8 :4 `uc 1 :4 `uc 1 ]
+[n S8 . nwkSrcEndpoint nwkDstEndpoint ]
+"59
+[s S6 `us 1 `uc 1 `us 1 `us 1 `us 1 `QS7 1 `uc 1 `us 1 `us 1 `S8 1 ]
+[n S6 NwkFrameHeader_t macFcf macSeq macDstPanId macDstAddr macSrcAddr nwkFcf nwkSeq nwkSrcAddr nwkDstAddr . ]
+"98
+[u S11 `QS6 1 `uc -> 127 `i ]
+[n S11 . header data ]
+"108
+[s S13 `uc 1 `c 1 ]
+[n S13 . lqi rssi ]
+[v F220 `(v ~T0 @X0 0 tf1`*S10 ]
+"114
+[s S14 `uc 1 `us 1 `uc 1 `*F220 1 ]
+[n S14 . status timeout control confirm ]
+"106
+[u S12 `S13 1 `S14 1 ]
+[n S12 . rx tx ]
+"93
+[s S10 `uc 1 `uc 1 `S11 1 `*uc 1 `S12 1 ]
+[n S10 NwkFrame_t state size . payload . ]
+"64 nwk/nwk_inc\nwkRoute.h
+[s S17 :1 `uc 1 :1 `uc 1 :2 `uc 1 :4 `uc 1 `us 1 `us 1 `uc 1 `uc 1 ]
+[n S17 NWK_RouteTableEntry_t fixed multicast reserved score dstAddr nextHopAddr rank lqi ]
+"248 nwk/nwk_src/nwkRoute.c
+[; ;nwk/nwk_src/nwkRoute.c: 248:   if (NWK_SUCCESS_STATUS == frame->tx.status)
+[c E336 0 1 2 16 17 32 33 .. ]
+[n E336 . NWK_SUCCESS_STATUS NWK_ERROR_STATUS NWK_OUT_OF_MEMORY_STATUS NWK_NO_ACK_STATUS NWK_NO_ROUTE_STATUS NWK_PHY_CHANNEL_ACCESS_FAILURE_STATUS NWK_PHY_NO_ACK_STATUS  ]
+"69
+[; ;nwk/nwk_src/nwkRoute.c: 69: static void nwkRouteNormalizeRanks(void);
+[v _nwkRouteNormalizeRanks `(v ~T0 @X0 0 sf ]
+"60 nwk/nwk_inc\nwkGroup.h
+[v _NWK_GroupIsMember `(a ~T0 @X0 0 ef1`us ]
+"60 nwk/nwk_inc\nwkRouteDiscovery.h
+[; ;nwk/nwk_inc\nwkRouteDiscovery.h: 60: void nwkRouteDiscoveryRequest(NwkFrame_t *frame);
+[v _nwkRouteDiscoveryRequest `(v ~T0 @X0 0 ef1`*S10 ]
+[v F477 `(v ~T0 @X0 0 tf1`*S10 ]
+"306 nwk/nwk_src/nwkRoute.c
+[; ;nwk/nwk_src/nwkRoute.c: 306:     frame->tx.control = NWK_TX_CONTROL_ROUTING;
+[c E376 1 2 4 .. ]
+[n E376 . NWK_TX_CONTROL_BROADCAST_PAN_ID NWK_TX_CONTROL_ROUTING NWK_TX_CONTROL_DIRECT_LINK  ]
+"66 nwk/nwk_inc\nwkTx.h
+[; ;nwk/nwk_inc\nwkTx.h: 66: void nwkTxFrame(NwkFrame_t *frame);
+[v _nwkTxFrame `(v ~T0 @X0 0 ef1`*S10 ]
+"68 nwk/nwk_src/nwkRoute.c
+[; ;nwk/nwk_src/nwkRoute.c: 68: static void nwkRouteSendRouteError(uint16_t src, uint16_t dst, uint8_t multicast);
+[v _nwkRouteSendRouteError `(v ~T0 @X0 0 sf3`us`us`uc ]
+"126 nwk/nwk_inc\nwkFrame.h
+[v _nwkFrameFree `(v ~T0 @X0 0 ef1`*S10 ]
+"71 nwk/nwk_inc\nwkCommand.h
+[; ;nwk/nwk_inc\nwkCommand.h: 71: {
+[s S21 `uc 1 `us 1 `us 1 `uc 1 ]
+[n S21 NwkCommandRouteError_t id srcAddr dstAddr multicast ]
+"125 nwk/nwk_inc\nwkFrame.h
+[v _nwkFrameAlloc `(*S10 ~T0 @X0 0 ef ]
+"128
+[v _nwkFrameCommandInit `(v ~T0 @X0 0 ef1`*S10 ]
+[v F489 `(v ~T0 @X0 0 tf1`*S10 ]
+"334 nwk/nwk_src/nwkRoute.c
+[; ;nwk/nwk_src/nwkRoute.c: 334:   command->id = NWK_COMMAND_ROUTE_ERROR;
+[c E393 0 1 2 3 .. ]
+[n E393 . NWK_COMMAND_ACK NWK_COMMAND_ROUTE_ERROR NWK_COMMAND_ROUTE_REQUEST NWK_COMMAND_ROUTE_REPLY  ]
+"68 nwk/nwk_inc/nwkRx.h
+[; ;nwk/nwk_inc/nwkRx.h: 68: {
+[s S16 `us 1 `us 1 `uc 1 `uc 1 `uc 1 `*uc 1 `uc 1 `uc 1 `c 1 ]
+[n S16 NWK_DataInd_t srcAddr dstAddr srcEndpoint dstEndpoint options data size lqi rssi ]
+[v F234 `(uc ~T0 @X0 1 tf1`*S10 ]
+"134 nwk/nwk_inc\nwkFrame.h
+[v _nwkFramePayloadSize `TF234 ~T0 @X0 1 s ]
+"135
+{
+[e :U _nwkFramePayloadSize ]
+"134
+[v _frame `*S10 ~T0 @X0 1 r1 ]
+"135
+[f ]
+"136
+[e ) -> - -> . *U _frame 1 `i / - -> . *U _frame 3 `x -> &U . . *U _frame 2 1 `x -> -> # *U . *U _frame 3 `i `x `uc ]
+[e $UE 15  ]
+"137
+[e :UE 15 ]
+}
+"72 nwk/nwk_src/nwkRoute.c
+[; ;nwk/nwk_src/nwkRoute.c: 72: static NWK_RouteTableEntry_t nwkRouteTable[10];
+[v _nwkRouteTable `S17 ~T0 @X0 -> 10 `i s ]
+"79
+[; ;nwk/nwk_src/nwkRoute.c: 79: void nwkRouteInit(void)
+[v _nwkRouteInit `(v ~T0 @X0 1 ef ]
+"80
+[; ;nwk/nwk_src/nwkRoute.c: 80: {
+{
+[e :U _nwkRouteInit ]
+[f ]
+"81
+[; ;nwk/nwk_src/nwkRoute.c: 81:   for (uint8_t i = 0; i < 10; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 25  ]
+[e $U 26  ]
+[e :U 25 ]
+"82
+[; ;nwk/nwk_src/nwkRoute.c: 82:   {
+{
+"83
+[; ;nwk/nwk_src/nwkRoute.c: 83:     nwkRouteTable[i].dstAddr = 0xffff;
+[e = . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 4 -> -> 65535 `ui `us ]
+"84
+[; ;nwk/nwk_src/nwkRoute.c: 84:     nwkRouteTable[i].fixed = 0;
+[e = . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 0 -> -> 0 `i `uc ]
+"85
+[; ;nwk/nwk_src/nwkRoute.c: 85:     nwkRouteTable[i].rank = 0;
+[e = . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 6 -> -> 0 `i `uc ]
+"86
+[; ;nwk/nwk_src/nwkRoute.c: 86:   }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 25  ]
+[e :U 26 ]
+}
+"87
+[; ;nwk/nwk_src/nwkRoute.c: 87: }
+[e :UE 24 ]
+}
+"91
+[; ;nwk/nwk_src/nwkRoute.c: 91: NWK_RouteTableEntry_t *NWK_RouteFindEntry(uint16_t dst, uint8_t multicast)
+[v _NWK_RouteFindEntry `(*S17 ~T0 @X0 1 ef2`us`uc ]
+"92
+[; ;nwk/nwk_src/nwkRoute.c: 92: {
+{
+[e :U _NWK_RouteFindEntry ]
+"91
+[; ;nwk/nwk_src/nwkRoute.c: 91: NWK_RouteTableEntry_t *NWK_RouteFindEntry(uint16_t dst, uint8_t multicast)
+[v _dst `us ~T0 @X0 1 r1 ]
+[v _multicast `uc ~T0 @X0 1 r2 ]
+"92
+[; ;nwk/nwk_src/nwkRoute.c: 92: {
+[f ]
+"93
+[; ;nwk/nwk_src/nwkRoute.c: 93:   for (uint8_t i = 0; i < 10; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 29  ]
+[e $U 30  ]
+[e :U 29 ]
+"94
+[; ;nwk/nwk_src/nwkRoute.c: 94:   {
+{
+"95
+[; ;nwk/nwk_src/nwkRoute.c: 95:     if (nwkRouteTable[i].dstAddr == dst &&
+[e $ ! && == -> . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 4 `ui -> _dst `ui == -> . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 1 `i -> _multicast `i 32  ]
+"97
+[; ;nwk/nwk_src/nwkRoute.c: 97:       return &nwkRouteTable[i];
+[e ) &U *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux ]
+[e $UE 28  ]
+[e :U 32 ]
+"98
+[; ;nwk/nwk_src/nwkRoute.c: 98:   }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 29  ]
+[e :U 30 ]
+}
+"100
+[; ;nwk/nwk_src/nwkRoute.c: 100:   return ((void*)0);
+[e ) -> -> -> 0 `i `*v `*S17 ]
+[e $UE 28  ]
+"101
+[; ;nwk/nwk_src/nwkRoute.c: 101: }
+[e :UE 28 ]
+}
+"105
+[; ;nwk/nwk_src/nwkRoute.c: 105: NWK_RouteTableEntry_t *NWK_RouteNewEntry(void)
+[v _NWK_RouteNewEntry `(*S17 ~T0 @X0 1 ef ]
+"106
+[; ;nwk/nwk_src/nwkRoute.c: 106: {
+{
+[e :U _NWK_RouteNewEntry ]
+[f ]
+"107
+[; ;nwk/nwk_src/nwkRoute.c: 107:   NWK_RouteTableEntry_t *iter = nwkRouteTable;
+[v _iter `*S17 ~T0 @X0 1 a ]
+[e = _iter &U _nwkRouteTable ]
+"108
+[; ;nwk/nwk_src/nwkRoute.c: 108:   NWK_RouteTableEntry_t *entry = ((void*)0);
+[v _entry `*S17 ~T0 @X0 1 a ]
+[e = _entry -> -> -> 0 `i `*v `*S17 ]
+"110
+[; ;nwk/nwk_src/nwkRoute.c: 110:   for (uint8_t i = 0; i < 10; i++, iter++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 34  ]
+[e $U 35  ]
+[e :U 34 ]
+"111
+[; ;nwk/nwk_src/nwkRoute.c: 111:   {
+{
+"112
+[; ;nwk/nwk_src/nwkRoute.c: 112:     if (iter->fixed)
+[e $ ! != -> . *U _iter 0 `i -> 0 `i 37  ]
+"113
+[; ;nwk/nwk_src/nwkRoute.c: 113:       continue;
+[e $U 36  ]
+[e :U 37 ]
+"115
+[; ;nwk/nwk_src/nwkRoute.c: 115:     if (0 == iter->rank)
+[e $ ! == -> 0 `i -> . *U _iter 6 `i 38  ]
+"116
+[; ;nwk/nwk_src/nwkRoute.c: 116:     {
+{
+"117
+[; ;nwk/nwk_src/nwkRoute.c: 117:       entry = iter;
+[e = _entry _iter ]
+"118
+[; ;nwk/nwk_src/nwkRoute.c: 118:       break;
+[e $U 35  ]
+"119
+[; ;nwk/nwk_src/nwkRoute.c: 119:     }
+}
+[e :U 38 ]
+"121
+[; ;nwk/nwk_src/nwkRoute.c: 121:     if (((void*)0) == entry || iter->rank < entry->rank)
+[e $ ! || == -> -> -> 0 `i `*v `*S17 _entry < -> . *U _iter 6 `i -> . *U _entry 6 `i 39  ]
+"122
+[; ;nwk/nwk_src/nwkRoute.c: 122:       entry = iter;
+[e = _entry _iter ]
+[e :U 39 ]
+"123
+[; ;nwk/nwk_src/nwkRoute.c: 123:   }
+}
+[e :U 36 ]
+[e ; ++ _i -> -> 1 `i `uc ++ _iter * -> -> 1 `i `x -> -> # *U _iter `i `x ]
+[e $ < -> _i `i -> 10 `i 34  ]
+[e :U 35 ]
+}
+"125
+[; ;nwk/nwk_src/nwkRoute.c: 125:   entry->multicast = 0;
+[e = . *U _entry 1 -> -> 0 `i `uc ]
+"126
+[; ;nwk/nwk_src/nwkRoute.c: 126:   entry->score = 3;
+[e = . *U _entry 3 -> -> 3 `i `uc ]
+"127
+[; ;nwk/nwk_src/nwkRoute.c: 127:   entry->rank = 128;
+[e = . *U _entry 6 -> -> 128 `i `uc ]
+"129
+[; ;nwk/nwk_src/nwkRoute.c: 129:   return entry;
+[e ) _entry ]
+[e $UE 33  ]
+"130
+[; ;nwk/nwk_src/nwkRoute.c: 130: }
+[e :UE 33 ]
+}
+"134
+[; ;nwk/nwk_src/nwkRoute.c: 134: void NWK_RouteFreeEntry(NWK_RouteTableEntry_t *entry)
+[v _NWK_RouteFreeEntry `(v ~T0 @X0 1 ef1`*S17 ]
+"135
+[; ;nwk/nwk_src/nwkRoute.c: 135: {
+{
+[e :U _NWK_RouteFreeEntry ]
+"134
+[; ;nwk/nwk_src/nwkRoute.c: 134: void NWK_RouteFreeEntry(NWK_RouteTableEntry_t *entry)
+[v _entry `*S17 ~T0 @X0 1 r1 ]
+"135
+[; ;nwk/nwk_src/nwkRoute.c: 135: {
+[f ]
+"136
+[; ;nwk/nwk_src/nwkRoute.c: 136:   if (entry->fixed)
+[e $ ! != -> . *U _entry 0 `i -> 0 `i 41  ]
+"137
+[; ;nwk/nwk_src/nwkRoute.c: 137:     return;
+[e $UE 40  ]
+[e :U 41 ]
+"138
+[; ;nwk/nwk_src/nwkRoute.c: 138:   entry->dstAddr = 0xffff;
+[e = . *U _entry 4 -> -> 65535 `ui `us ]
+"139
+[; ;nwk/nwk_src/nwkRoute.c: 139:   entry->rank = 0;
+[e = . *U _entry 6 -> -> 0 `i `uc ]
+"140
+[; ;nwk/nwk_src/nwkRoute.c: 140: }
+[e :UE 40 ]
+}
+"144
+[; ;nwk/nwk_src/nwkRoute.c: 144: uint16_t NWK_RouteNextHop(uint16_t dst, uint8_t multicast)
+[v _NWK_RouteNextHop `(us ~T0 @X0 1 ef2`us`uc ]
+"145
+[; ;nwk/nwk_src/nwkRoute.c: 145: {
+{
+[e :U _NWK_RouteNextHop ]
+"144
+[; ;nwk/nwk_src/nwkRoute.c: 144: uint16_t NWK_RouteNextHop(uint16_t dst, uint8_t multicast)
+[v _dst `us ~T0 @X0 1 r1 ]
+[v _multicast `uc ~T0 @X0 1 r2 ]
+"145
+[; ;nwk/nwk_src/nwkRoute.c: 145: {
+[f ]
+"146
+[; ;nwk/nwk_src/nwkRoute.c: 146:   NWK_RouteTableEntry_t *entry;
+[v _entry `*S17 ~T0 @X0 1 a ]
+"148
+[; ;nwk/nwk_src/nwkRoute.c: 148:   entry = NWK_RouteFindEntry(dst, multicast);
+[e = _entry ( _NWK_RouteFindEntry (2 , _dst _multicast ]
+"149
+[; ;nwk/nwk_src/nwkRoute.c: 149:   if (entry)
+[e $ ! != _entry -> -> 0 `i `*S17 43  ]
+"150
+[; ;nwk/nwk_src/nwkRoute.c: 150:     return entry->nextHopAddr;
+[e ) . *U _entry 5 ]
+[e $UE 42  ]
+[e :U 43 ]
+"152
+[; ;nwk/nwk_src/nwkRoute.c: 152:   return 0xffff;
+[e ) -> -> 65535 `ui `us ]
+[e $UE 42  ]
+"153
+[; ;nwk/nwk_src/nwkRoute.c: 153: }
+[e :UE 42 ]
+}
+"157
+[; ;nwk/nwk_src/nwkRoute.c: 157: NWK_RouteTableEntry_t *NWK_RouteTable(void)
+[v _NWK_RouteTable `(*S17 ~T0 @X0 1 ef ]
+"158
+[; ;nwk/nwk_src/nwkRoute.c: 158: {
+{
+[e :U _NWK_RouteTable ]
+[f ]
+"159
+[; ;nwk/nwk_src/nwkRoute.c: 159:   return nwkRouteTable;
+[e ) &U _nwkRouteTable ]
+[e $UE 44  ]
+"160
+[; ;nwk/nwk_src/nwkRoute.c: 160: }
+[e :UE 44 ]
+}
+"164
+[; ;nwk/nwk_src/nwkRoute.c: 164: void nwkRouteUpdateEntry(uint16_t dst, uint8_t multicast, uint16_t nextHop, uint8_t lqi)
+[v _nwkRouteUpdateEntry `(v ~T0 @X0 1 ef4`us`uc`us`uc ]
+"165
+[; ;nwk/nwk_src/nwkRoute.c: 165: {
+{
+[e :U _nwkRouteUpdateEntry ]
+"164
+[; ;nwk/nwk_src/nwkRoute.c: 164: void nwkRouteUpdateEntry(uint16_t dst, uint8_t multicast, uint16_t nextHop, uint8_t lqi)
+[v _dst `us ~T0 @X0 1 r1 ]
+[v _multicast `uc ~T0 @X0 1 r2 ]
+[v _nextHop `us ~T0 @X0 1 r3 ]
+[v _lqi `uc ~T0 @X0 1 r4 ]
+"165
+[; ;nwk/nwk_src/nwkRoute.c: 165: {
+[f ]
+"166
+[; ;nwk/nwk_src/nwkRoute.c: 166:   NWK_RouteTableEntry_t *entry;
+[v _entry `*S17 ~T0 @X0 1 a ]
+"168
+[; ;nwk/nwk_src/nwkRoute.c: 168:   entry = NWK_RouteFindEntry(dst, multicast);
+[e = _entry ( _NWK_RouteFindEntry (2 , _dst _multicast ]
+"170
+[; ;nwk/nwk_src/nwkRoute.c: 170:   if (((void*)0) == entry)
+[e $ ! == -> -> -> 0 `i `*v `*S17 _entry 46  ]
+"171
+[; ;nwk/nwk_src/nwkRoute.c: 171:     entry = NWK_RouteNewEntry();
+[e = _entry ( _NWK_RouteNewEntry ..  ]
+[e :U 46 ]
+"173
+[; ;nwk/nwk_src/nwkRoute.c: 173:   entry->dstAddr = dst;
+[e = . *U _entry 4 _dst ]
+"174
+[; ;nwk/nwk_src/nwkRoute.c: 174:   entry->nextHopAddr = nextHop;
+[e = . *U _entry 5 _nextHop ]
+"175
+[; ;nwk/nwk_src/nwkRoute.c: 175:   entry->multicast = multicast;
+[e = . *U _entry 1 _multicast ]
+"176
+[; ;nwk/nwk_src/nwkRoute.c: 176:   entry->score = 3;
+[e = . *U _entry 3 -> -> 3 `i `uc ]
+"177
+[; ;nwk/nwk_src/nwkRoute.c: 177:   entry->rank = 128;
+[e = . *U _entry 6 -> -> 128 `i `uc ]
+"178
+[; ;nwk/nwk_src/nwkRoute.c: 178:   entry->lqi = lqi;
+[e = . *U _entry 7 _lqi ]
+"179
+[; ;nwk/nwk_src/nwkRoute.c: 179: }
+[e :UE 45 ]
+}
+"183
+[; ;nwk/nwk_src/nwkRoute.c: 183: void nwkRouteRemove(uint16_t dst, uint8_t multicast)
+[v _nwkRouteRemove `(v ~T0 @X0 1 ef2`us`uc ]
+"184
+[; ;nwk/nwk_src/nwkRoute.c: 184: {
+{
+[e :U _nwkRouteRemove ]
+"183
+[; ;nwk/nwk_src/nwkRoute.c: 183: void nwkRouteRemove(uint16_t dst, uint8_t multicast)
+[v _dst `us ~T0 @X0 1 r1 ]
+[v _multicast `uc ~T0 @X0 1 r2 ]
+"184
+[; ;nwk/nwk_src/nwkRoute.c: 184: {
+[f ]
+"185
+[; ;nwk/nwk_src/nwkRoute.c: 185:   NWK_RouteTableEntry_t *entry;
+[v _entry `*S17 ~T0 @X0 1 a ]
+"187
+[; ;nwk/nwk_src/nwkRoute.c: 187:   entry = NWK_RouteFindEntry(dst, multicast);
+[e = _entry ( _NWK_RouteFindEntry (2 , _dst _multicast ]
+"188
+[; ;nwk/nwk_src/nwkRoute.c: 188:   if (entry)
+[e $ ! != _entry -> -> 0 `i `*S17 48  ]
+"189
+[; ;nwk/nwk_src/nwkRoute.c: 189:     NWK_RouteFreeEntry(entry);
+[e ( _NWK_RouteFreeEntry (1 _entry ]
+[e :U 48 ]
+"190
+[; ;nwk/nwk_src/nwkRoute.c: 190: }
+[e :UE 47 ]
+}
+"194
+[; ;nwk/nwk_src/nwkRoute.c: 194: void nwkRouteFrameReceived(NwkFrame_t *frame)
+[v _nwkRouteFrameReceived `(v ~T0 @X0 1 ef1`*S10 ]
+"195
+[; ;nwk/nwk_src/nwkRoute.c: 195: {
+{
+[e :U _nwkRouteFrameReceived ]
+"194
+[; ;nwk/nwk_src/nwkRoute.c: 194: void nwkRouteFrameReceived(NwkFrame_t *frame)
+[v _frame `*S10 ~T0 @X0 1 r1 ]
+"195
+[; ;nwk/nwk_src/nwkRoute.c: 195: {
+[f ]
+"230
+[; ;nwk/nwk_src/nwkRoute.c: 230:   (void)frame;
+[e _frame ]
+"232
+[; ;nwk/nwk_src/nwkRoute.c: 232: }
+[e :UE 49 ]
+}
+"236
+[; ;nwk/nwk_src/nwkRoute.c: 236: void nwkRouteFrameSent(NwkFrame_t *frame)
+[v _nwkRouteFrameSent `(v ~T0 @X0 1 ef1`*S10 ]
+"237
+[; ;nwk/nwk_src/nwkRoute.c: 237: {
+{
+[e :U _nwkRouteFrameSent ]
+"236
+[; ;nwk/nwk_src/nwkRoute.c: 236: void nwkRouteFrameSent(NwkFrame_t *frame)
+[v _frame `*S10 ~T0 @X0 1 r1 ]
+"237
+[; ;nwk/nwk_src/nwkRoute.c: 237: {
+[f ]
+"238
+[; ;nwk/nwk_src/nwkRoute.c: 238:   NWK_RouteTableEntry_t *entry;
+[v _entry `*S17 ~T0 @X0 1 a ]
+"240
+[; ;nwk/nwk_src/nwkRoute.c: 240:   if (0xffff == frame->header.nwkDstAddr)
+[e $ ! == -> 65535 `ui -> . . . *U _frame 2 0 8 `ui 51  ]
+"241
+[; ;nwk/nwk_src/nwkRoute.c: 241:     return;
+[e $UE 50  ]
+[e :U 51 ]
+"243
+[; ;nwk/nwk_src/nwkRoute.c: 243:   entry = NWK_RouteFindEntry(frame->header.nwkDstAddr, frame->header.nwkFcf.multicast);
+[e = _entry ( _NWK_RouteFindEntry (2 , . . . *U _frame 2 0 8 . . . . *U _frame 2 0 5 3 ]
+"245
+[; ;nwk/nwk_src/nwkRoute.c: 245:   if (((void*)0) == entry || entry->fixed)
+[e $ ! || == -> -> -> 0 `i `*v `*S17 _entry != -> . *U _entry 0 `i -> 0 `i 52  ]
+"246
+[; ;nwk/nwk_src/nwkRoute.c: 246:     return;
+[e $UE 50  ]
+[e :U 52 ]
+"248
+[; ;nwk/nwk_src/nwkRoute.c: 248:   if (NWK_SUCCESS_STATUS == frame->tx.status)
+[e $ ! == -> . `E336 0 `i -> . . . *U _frame 4 1 0 `i 53  ]
+"249
+[; ;nwk/nwk_src/nwkRoute.c: 249:   {
+{
+"250
+[; ;nwk/nwk_src/nwkRoute.c: 250:     entry->score = 3;
+[e = . *U _entry 3 -> -> 3 `i `uc ]
+"252
+[; ;nwk/nwk_src/nwkRoute.c: 252:     if (255 == ++entry->rank)
+[e $ ! == -> 255 `i -> =+ . *U _entry 6 -> -> 1 `i `uc `i 54  ]
+"253
+[; ;nwk/nwk_src/nwkRoute.c: 253:       nwkRouteNormalizeRanks();
+[e ( _nwkRouteNormalizeRanks ..  ]
+[e :U 54 ]
+"254
+[; ;nwk/nwk_src/nwkRoute.c: 254:   }
+}
+[e $U 55  ]
+"255
+[; ;nwk/nwk_src/nwkRoute.c: 255:   else
+[e :U 53 ]
+"256
+[; ;nwk/nwk_src/nwkRoute.c: 256:   {
+{
+"257
+[; ;nwk/nwk_src/nwkRoute.c: 257:     if (0 == --entry->score)
+[e $ ! == -> 0 `i -> =- . *U _entry 3 -> -> 1 `i `uc `i 56  ]
+"258
+[; ;nwk/nwk_src/nwkRoute.c: 258:       NWK_RouteFreeEntry(entry);
+[e ( _NWK_RouteFreeEntry (1 _entry ]
+[e :U 56 ]
+"259
+[; ;nwk/nwk_src/nwkRoute.c: 259:   }
+}
+[e :U 55 ]
+"260
+[; ;nwk/nwk_src/nwkRoute.c: 260: }
+[e :UE 50 ]
+}
+"264
+[; ;nwk/nwk_src/nwkRoute.c: 264: void nwkRoutePrepareTx(NwkFrame_t *frame)
+[v _nwkRoutePrepareTx `(v ~T0 @X0 1 ef1`*S10 ]
+"265
+[; ;nwk/nwk_src/nwkRoute.c: 265: {
+{
+[e :U _nwkRoutePrepareTx ]
+"264
+[; ;nwk/nwk_src/nwkRoute.c: 264: void nwkRoutePrepareTx(NwkFrame_t *frame)
+[v _frame `*S10 ~T0 @X0 1 r1 ]
+"265
+[; ;nwk/nwk_src/nwkRoute.c: 265: {
+[f ]
+"266
+[; ;nwk/nwk_src/nwkRoute.c: 266:   NwkFrameHeader_t *header = &frame->header;
+[v _header `*QS6 ~T0 @X0 1 a ]
+[e = _header &U . . *U _frame 2 0 ]
+"268
+[; ;nwk/nwk_src/nwkRoute.c: 268:   if (0xffff == header->nwkDstAddr)
+[e $ ! == -> 65535 `ui -> . *U _header 8 `ui 58  ]
+"269
+[; ;nwk/nwk_src/nwkRoute.c: 269:   {
+{
+"270
+[; ;nwk/nwk_src/nwkRoute.c: 270:     header->macDstAddr = 0xffff;
+[e = . *U _header 3 -> -> 65535 `ui `us ]
+"271
+[; ;nwk/nwk_src/nwkRoute.c: 271:   }
+}
+[e $U 59  ]
+"273
+[; ;nwk/nwk_src/nwkRoute.c: 273:   else if (header->nwkFcf.linkLocal)
+[e :U 58 ]
+[e $ ! != -> . . *U _header 5 2 `i -> 0 `i 60  ]
+"274
+[; ;nwk/nwk_src/nwkRoute.c: 274:   {
+{
+"275
+[; ;nwk/nwk_src/nwkRoute.c: 275:     header->macDstAddr = header->nwkDstAddr;
+[e = . *U _header 3 . *U _header 8 ]
+"276
+[; ;nwk/nwk_src/nwkRoute.c: 276:   }
+}
+[e $U 61  ]
+"279
+[; ;nwk/nwk_src/nwkRoute.c: 279:   else if (header->nwkFcf.multicast && NWK_GroupIsMember(header->nwkDstAddr))
+[e :U 60 ]
+[e $ ! && != -> . . *U _header 5 3 `i -> 0 `i != -> ( _NWK_GroupIsMember (1 . *U _header 8 `i -> 0 `i 62  ]
+"280
+[; ;nwk/nwk_src/nwkRoute.c: 280:   {
+{
+"281
+[; ;nwk/nwk_src/nwkRoute.c: 281:     header->macDstAddr = 0xffff;
+[e = . *U _header 3 -> -> 65535 `ui `us ]
+"282
+[; ;nwk/nwk_src/nwkRoute.c: 282:     header->nwkFcf.linkLocal = 1;
+[e = . . *U _header 5 2 -> -> 1 `i `uc ]
+"283
+[; ;nwk/nwk_src/nwkRoute.c: 283:   }
+}
+[e $U 63  ]
+"286
+[; ;nwk/nwk_src/nwkRoute.c: 286:   else
+[e :U 62 ]
+"287
+[; ;nwk/nwk_src/nwkRoute.c: 287:   {
+{
+"288
+[; ;nwk/nwk_src/nwkRoute.c: 288:     header->macDstAddr = NWK_RouteNextHop(header->nwkDstAddr, header->nwkFcf.multicast);
+[e = . *U _header 3 ( _NWK_RouteNextHop (2 , . *U _header 8 . . *U _header 5 3 ]
+"291
+[; ;nwk/nwk_src/nwkRoute.c: 291:     if (0xffff == header->macDstAddr)
+[e $ ! == -> 65535 `ui -> . *U _header 3 `ui 64  ]
+"292
+[; ;nwk/nwk_src/nwkRoute.c: 292:       nwkRouteDiscoveryRequest(frame);
+[e ( _nwkRouteDiscoveryRequest (1 _frame ]
+[e :U 64 ]
+"294
+[; ;nwk/nwk_src/nwkRoute.c: 294:   }
+}
+[e :U 63 ]
+[e :U 61 ]
+[e :U 59 ]
+"295
+[; ;nwk/nwk_src/nwkRoute.c: 295: }
+[e :UE 57 ]
+}
+"299
+[; ;nwk/nwk_src/nwkRoute.c: 299: void nwkRouteFrame(NwkFrame_t *frame)
+[v _nwkRouteFrame `(v ~T0 @X0 1 ef1`*S10 ]
+"300
+[; ;nwk/nwk_src/nwkRoute.c: 300: {
+{
+[e :U _nwkRouteFrame ]
+"299
+[; ;nwk/nwk_src/nwkRoute.c: 299: void nwkRouteFrame(NwkFrame_t *frame)
+[v _frame `*S10 ~T0 @X0 1 r1 ]
+"300
+[; ;nwk/nwk_src/nwkRoute.c: 300: {
+[f ]
+"301
+[; ;nwk/nwk_src/nwkRoute.c: 301:   NwkFrameHeader_t *header = &frame->header;
+[v _header `*QS6 ~T0 @X0 1 a ]
+[e = _header &U . . *U _frame 2 0 ]
+"303
+[; ;nwk/nwk_src/nwkRoute.c: 303:   if (0xffff != NWK_RouteNextHop(header->nwkDstAddr, header->nwkFcf.multicast))
+[e $ ! != -> 65535 `ui -> ( _NWK_RouteNextHop (2 , . *U _header 8 . . *U _header 5 3 `ui 66  ]
+"304
+[; ;nwk/nwk_src/nwkRoute.c: 304:   {
+{
+"305
+[; ;nwk/nwk_src/nwkRoute.c: 305:     frame->tx.confirm = ((void*)0);
+[e = . . . *U _frame 4 1 3 -> -> -> 0 `i `*v `*F477 ]
+"306
+[; ;nwk/nwk_src/nwkRoute.c: 306:     frame->tx.control = NWK_TX_CONTROL_ROUTING;
+[e = . . . *U _frame 4 1 2 -> . `E376 1 `uc ]
+"307
+[; ;nwk/nwk_src/nwkRoute.c: 307:     nwkTxFrame(frame);
+[e ( _nwkTxFrame (1 _frame ]
+"308
+[; ;nwk/nwk_src/nwkRoute.c: 308:   }
+}
+[e $U 67  ]
+"309
+[; ;nwk/nwk_src/nwkRoute.c: 309:   else
+[e :U 66 ]
+"310
+[; ;nwk/nwk_src/nwkRoute.c: 310:   {
+{
+"311
+[; ;nwk/nwk_src/nwkRoute.c: 311:     nwkRouteSendRouteError(header->nwkSrcAddr, header->nwkDstAddr, header->nwkFcf.multicast);
+[e ( _nwkRouteSendRouteError (3 , , . *U _header 7 . *U _header 8 . . *U _header 5 3 ]
+"312
+[; ;nwk/nwk_src/nwkRoute.c: 312:     nwkFrameFree(frame);
+[e ( _nwkFrameFree (1 _frame ]
+"313
+[; ;nwk/nwk_src/nwkRoute.c: 313:   }
+}
+[e :U 67 ]
+"314
+[; ;nwk/nwk_src/nwkRoute.c: 314: }
+[e :UE 65 ]
+}
+"318
+[; ;nwk/nwk_src/nwkRoute.c: 318: static void nwkRouteSendRouteError(uint16_t src, uint16_t dst, uint8_t multicast)
+[v _nwkRouteSendRouteError `(v ~T0 @X0 1 sf3`us`us`uc ]
+"319
+[; ;nwk/nwk_src/nwkRoute.c: 319: {
+{
+[e :U _nwkRouteSendRouteError ]
+"318
+[; ;nwk/nwk_src/nwkRoute.c: 318: static void nwkRouteSendRouteError(uint16_t src, uint16_t dst, uint8_t multicast)
+[v _src `us ~T0 @X0 1 r1 ]
+[v _dst `us ~T0 @X0 1 r2 ]
+[v _multicast `uc ~T0 @X0 1 r3 ]
+"319
+[; ;nwk/nwk_src/nwkRoute.c: 319: {
+[f ]
+"320
+[; ;nwk/nwk_src/nwkRoute.c: 320:   NwkFrame_t *frame;
+[v _frame `*S10 ~T0 @X0 1 a ]
+"321
+[; ;nwk/nwk_src/nwkRoute.c: 321:   NwkCommandRouteError_t *command;
+[v _command `*QS21 ~T0 @X0 1 a ]
+"323
+[; ;nwk/nwk_src/nwkRoute.c: 323:   if (((void*)0) == (frame = nwkFrameAlloc()))
+[e $ ! == -> -> -> 0 `i `*v `*S10 = _frame ( _nwkFrameAlloc ..  69  ]
+"324
+[; ;nwk/nwk_src/nwkRoute.c: 324:     return;
+[e $UE 68  ]
+[e :U 69 ]
+"326
+[; ;nwk/nwk_src/nwkRoute.c: 326:   nwkFrameCommandInit(frame);
+[e ( _nwkFrameCommandInit (1 _frame ]
+"328
+[; ;nwk/nwk_src/nwkRoute.c: 328:   frame->size += sizeof(NwkCommandRouteError_t);
+[e =+ . *U _frame 1 -> -> # `QS21 `ui `uc ]
+"329
+[; ;nwk/nwk_src/nwkRoute.c: 329:   frame->tx.confirm = ((void*)0);
+[e = . . . *U _frame 4 1 3 -> -> -> 0 `i `*v `*F489 ]
+"331
+[; ;nwk/nwk_src/nwkRoute.c: 331:   frame->header.nwkDstAddr = src;
+[e = . . . *U _frame 2 0 8 _src ]
+"333
+[; ;nwk/nwk_src/nwkRoute.c: 333:   command = (NwkCommandRouteError_t *)frame->payload;
+[e = _command -> . *U _frame 3 `*QS21 ]
+"334
+[; ;nwk/nwk_src/nwkRoute.c: 334:   command->id = NWK_COMMAND_ROUTE_ERROR;
+[e = . *U _command 0 -> . `E393 1 `uc ]
+"335
+[; ;nwk/nwk_src/nwkRoute.c: 335:   command->srcAddr = src;
+[e = . *U _command 1 _src ]
+"336
+[; ;nwk/nwk_src/nwkRoute.c: 336:   command->dstAddr = dst;
+[e = . *U _command 2 _dst ]
+"337
+[; ;nwk/nwk_src/nwkRoute.c: 337:   command->multicast = multicast;
+[e = . *U _command 3 _multicast ]
+"339
+[; ;nwk/nwk_src/nwkRoute.c: 339:   nwkTxFrame(frame);
+[e ( _nwkTxFrame (1 _frame ]
+"340
+[; ;nwk/nwk_src/nwkRoute.c: 340: }
+[e :UE 68 ]
+}
+"344
+[; ;nwk/nwk_src/nwkRoute.c: 344: _Bool nwkRouteErrorReceived(NWK_DataInd_t *ind)
+[v _nwkRouteErrorReceived `(a ~T0 @X0 1 ef1`*S16 ]
+"345
+[; ;nwk/nwk_src/nwkRoute.c: 345: {
+{
+[e :U _nwkRouteErrorReceived ]
+"344
+[; ;nwk/nwk_src/nwkRoute.c: 344: _Bool nwkRouteErrorReceived(NWK_DataInd_t *ind)
+[v _ind `*S16 ~T0 @X0 1 r1 ]
+"345
+[; ;nwk/nwk_src/nwkRoute.c: 345: {
+[f ]
+"346
+[; ;nwk/nwk_src/nwkRoute.c: 346:   NwkCommandRouteError_t *command = (NwkCommandRouteError_t *)ind->data;
+[v _command `*QS21 ~T0 @X0 1 a ]
+[e = _command -> . *U _ind 5 `*QS21 ]
+"348
+[; ;nwk/nwk_src/nwkRoute.c: 348:   if (sizeof(NwkCommandRouteError_t) != ind->size)
+[e $ ! != -> # `QS21 `ui -> . *U _ind 6 `ui 71  ]
+"349
+[; ;nwk/nwk_src/nwkRoute.c: 349:     return 0;
+[e ) -> -> 0 `i `a ]
+[e $UE 70  ]
+[e :U 71 ]
+"351
+[; ;nwk/nwk_src/nwkRoute.c: 351:   nwkRouteRemove(command->dstAddr, command->multicast);
+[e ( _nwkRouteRemove (2 , . *U _command 2 . *U _command 3 ]
+"353
+[; ;nwk/nwk_src/nwkRoute.c: 353:   return 1;
+[e ) -> -> 1 `i `a ]
+[e $UE 70  ]
+"354
+[; ;nwk/nwk_src/nwkRoute.c: 354: }
+[e :UE 70 ]
+}
+"358
+[; ;nwk/nwk_src/nwkRoute.c: 358: static void nwkRouteNormalizeRanks(void)
+[v _nwkRouteNormalizeRanks `(v ~T0 @X0 1 sf ]
+"359
+[; ;nwk/nwk_src/nwkRoute.c: 359: {
+{
+[e :U _nwkRouteNormalizeRanks ]
+[f ]
+"360
+[; ;nwk/nwk_src/nwkRoute.c: 360:   for (uint8_t i = 0; i < 10; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 73  ]
+[e $U 74  ]
+[e :U 73 ]
+"361
+[; ;nwk/nwk_src/nwkRoute.c: 361:     nwkRouteTable[i].rank = (nwkRouteTable[i].rank >> 1) + 1;
+[e = . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 6 -> + >> -> . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 6 `i -> 1 `i -> 1 `i `uc ]
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 73  ]
+[e :U 74 ]
+}
+"362
+[; ;nwk/nwk_src/nwkRoute.c: 362: }
+[e :UE 72 ]
+}
