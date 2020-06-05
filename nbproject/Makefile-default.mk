@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/spi1.c mcc_generated_files/tmr0.c main.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c phy/sx1216/phy_src/phy.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c hal/hal_src/Timers.c test.c
+SOURCEFILES_QUOTED_IF_SPACED=hal/hal_src/Timers.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c phy/sx1216/phy_src/phy.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c main.c test.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/test.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/spi1.p1.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/mcc_generated_files/memory.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/uart1.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/crc.p1.d ${OBJECTDIR}/sys/sys_src/sys.p1.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d ${OBJECTDIR}/nwk/nwk_src/nwk.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d ${OBJECTDIR}/hal/hal_src/Timers.p1.d ${OBJECTDIR}/test.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/test.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/hal/hal_src/Timers.p1.d ${OBJECTDIR}/mcc_generated_files/spi1.p1.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d ${OBJECTDIR}/mcc_generated_files/memory.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/uart1.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/crc.p1.d ${OBJECTDIR}/nwk/nwk_src/nwk.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d ${OBJECTDIR}/sys/sys_src/sys.p1.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/test.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/test.p1
+OBJECTFILES=${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/test.p1
 
 # Source Files
-SOURCEFILES=mcc_generated_files/spi1.c mcc_generated_files/tmr0.c main.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c phy/sx1216/phy_src/phy.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c hal/hal_src/Timers.c test.c
+SOURCEFILES=hal/hal_src/Timers.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c phy/sx1216/phy_src/phy.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c main.c test.c
 
 
 
@@ -94,6 +94,14 @@ MP_PROCESSOR_OPTION=18F26K42
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/hal/hal_src/Timers.p1: hal/hal_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/hal/hal_src" 
+	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
+	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/hal/hal_src/Timers.p1 hal/hal_src/Timers.c 
+	@-${MV} ${OBJECTDIR}/hal/hal_src/Timers.d ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/hal/hal_src/Timers.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 ${OBJECTDIR}/mcc_generated_files/spi1.p1: mcc_generated_files/spi1.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
 	@${RM} ${OBJECTDIR}/mcc_generated_files/spi1.p1.d 
@@ -109,14 +117,6 @@ ${OBJECTDIR}/mcc_generated_files/tmr0.p1: mcc_generated_files/tmr0.c  nbproject/
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/mcc_generated_files/tmr0.p1 mcc_generated_files/tmr0.c 
 	@-${MV} ${OBJECTDIR}/mcc_generated_files/tmr0.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/main.p1.d 
-	@${RM} ${OBJECTDIR}/main.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/main.p1 main.c 
-	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/mcc_generated_files/memory.p1: mcc_generated_files/memory.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
@@ -173,38 +173,6 @@ ${OBJECTDIR}/mcc_generated_files/crc.p1: mcc_generated_files/crc.c  nbproject/Ma
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/mcc_generated_files/crc.p1 mcc_generated_files/crc.c 
 	@-${MV} ${OBJECTDIR}/mcc_generated_files/crc.d ${OBJECTDIR}/mcc_generated_files/crc.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/mcc_generated_files/crc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/sys/sys_src/sys.p1: sys/sys_src/sys.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1.d 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sys.p1 sys/sys_src/sys.c 
-	@-${MV} ${OBJECTDIR}/sys/sys_src/sys.d ${OBJECTDIR}/sys/sys_src/sys.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sys.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/sys/sys_src/sysEncrypt.p1: sys/sys_src/sysEncrypt.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 sys/sys_src/sysEncrypt.c 
-	@-${MV} ${OBJECTDIR}/sys/sys_src/sysEncrypt.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/sys/sys_src/sysTimer.p1: sys/sys_src/sysTimer.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysTimer.p1 sys/sys_src/sysTimer.c 
-	@-${MV} ${OBJECTDIR}/sys/sys_src/sysTimer.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/phy/sx1216/phy_src/phy.p1: phy/sx1216/phy_src/phy.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/phy/sx1216/phy_src" 
-	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
-	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 phy/sx1216/phy_src/phy.c 
-	@-${MV} ${OBJECTDIR}/phy/sx1216/phy_src/phy.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/nwk/nwk_src/nwk.p1: nwk/nwk_src/nwk.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/nwk/nwk_src" 
@@ -278,13 +246,45 @@ ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1: nwk/nwk_src/nwkTx.c  nbproject/Makefile-${CND
 	@-${MV} ${OBJECTDIR}/nwk/nwk_src/nwkTx.d ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/hal/hal_src/Timers.p1: hal/hal_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/hal/hal_src" 
-	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
-	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/hal/hal_src/Timers.p1 hal/hal_src/Timers.c 
-	@-${MV} ${OBJECTDIR}/hal/hal_src/Timers.d ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/hal/hal_src/Timers.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+${OBJECTDIR}/phy/sx1216/phy_src/phy.p1: phy/sx1216/phy_src/phy.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/phy/sx1216/phy_src" 
+	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
+	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 phy/sx1216/phy_src/phy.c 
+	@-${MV} ${OBJECTDIR}/phy/sx1216/phy_src/phy.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/sys/sys_src/sys.p1: sys/sys_src/sys.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1.d 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sys.p1 sys/sys_src/sys.c 
+	@-${MV} ${OBJECTDIR}/sys/sys_src/sys.d ${OBJECTDIR}/sys/sys_src/sys.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sys.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/sys/sys_src/sysEncrypt.p1: sys/sys_src/sysEncrypt.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 sys/sys_src/sysEncrypt.c 
+	@-${MV} ${OBJECTDIR}/sys/sys_src/sysEncrypt.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/sys/sys_src/sysTimer.p1: sys/sys_src/sysTimer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysTimer.p1 sys/sys_src/sysTimer.c 
+	@-${MV} ${OBJECTDIR}/sys/sys_src/sysTimer.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.p1.d 
+	@${RM} ${OBJECTDIR}/main.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/main.p1 main.c 
+	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/test.p1: test.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -295,6 +295,14 @@ ${OBJECTDIR}/test.p1: test.c  nbproject/Makefile-${CND_CONF}.mk
 	@${FIXDEPS} ${OBJECTDIR}/test.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
+${OBJECTDIR}/hal/hal_src/Timers.p1: hal/hal_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/hal/hal_src" 
+	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
+	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/hal/hal_src/Timers.p1 hal/hal_src/Timers.c 
+	@-${MV} ${OBJECTDIR}/hal/hal_src/Timers.d ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/hal/hal_src/Timers.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 ${OBJECTDIR}/mcc_generated_files/spi1.p1: mcc_generated_files/spi1.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
 	@${RM} ${OBJECTDIR}/mcc_generated_files/spi1.p1.d 
@@ -310,14 +318,6 @@ ${OBJECTDIR}/mcc_generated_files/tmr0.p1: mcc_generated_files/tmr0.c  nbproject/
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/mcc_generated_files/tmr0.p1 mcc_generated_files/tmr0.c 
 	@-${MV} ${OBJECTDIR}/mcc_generated_files/tmr0.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/main.p1.d 
-	@${RM} ${OBJECTDIR}/main.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/main.p1 main.c 
-	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/mcc_generated_files/memory.p1: mcc_generated_files/memory.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
@@ -374,38 +374,6 @@ ${OBJECTDIR}/mcc_generated_files/crc.p1: mcc_generated_files/crc.c  nbproject/Ma
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/mcc_generated_files/crc.p1 mcc_generated_files/crc.c 
 	@-${MV} ${OBJECTDIR}/mcc_generated_files/crc.d ${OBJECTDIR}/mcc_generated_files/crc.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/mcc_generated_files/crc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/sys/sys_src/sys.p1: sys/sys_src/sys.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1.d 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sys.p1 sys/sys_src/sys.c 
-	@-${MV} ${OBJECTDIR}/sys/sys_src/sys.d ${OBJECTDIR}/sys/sys_src/sys.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sys.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/sys/sys_src/sysEncrypt.p1: sys/sys_src/sysEncrypt.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 sys/sys_src/sysEncrypt.c 
-	@-${MV} ${OBJECTDIR}/sys/sys_src/sysEncrypt.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/sys/sys_src/sysTimer.p1: sys/sys_src/sysTimer.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
-	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysTimer.p1 sys/sys_src/sysTimer.c 
-	@-${MV} ${OBJECTDIR}/sys/sys_src/sysTimer.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/phy/sx1216/phy_src/phy.p1: phy/sx1216/phy_src/phy.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/phy/sx1216/phy_src" 
-	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
-	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 phy/sx1216/phy_src/phy.c 
-	@-${MV} ${OBJECTDIR}/phy/sx1216/phy_src/phy.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/nwk/nwk_src/nwk.p1: nwk/nwk_src/nwk.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/nwk/nwk_src" 
@@ -479,13 +447,45 @@ ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1: nwk/nwk_src/nwkTx.c  nbproject/Makefile-${CND
 	@-${MV} ${OBJECTDIR}/nwk/nwk_src/nwkTx.d ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/hal/hal_src/Timers.p1: hal/hal_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/hal/hal_src" 
-	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
-	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/hal/hal_src/Timers.p1 hal/hal_src/Timers.c 
-	@-${MV} ${OBJECTDIR}/hal/hal_src/Timers.d ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/hal/hal_src/Timers.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+${OBJECTDIR}/phy/sx1216/phy_src/phy.p1: phy/sx1216/phy_src/phy.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/phy/sx1216/phy_src" 
+	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
+	@${RM} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 phy/sx1216/phy_src/phy.c 
+	@-${MV} ${OBJECTDIR}/phy/sx1216/phy_src/phy.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/sys/sys_src/sys.p1: sys/sys_src/sys.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1.d 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sys.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sys.p1 sys/sys_src/sys.c 
+	@-${MV} ${OBJECTDIR}/sys/sys_src/sys.d ${OBJECTDIR}/sys/sys_src/sys.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sys.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/sys/sys_src/sysEncrypt.p1: sys/sys_src/sysEncrypt.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 sys/sys_src/sysEncrypt.c 
+	@-${MV} ${OBJECTDIR}/sys/sys_src/sysEncrypt.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/sys/sys_src/sysTimer.p1: sys/sys_src/sysTimer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/sys/sys_src" 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
+	@${RM} ${OBJECTDIR}/sys/sys_src/sysTimer.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/sys/sys_src/sysTimer.p1 sys/sys_src/sysTimer.c 
+	@-${MV} ${OBJECTDIR}/sys/sys_src/sysTimer.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.p1.d 
+	@${RM} ${OBJECTDIR}/main.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/main.p1 main.c 
+	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/test.p1: test.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 

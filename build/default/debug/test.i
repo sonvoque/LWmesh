@@ -26897,30 +26897,43 @@ void SYS_TaskHandler(void);
 # 2 "test.c" 2
 
 
+
 static uint8_t message[] = "test";
 static NWK_DataReq_t nwkDataReq;
+
+
+
+static _Bool appDataConf(NWK_DataReq_t *req)
+{
+ if (NWK_SUCCESS_STATUS == req->status){
+     __asm("nop");
+ }
+
+ else{
+     __asm("nop");
+ }
+
+ return 1;
+}
+
+static _Bool appDataInd(NWK_DataInd_t *ind)
+{
+
+ return 1;
+}
 
 void test_init(){
     NWK_SetAddr(0x8001);
     NWK_SetPanId(0x1234);
     PHY_SetChannel(0x00);
     PHY_SetRxState(1);
-}
-
-static void appDataConf(NWK_DataReq_t *req)
-{
- if (NWK_SUCCESS_STATUS == req->status){
-     __asm("nop");
- }
-
- else{}
-
+    NWK_OpenEndpoint(1, appDataInd);
 }
 
 void test_send(){
     nwkDataReq.dstAddr = 0x8002;
     nwkDataReq.dstEndpoint = 1;
-    nwkDataReq.srcEndpoint = 5;
+    nwkDataReq.srcEndpoint = 1;
     nwkDataReq.options = NWK_OPT_ACK_REQUEST;
     nwkDataReq.data = &message;
     nwkDataReq.size = sizeof(message);

@@ -26896,17 +26896,6 @@ void NWK_TaskHandler(void);
 
 uint8_t NWK_LinearizeLqi(uint8_t lqi);
 # 52 "nwk/nwk_inc\\nwkRouteDiscovery.h" 2
-
-
-
-
-
-
-
-void nwkRouteDiscoveryInit(void);
-void nwkRouteDiscoveryRequest(NwkFrame_t *frame);
-_Bool nwkRouteDiscoveryReplyReceived(NWK_DataInd_t *ind);
-_Bool nwkRouteDiscoveryRequestReceived(NWK_DataInd_t *ind);
 # 60 "nwk/nwk_src/nwk.c" 2
 
 
@@ -26946,7 +26935,7 @@ void NWK_Init(void)
 
 
 
-  nwkRouteDiscoveryInit();
+
 
 }
 

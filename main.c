@@ -71,6 +71,7 @@ void main(void)
     TMR0_SetInterruptHandler(Timer0Handler);
     SYS_Init();
     test_init();
+    LED_SetLow();
     while (1)
     {
         SYS_TaskHandler();

@@ -38,7 +38,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_inc/nwk.h: 82: {
 [s S2172 `us 1 `us 1 `uc 1 `uc 1 `*F16330 -> 16 `i `us 1 ]
 [n S2172 NwkIb_t addr panId nwkSeqNum macSeqNum endpoint lock ]
-[v F16373 `(a ~T0 @X0 0 tf1`*S2169 ]
+[v F16366 `(a ~T0 @X0 0 tf1`*S2169 ]
 "65 nwk/nwk_inc\nwkTx.h
 [; ;nwk/nwk_inc\nwkTx.h: 65: void nwkTxInit(void);
 [v _nwkTxInit `(v ~T0 @X0 0 ef ]
@@ -53,17 +53,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _nwkRouteInit `(v ~T0 @X0 0 ef ]
 "64 nwk/nwk_inc/nwkGroup.h
 [v _nwkGroupInit `(v ~T0 @X0 0 ef ]
-"59 nwk/nwk_inc\nwkRouteDiscovery.h
-[; ;nwk/nwk_inc\nwkRouteDiscovery.h: 59: void nwkRouteDiscoveryInit(void);
-[v _nwkRouteDiscoveryInit `(v ~T0 @X0 0 ef ]
 "395 phy/sx1216/phy_inc\phy.h
 [; ;phy/sx1216/phy_inc\phy.h: 395: void PHY_SetShortAddr(uint16_t addr);
 [v _PHY_SetShortAddr `(v ~T0 @X0 0 ef1`us ]
 "394
 [; ;phy/sx1216/phy_inc\phy.h: 394: void PHY_SetPanId(uint16_t panId);
 [v _PHY_SetPanId `(v ~T0 @X0 0 ef1`us ]
-[v F16382 `(a ~T0 @X0 0 tf1`*S2169 ]
-[v F16386 `(a ~T0 @X0 0 tf1`*S2169 ]
+[v F16375 `(a ~T0 @X0 0 tf1`*S2169 ]
+[v F16379 `(a ~T0 @X0 0 tf1`*S2169 ]
 "397
 [; ;phy/sx1216/phy_inc\phy.h: 397: void PHY_Sleep(void);
 [v _PHY_Sleep `(v ~T0 @X0 0 ef ]
@@ -2446,7 +2443,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2174 ]
 "78
 [; ;nwk/nwk_src/nwk.c: 78:     nwkIb.endpoint[i] = ((void*)0);
-[e = *U + &U . _nwkIb 4 * -> _i `ux -> -> # *U &U . _nwkIb 4 `ui `ux -> -> -> 0 `i `*v `*F16373 ]
+[e = *U + &U . _nwkIb 4 * -> _i `ux -> -> # *U &U . _nwkIb 4 `ui `ux -> -> -> 0 `i `*v `*F16366 ]
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 16 `i 2174  ]
 [e :U 2175 ]
@@ -2469,9 +2466,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "94
 [; ;nwk/nwk_src/nwk.c: 94:   nwkGroupInit();
 [e ( _nwkGroupInit ..  ]
-"98
-[; ;nwk/nwk_src/nwk.c: 98:   nwkRouteDiscoveryInit();
-[e ( _nwkRouteDiscoveryInit ..  ]
 "100
 [; ;nwk/nwk_src/nwk.c: 100: }
 [e :UE 2173 ]
@@ -2524,7 +2518,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 "127
 [; ;nwk/nwk_src/nwk.c: 127: void NWK_OpenEndpoint(uint8_t id, _Bool (*handler)(NWK_DataInd_t *ind))
-[v _NWK_OpenEndpoint `(v ~T0 @X0 1 ef2`uc`*F16382 ]
+[v _NWK_OpenEndpoint `(v ~T0 @X0 1 ef2`uc`*F16375 ]
 "128
 [; ;nwk/nwk_src/nwk.c: 128: {
 {
@@ -2532,7 +2526,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "127
 [; ;nwk/nwk_src/nwk.c: 127: void NWK_OpenEndpoint(uint8_t id, _Bool (*handler)(NWK_DataInd_t *ind))
 [v _id `uc ~T0 @X0 1 r1 ]
-[v _handler `*F16386 ~T0 @X0 1 r2 ]
+[v _handler `*F16379 ~T0 @X0 1 r2 ]
 "128
 [; ;nwk/nwk_src/nwk.c: 128: {
 [f ]
@@ -2634,8 +2628,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "180
 [; ;nwk/nwk_src/nwk.c: 180:   const uint8_t val[] = { 3, 8, 26, 64, 128, 190, 230, 247, 252 };
-[v F16405 `Cuc ~T0 @X0 -> 9 `i s val ]
-[i F16405
+[v F16398 `Cuc ~T0 @X0 -> 9 `i s val ]
+[i F16398
 :U ..
 -> -> 3 `i `uc
 -> -> 8 `i `uc
@@ -2657,7 +2651,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `ui -> # F16405 `ui 2186  ]
+[e $ < -> _i `ui -> # F16398 `ui 2186  ]
 [e $U 2187  ]
 [e :U 2186 ]
 "184
@@ -2668,7 +2662,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! < -> _lqi `i -> _cl `i 2189  ]
 "186
 [; ;nwk/nwk_src/nwk.c: 186:       return val[i];
-[e ) *U + &U F16405 * -> _i `ux -> -> # *U &U F16405 `ui `ux ]
+[e ) *U + &U F16398 * -> _i `ux -> -> # *U &U F16398 `ui `ux ]
 [e $UE 2185  ]
 [e :U 2189 ]
 "187
@@ -2678,7 +2672,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_src/nwk.c: 188:   }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `ui -> # F16405 `ui 2186  ]
+[e $ < -> _i `ui -> # F16398 `ui 2186  ]
 [e :U 2187 ]
 }
 "190

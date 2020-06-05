@@ -27,6 +27,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 "64 nwk/nwk_inc\nwkRoute.h
 [s S17 :1 `uc 1 :1 `uc 1 :2 `uc 1 :4 `uc 1 `us 1 `us 1 `uc 1 `uc 1 ]
 [n S17 NWK_RouteTableEntry_t fixed multicast reserved score dstAddr nextHopAddr rank lqi ]
+"68 nwk/nwk_inc/nwkRx.h
+[; ;nwk/nwk_inc/nwkRx.h: 68: {
+[s S16 `us 1 `us 1 `uc 1 `uc 1 `uc 1 `*uc 1 `uc 1 `uc 1 `c 1 ]
+[n S16 NWK_DataInd_t srcAddr dstAddr srcEndpoint dstEndpoint options data size lqi rssi ]
+[v F351 `(a ~T0 @X0 0 tf1`*S16 ]
+"82 nwk/nwk_inc/nwk.h
+[s S19 `us 1 `us 1 `uc 1 `uc 1 `*F351 -> 16 `i `us 1 ]
+[n S19 NwkIb_t addr panId nwkSeqNum macSeqNum endpoint lock ]
+"95
+[v _nwkIb `S19 ~T0 @X0 0 e ]
 "248 nwk/nwk_src/nwkRoute.c
 [; ;nwk/nwk_src/nwkRoute.c: 248:   if (NWK_SUCCESS_STATUS == frame->tx.status)
 [c E336 0 1 2 16 17 32 33 .. ]
@@ -36,10 +46,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _nwkRouteNormalizeRanks `(v ~T0 @X0 0 sf ]
 "60 nwk/nwk_inc\nwkGroup.h
 [v _NWK_GroupIsMember `(a ~T0 @X0 0 ef1`us ]
-"60 nwk/nwk_inc\nwkRouteDiscovery.h
-[; ;nwk/nwk_inc\nwkRouteDiscovery.h: 60: void nwkRouteDiscoveryRequest(NwkFrame_t *frame);
-[v _nwkRouteDiscoveryRequest `(v ~T0 @X0 0 ef1`*S10 ]
-[v F477 `(v ~T0 @X0 0 tf1`*S10 ]
+[v F473 `(v ~T0 @X0 0 tf1`*S10 ]
 "306 nwk/nwk_src/nwkRoute.c
 [; ;nwk/nwk_src/nwkRoute.c: 306:     frame->tx.control = NWK_TX_CONTROL_ROUTING;
 [c E376 1 2 4 .. ]
@@ -60,15 +67,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _nwkFrameAlloc `(*S10 ~T0 @X0 0 ef ]
 "128
 [v _nwkFrameCommandInit `(v ~T0 @X0 0 ef1`*S10 ]
-[v F489 `(v ~T0 @X0 0 tf1`*S10 ]
+[v F485 `(v ~T0 @X0 0 tf1`*S10 ]
 "334 nwk/nwk_src/nwkRoute.c
 [; ;nwk/nwk_src/nwkRoute.c: 334:   command->id = NWK_COMMAND_ROUTE_ERROR;
 [c E393 0 1 2 3 .. ]
 [n E393 . NWK_COMMAND_ACK NWK_COMMAND_ROUTE_ERROR NWK_COMMAND_ROUTE_REQUEST NWK_COMMAND_ROUTE_REPLY  ]
-"68 nwk/nwk_inc/nwkRx.h
-[; ;nwk/nwk_inc/nwkRx.h: 68: {
-[s S16 `us 1 `us 1 `uc 1 `uc 1 `uc 1 `*uc 1 `uc 1 `uc 1 `c 1 ]
-[n S16 NWK_DataInd_t srcAddr dstAddr srcEndpoint dstEndpoint options data size lqi rssi ]
 [v F234 `(uc ~T0 @X0 1 tf1`*S10 ]
 "134 nwk/nwk_inc\nwkFrame.h
 [v _nwkFramePayloadSize `TF234 ~T0 @X0 1 s ]
@@ -434,9 +437,82 @@ Version 4.0 HI-TECH Software Intermediate Code
 "195
 [; ;nwk/nwk_src/nwkRoute.c: 195: {
 [f ]
-"230
-[; ;nwk/nwk_src/nwkRoute.c: 230:   (void)frame;
-[e _frame ]
+"197
+[; ;nwk/nwk_src/nwkRoute.c: 197:   NwkFrameHeader_t *header = &frame->header;
+[v _header `*QS6 ~T0 @X0 1 a ]
+[e = _header &U . . *U _frame 2 0 ]
+"198
+[; ;nwk/nwk_src/nwkRoute.c: 198:   NWK_RouteTableEntry_t *entry;
+[v _entry `*S17 ~T0 @X0 1 a ]
+"200
+[; ;nwk/nwk_src/nwkRoute.c: 200:   if ((header->macSrcAddr & 0x8000) &&
+[e $ ! && != & -> . *U _header 4 `ui -> 32768 `ui -> -> 0 `i `ui != -> . *U _header 4 `ui -> . *U _header 7 `ui 50  ]
+"202
+[; ;nwk/nwk_src/nwkRoute.c: 202:     return;
+[e $UE 49  ]
+[e :U 50 ]
+"204
+[; ;nwk/nwk_src/nwkRoute.c: 204:   if (0xffff == header->macDstPanId)
+[e $ ! == -> 65535 `ui -> . *U _header 2 `ui 51  ]
+"205
+[; ;nwk/nwk_src/nwkRoute.c: 205:     return;
+[e $UE 49  ]
+[e :U 51 ]
+"207
+[; ;nwk/nwk_src/nwkRoute.c: 207:   entry = NWK_RouteFindEntry(header->nwkSrcAddr, 0);
+[e = _entry ( _NWK_RouteFindEntry (2 , . *U _header 7 -> -> 0 `i `uc ]
+"209
+[; ;nwk/nwk_src/nwkRoute.c: 209:   if (entry)
+[e $ ! != _entry -> -> 0 `i `*S17 52  ]
+"210
+[; ;nwk/nwk_src/nwkRoute.c: 210:   {
+{
+"211
+[; ;nwk/nwk_src/nwkRoute.c: 211:     _Bool discovery = (0xffff == header->macDstAddr &&
+[v _discovery `a ~T0 @X0 1 a ]
+[e = _discovery -> -> && == -> 65535 `ui -> . *U _header 3 `ui == -> . _nwkIb 0 `ui -> . *U _header 8 `ui `i `a ]
+"214
+[; ;nwk/nwk_src/nwkRoute.c: 214:     if ((entry->nextHopAddr != header->macSrcAddr && frame->rx.lqi > entry->lqi) || discovery)
+[e $ ! || && != -> . *U _entry 5 `ui -> . *U _header 4 `ui > -> . . . *U _frame 4 0 0 `i -> . *U _entry 7 `i != -> _discovery `i -> 0 `i 53  ]
+"215
+[; ;nwk/nwk_src/nwkRoute.c: 215:     {
+{
+"216
+[; ;nwk/nwk_src/nwkRoute.c: 216:       entry->nextHopAddr = header->macSrcAddr;
+[e = . *U _entry 5 . *U _header 4 ]
+"217
+[; ;nwk/nwk_src/nwkRoute.c: 217:       entry->score = 3;
+[e = . *U _entry 3 -> -> 3 `i `uc ]
+"218
+[; ;nwk/nwk_src/nwkRoute.c: 218:     }
+}
+[e :U 53 ]
+"219
+[; ;nwk/nwk_src/nwkRoute.c: 219:   }
+}
+[e $U 54  ]
+"220
+[; ;nwk/nwk_src/nwkRoute.c: 220:   else
+[e :U 52 ]
+"221
+[; ;nwk/nwk_src/nwkRoute.c: 221:   {
+{
+"222
+[; ;nwk/nwk_src/nwkRoute.c: 222:     entry = NWK_RouteNewEntry();
+[e = _entry ( _NWK_RouteNewEntry ..  ]
+"224
+[; ;nwk/nwk_src/nwkRoute.c: 224:     entry->dstAddr = header->nwkSrcAddr;
+[e = . *U _entry 4 . *U _header 7 ]
+"225
+[; ;nwk/nwk_src/nwkRoute.c: 225:     entry->nextHopAddr = header->macSrcAddr;
+[e = . *U _entry 5 . *U _header 4 ]
+"226
+[; ;nwk/nwk_src/nwkRoute.c: 226:   }
+}
+[e :U 54 ]
+"228
+[; ;nwk/nwk_src/nwkRoute.c: 228:   entry->lqi = frame->rx.lqi;
+[e = . *U _entry 7 . . . *U _frame 4 0 0 ]
 "232
 [; ;nwk/nwk_src/nwkRoute.c: 232: }
 [e :UE 49 ]
@@ -459,24 +535,24 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _entry `*S17 ~T0 @X0 1 a ]
 "240
 [; ;nwk/nwk_src/nwkRoute.c: 240:   if (0xffff == frame->header.nwkDstAddr)
-[e $ ! == -> 65535 `ui -> . . . *U _frame 2 0 8 `ui 51  ]
+[e $ ! == -> 65535 `ui -> . . . *U _frame 2 0 8 `ui 56  ]
 "241
 [; ;nwk/nwk_src/nwkRoute.c: 241:     return;
-[e $UE 50  ]
-[e :U 51 ]
+[e $UE 55  ]
+[e :U 56 ]
 "243
 [; ;nwk/nwk_src/nwkRoute.c: 243:   entry = NWK_RouteFindEntry(frame->header.nwkDstAddr, frame->header.nwkFcf.multicast);
 [e = _entry ( _NWK_RouteFindEntry (2 , . . . *U _frame 2 0 8 . . . . *U _frame 2 0 5 3 ]
 "245
 [; ;nwk/nwk_src/nwkRoute.c: 245:   if (((void*)0) == entry || entry->fixed)
-[e $ ! || == -> -> -> 0 `i `*v `*S17 _entry != -> . *U _entry 0 `i -> 0 `i 52  ]
+[e $ ! || == -> -> -> 0 `i `*v `*S17 _entry != -> . *U _entry 0 `i -> 0 `i 57  ]
 "246
 [; ;nwk/nwk_src/nwkRoute.c: 246:     return;
-[e $UE 50  ]
-[e :U 52 ]
+[e $UE 55  ]
+[e :U 57 ]
 "248
 [; ;nwk/nwk_src/nwkRoute.c: 248:   if (NWK_SUCCESS_STATUS == frame->tx.status)
-[e $ ! == -> . `E336 0 `i -> . . . *U _frame 4 1 0 `i 53  ]
+[e $ ! == -> . `E336 0 `i -> . . . *U _frame 4 1 0 `i 58  ]
 "249
 [; ;nwk/nwk_src/nwkRoute.c: 249:   {
 {
@@ -485,35 +561,35 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . *U _entry 3 -> -> 3 `i `uc ]
 "252
 [; ;nwk/nwk_src/nwkRoute.c: 252:     if (255 == ++entry->rank)
-[e $ ! == -> 255 `i -> =+ . *U _entry 6 -> -> 1 `i `uc `i 54  ]
+[e $ ! == -> 255 `i -> =+ . *U _entry 6 -> -> 1 `i `uc `i 59  ]
 "253
 [; ;nwk/nwk_src/nwkRoute.c: 253:       nwkRouteNormalizeRanks();
 [e ( _nwkRouteNormalizeRanks ..  ]
-[e :U 54 ]
+[e :U 59 ]
 "254
 [; ;nwk/nwk_src/nwkRoute.c: 254:   }
 }
-[e $U 55  ]
+[e $U 60  ]
 "255
 [; ;nwk/nwk_src/nwkRoute.c: 255:   else
-[e :U 53 ]
+[e :U 58 ]
 "256
 [; ;nwk/nwk_src/nwkRoute.c: 256:   {
 {
 "257
 [; ;nwk/nwk_src/nwkRoute.c: 257:     if (0 == --entry->score)
-[e $ ! == -> 0 `i -> =- . *U _entry 3 -> -> 1 `i `uc `i 56  ]
+[e $ ! == -> 0 `i -> =- . *U _entry 3 -> -> 1 `i `uc `i 61  ]
 "258
 [; ;nwk/nwk_src/nwkRoute.c: 258:       NWK_RouteFreeEntry(entry);
 [e ( _NWK_RouteFreeEntry (1 _entry ]
-[e :U 56 ]
+[e :U 61 ]
 "259
 [; ;nwk/nwk_src/nwkRoute.c: 259:   }
 }
-[e :U 55 ]
+[e :U 60 ]
 "260
 [; ;nwk/nwk_src/nwkRoute.c: 260: }
-[e :UE 50 ]
+[e :UE 55 ]
 }
 "264
 [; ;nwk/nwk_src/nwkRoute.c: 264: void nwkRoutePrepareTx(NwkFrame_t *frame)
@@ -534,7 +610,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _header &U . . *U _frame 2 0 ]
 "268
 [; ;nwk/nwk_src/nwkRoute.c: 268:   if (0xffff == header->nwkDstAddr)
-[e $ ! == -> 65535 `ui -> . *U _header 8 `ui 58  ]
+[e $ ! == -> 65535 `ui -> . *U _header 8 `ui 63  ]
 "269
 [; ;nwk/nwk_src/nwkRoute.c: 269:   {
 {
@@ -544,11 +620,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "271
 [; ;nwk/nwk_src/nwkRoute.c: 271:   }
 }
-[e $U 59  ]
+[e $U 64  ]
 "273
 [; ;nwk/nwk_src/nwkRoute.c: 273:   else if (header->nwkFcf.linkLocal)
-[e :U 58 ]
-[e $ ! != -> . . *U _header 5 2 `i -> 0 `i 60  ]
+[e :U 63 ]
+[e $ ! != -> . . *U _header 5 2 `i -> 0 `i 65  ]
 "274
 [; ;nwk/nwk_src/nwkRoute.c: 274:   {
 {
@@ -558,11 +634,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "276
 [; ;nwk/nwk_src/nwkRoute.c: 276:   }
 }
-[e $U 61  ]
+[e $U 66  ]
 "279
 [; ;nwk/nwk_src/nwkRoute.c: 279:   else if (header->nwkFcf.multicast && NWK_GroupIsMember(header->nwkDstAddr))
-[e :U 60 ]
-[e $ ! && != -> . . *U _header 5 3 `i -> 0 `i != -> ( _NWK_GroupIsMember (1 . *U _header 8 `i -> 0 `i 62  ]
+[e :U 65 ]
+[e $ ! && != -> . . *U _header 5 3 `i -> 0 `i != -> ( _NWK_GroupIsMember (1 . *U _header 8 `i -> 0 `i 67  ]
 "280
 [; ;nwk/nwk_src/nwkRoute.c: 280:   {
 {
@@ -575,32 +651,25 @@ Version 4.0 HI-TECH Software Intermediate Code
 "283
 [; ;nwk/nwk_src/nwkRoute.c: 283:   }
 }
-[e $U 63  ]
+[e $U 68  ]
 "286
 [; ;nwk/nwk_src/nwkRoute.c: 286:   else
-[e :U 62 ]
+[e :U 67 ]
 "287
 [; ;nwk/nwk_src/nwkRoute.c: 287:   {
 {
 "288
 [; ;nwk/nwk_src/nwkRoute.c: 288:     header->macDstAddr = NWK_RouteNextHop(header->nwkDstAddr, header->nwkFcf.multicast);
 [e = . *U _header 3 ( _NWK_RouteNextHop (2 , . *U _header 8 . . *U _header 5 3 ]
-"291
-[; ;nwk/nwk_src/nwkRoute.c: 291:     if (0xffff == header->macDstAddr)
-[e $ ! == -> 65535 `ui -> . *U _header 3 `ui 64  ]
-"292
-[; ;nwk/nwk_src/nwkRoute.c: 292:       nwkRouteDiscoveryRequest(frame);
-[e ( _nwkRouteDiscoveryRequest (1 _frame ]
-[e :U 64 ]
 "294
 [; ;nwk/nwk_src/nwkRoute.c: 294:   }
 }
-[e :U 63 ]
-[e :U 61 ]
-[e :U 59 ]
+[e :U 68 ]
+[e :U 66 ]
+[e :U 64 ]
 "295
 [; ;nwk/nwk_src/nwkRoute.c: 295: }
-[e :UE 57 ]
+[e :UE 62 ]
 }
 "299
 [; ;nwk/nwk_src/nwkRoute.c: 299: void nwkRouteFrame(NwkFrame_t *frame)
@@ -621,13 +690,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _header &U . . *U _frame 2 0 ]
 "303
 [; ;nwk/nwk_src/nwkRoute.c: 303:   if (0xffff != NWK_RouteNextHop(header->nwkDstAddr, header->nwkFcf.multicast))
-[e $ ! != -> 65535 `ui -> ( _NWK_RouteNextHop (2 , . *U _header 8 . . *U _header 5 3 `ui 66  ]
+[e $ ! != -> 65535 `ui -> ( _NWK_RouteNextHop (2 , . *U _header 8 . . *U _header 5 3 `ui 70  ]
 "304
 [; ;nwk/nwk_src/nwkRoute.c: 304:   {
 {
 "305
 [; ;nwk/nwk_src/nwkRoute.c: 305:     frame->tx.confirm = ((void*)0);
-[e = . . . *U _frame 4 1 3 -> -> -> 0 `i `*v `*F477 ]
+[e = . . . *U _frame 4 1 3 -> -> -> 0 `i `*v `*F473 ]
 "306
 [; ;nwk/nwk_src/nwkRoute.c: 306:     frame->tx.control = NWK_TX_CONTROL_ROUTING;
 [e = . . . *U _frame 4 1 2 -> . `E376 1 `uc ]
@@ -637,10 +706,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "308
 [; ;nwk/nwk_src/nwkRoute.c: 308:   }
 }
-[e $U 67  ]
+[e $U 71  ]
 "309
 [; ;nwk/nwk_src/nwkRoute.c: 309:   else
-[e :U 66 ]
+[e :U 70 ]
 "310
 [; ;nwk/nwk_src/nwkRoute.c: 310:   {
 {
@@ -653,10 +722,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "313
 [; ;nwk/nwk_src/nwkRoute.c: 313:   }
 }
-[e :U 67 ]
+[e :U 71 ]
 "314
 [; ;nwk/nwk_src/nwkRoute.c: 314: }
-[e :UE 65 ]
+[e :UE 69 ]
 }
 "318
 [; ;nwk/nwk_src/nwkRoute.c: 318: static void nwkRouteSendRouteError(uint16_t src, uint16_t dst, uint8_t multicast)
@@ -681,11 +750,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _command `*QS21 ~T0 @X0 1 a ]
 "323
 [; ;nwk/nwk_src/nwkRoute.c: 323:   if (((void*)0) == (frame = nwkFrameAlloc()))
-[e $ ! == -> -> -> 0 `i `*v `*S10 = _frame ( _nwkFrameAlloc ..  69  ]
+[e $ ! == -> -> -> 0 `i `*v `*S10 = _frame ( _nwkFrameAlloc ..  73  ]
 "324
 [; ;nwk/nwk_src/nwkRoute.c: 324:     return;
-[e $UE 68  ]
-[e :U 69 ]
+[e $UE 72  ]
+[e :U 73 ]
 "326
 [; ;nwk/nwk_src/nwkRoute.c: 326:   nwkFrameCommandInit(frame);
 [e ( _nwkFrameCommandInit (1 _frame ]
@@ -694,7 +763,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e =+ . *U _frame 1 -> -> # `QS21 `ui `uc ]
 "329
 [; ;nwk/nwk_src/nwkRoute.c: 329:   frame->tx.confirm = ((void*)0);
-[e = . . . *U _frame 4 1 3 -> -> -> 0 `i `*v `*F489 ]
+[e = . . . *U _frame 4 1 3 -> -> -> 0 `i `*v `*F485 ]
 "331
 [; ;nwk/nwk_src/nwkRoute.c: 331:   frame->header.nwkDstAddr = src;
 [e = . . . *U _frame 2 0 8 _src ]
@@ -718,7 +787,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _nwkTxFrame (1 _frame ]
 "340
 [; ;nwk/nwk_src/nwkRoute.c: 340: }
-[e :UE 68 ]
+[e :UE 72 ]
 }
 "344
 [; ;nwk/nwk_src/nwkRoute.c: 344: _Bool nwkRouteErrorReceived(NWK_DataInd_t *ind)
@@ -739,22 +808,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _command -> . *U _ind 5 `*QS21 ]
 "348
 [; ;nwk/nwk_src/nwkRoute.c: 348:   if (sizeof(NwkCommandRouteError_t) != ind->size)
-[e $ ! != -> # `QS21 `ui -> . *U _ind 6 `ui 71  ]
+[e $ ! != -> # `QS21 `ui -> . *U _ind 6 `ui 75  ]
 "349
 [; ;nwk/nwk_src/nwkRoute.c: 349:     return 0;
 [e ) -> -> 0 `i `a ]
-[e $UE 70  ]
-[e :U 71 ]
+[e $UE 74  ]
+[e :U 75 ]
 "351
 [; ;nwk/nwk_src/nwkRoute.c: 351:   nwkRouteRemove(command->dstAddr, command->multicast);
 [e ( _nwkRouteRemove (2 , . *U _command 2 . *U _command 3 ]
 "353
 [; ;nwk/nwk_src/nwkRoute.c: 353:   return 1;
 [e ) -> -> 1 `i `a ]
-[e $UE 70  ]
+[e $UE 74  ]
 "354
 [; ;nwk/nwk_src/nwkRoute.c: 354: }
-[e :UE 70 ]
+[e :UE 74 ]
 }
 "358
 [; ;nwk/nwk_src/nwkRoute.c: 358: static void nwkRouteNormalizeRanks(void)
@@ -769,17 +838,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 10 `i 73  ]
-[e $U 74  ]
-[e :U 73 ]
+[e $ < -> _i `i -> 10 `i 77  ]
+[e $U 78  ]
+[e :U 77 ]
 "361
 [; ;nwk/nwk_src/nwkRoute.c: 361:     nwkRouteTable[i].rank = (nwkRouteTable[i].rank >> 1) + 1;
 [e = . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 6 -> + >> -> . *U + &U _nwkRouteTable * -> _i `ux -> -> # *U &U _nwkRouteTable `ui `ux 6 `i -> 1 `i -> 1 `i `uc ]
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 10 `i 73  ]
-[e :U 74 ]
+[e $ < -> _i `i -> 10 `i 77  ]
+[e :U 78 ]
 }
 "362
 [; ;nwk/nwk_src/nwkRoute.c: 362: }
-[e :UE 72 ]
+[e :UE 76 ]
 }

@@ -10,12 +10,10 @@
             <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_src/sysTimer.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_inc/sysTypes.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/main.c</file>
-            <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_inc/sys.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/hal/hal_inc/Timers.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/test.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/test.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRoute.c</file>
-            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwkRoute.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkFrame.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/hal/hal_src/Timers.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkTx.c</file>
@@ -23,7 +21,6 @@
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwk.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRouteDiscovery.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRx.c</file>
-            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwkDataReq.h</file>
         </group>
     </open-files>
 </project-private>

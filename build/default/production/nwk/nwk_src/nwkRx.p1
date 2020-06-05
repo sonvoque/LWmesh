@@ -64,8 +64,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _nwkFrameAlloc `(*S2164 ~T0 @X0 0 ef ]
 "127 nwk/nwk_src/nwkRx.c
 [; ;nwk/nwk_src/nwkRx.c: 127:   frame->state = NWK_RX_STATE_RECEIVED;
-[c E16414 32 33 34 35 36 .. ]
-[n E16414 . NWK_RX_STATE_RECEIVED NWK_RX_STATE_DECRYPT NWK_RX_STATE_INDICATE NWK_RX_STATE_ROUTE NWK_RX_STATE_FINISH  ]
+[c E16407 32 33 34 35 36 .. ]
+[n E16407 . NWK_RX_STATE_RECEIVED NWK_RX_STATE_DECRYPT NWK_RX_STATE_INDICATE NWK_RX_STATE_ROUTE NWK_RX_STATE_FINISH  ]
 "27 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\c99\string.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\c99\string.h: 27: void *memcpy (void *restrict, const void *restrict, size_t);
 [v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
@@ -75,7 +75,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [n S2174 NwkCommandAck_t id seq control ]
 "128 nwk/nwk_inc\nwkFrame.h
 [v _nwkFrameCommandInit `(v ~T0 @X0 0 ef1`*S2164 ]
-[v F16452 `(v ~T0 @X0 0 tf1`*S2164 ]
+[v F16445 `(v ~T0 @X0 0 tf1`*S2164 ]
 "153 nwk/nwk_src/nwkRx.c
 [; ;nwk/nwk_src/nwkRx.c: 153:   command->id = NWK_COMMAND_ACK;
 [c E16376 0 1 2 3 .. ]
@@ -99,13 +99,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _nwkTxAckReceived `(a ~T0 @X0 0 ef1`*S2170 ]
 "88 nwk/nwk_inc\nwkRoute.h
 [v _nwkRouteErrorReceived `(a ~T0 @X0 0 ef1`*S2170 ]
-"62 nwk/nwk_inc\nwkRouteDiscovery.h
-[; ;nwk/nwk_inc\nwkRouteDiscovery.h: 62: _Bool nwkRouteDiscoveryRequestReceived(NWK_DataInd_t *ind);
-[v _nwkRouteDiscoveryRequestReceived `(a ~T0 @X0 0 ef1`*S2170 ]
-"61
-[; ;nwk/nwk_inc\nwkRouteDiscovery.h: 61: _Bool nwkRouteDiscoveryReplyReceived(NWK_DataInd_t *ind);
-[v _nwkRouteDiscoveryReplyReceived `(a ~T0 @X0 0 ef1`*S2170 ]
-"84 nwk/nwk_inc\nwkRoute.h
+"84
 [v _nwkRouteFrameReceived `(v ~T0 @X0 0 ef1`*S2164 ]
 "85 nwk/nwk_inc\nwkFrame.h
 [s S2163 :4 `uc 1 :4 `uc 1 :4 `uc 1 :4 `uc 1 ]
@@ -115,7 +109,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "67 nwk/nwk_inc\nwkTx.h
 [; ;nwk/nwk_inc\nwkTx.h: 67: void nwkTxBroadcastFrame(NwkFrame_t *frame);
 [v _nwkTxBroadcastFrame `(v ~T0 @X0 0 ef1`*S2164 ]
-[v F16481 `(a ~T0 @X0 0 tf1`*S2170 ]
+[v F16474 `(a ~T0 @X0 0 tf1`*S2170 ]
 "440 nwk/nwk_src/nwkRx.c
 [; ;nwk/nwk_src/nwkRx.c: 440:   ind.options = (header->nwkFcf.ackRequest) ? NWK_IND_OPT_ACK_REQUESTED : 0;
 [c E16219 1 2 4 8 16 32 64 .. ]
@@ -2541,7 +2535,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2185 ]
 "127
 [; ;nwk/nwk_src/nwkRx.c: 127:   frame->state = NWK_RX_STATE_RECEIVED;
-[e = . *U _frame 0 -> . `E16414 0 `uc ]
+[e = . *U _frame 0 -> . `E16407 0 `uc ]
 "128
 [; ;nwk/nwk_src/nwkRx.c: 128:   frame->size = ind->size;
 [e = . *U _frame 1 . *U _ind 1 ]
@@ -2592,7 +2586,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e =+ . *U _ack 1 -> -> # `QS2174 `ui `uc ]
 "147
 [; ;nwk/nwk_src/nwkRx.c: 147:   ack->tx.confirm = ((void*)0);
-[e = . . . *U _ack 4 1 3 -> -> -> 0 `i `*v `*F16452 ]
+[e = . . . *U _ack 4 1 3 -> -> -> 0 `i `*v `*F16445 ]
 "149
 [; ;nwk/nwk_src/nwkRx.c: 149:   ack->header.nwkFcf.security = frame->header.nwkFcf.security;
 [e = . . . . *U _ack 2 0 5 1 . . . . *U _frame 2 0 5 1 ]
@@ -2899,23 +2893,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_src/nwkRx.c: 274:       return nwkRouteErrorReceived(ind);
 [e ) ( _nwkRouteErrorReceived (1 _ind ]
 [e $UE 2206  ]
-"278
-[; ;nwk/nwk_src/nwkRx.c: 278:     case NWK_COMMAND_ROUTE_REQUEST:
-[e :U 2212 ]
-"279
-[; ;nwk/nwk_src/nwkRx.c: 279:       return nwkRouteDiscoveryRequestReceived(ind);
-[e ) ( _nwkRouteDiscoveryRequestReceived (1 _ind ]
-[e $UE 2206  ]
-"281
-[; ;nwk/nwk_src/nwkRx.c: 281:     case NWK_COMMAND_ROUTE_REPLY:
-[e :U 2213 ]
-"282
-[; ;nwk/nwk_src/nwkRx.c: 282:       return nwkRouteDiscoveryReplyReceived(ind);
-[e ) ( _nwkRouteDiscoveryReplyReceived (1 _ind ]
-[e $UE 2206  ]
 "285
 [; ;nwk/nwk_src/nwkRx.c: 285:     default:
-[e :U 2214 ]
+[e :U 2212 ]
 "286
 [; ;nwk/nwk_src/nwkRx.c: 286:       return 0;
 [e ) -> -> 0 `i `a ]
@@ -2927,9 +2907,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2209 ]
 [e [\ -> *U + . *U _ind 5 * -> -> 0 `i `x -> -> # *U . *U _ind 5 `i `x `i , $ . `E16376 0 2210
  , $ . `E16376 1 2211
- , $ . `E16376 2 2212
- , $ . `E16376 3 2213
- 2214 ]
+ 2212 ]
 [e :U 2208 ]
 "288
 [; ;nwk/nwk_src/nwkRx.c: 288: }
@@ -2954,74 +2932,74 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _header &U . . *U _frame 2 0 ]
 "296
 [; ;nwk/nwk_src/nwkRx.c: 296:   frame->state = NWK_RX_STATE_FINISH;
-[e = . *U _frame 0 -> . `E16414 4 `uc ]
+[e = . *U _frame 0 -> . `E16407 4 `uc ]
 "299
 [; ;nwk/nwk_src/nwkRx.c: 299:   if (header->nwkFcf.security)
-[e $ ! != -> . . *U _header 5 1 `i -> 0 `i 2216  ]
+[e $ ! != -> . . *U _header 5 1 `i -> 0 `i 2214  ]
 "300
 [; ;nwk/nwk_src/nwkRx.c: 300:     return;
-[e $UE 2215  ]
-[e :U 2216 ]
+[e $UE 2213  ]
+[e :U 2214 ]
 "304
 [; ;nwk/nwk_src/nwkRx.c: 304:   if (header->nwkFcf.multicast && header->nwkFcf.ackRequest)
-[e $ ! && != -> . . *U _header 5 3 `i -> 0 `i != -> . . *U _header 5 0 `i -> 0 `i 2217  ]
+[e $ ! && != -> . . *U _header 5 3 `i -> 0 `i != -> . . *U _header 5 0 `i -> 0 `i 2215  ]
 "305
 [; ;nwk/nwk_src/nwkRx.c: 305:     return;
-[e $UE 2215  ]
-[e :U 2217 ]
+[e $UE 2213  ]
+[e :U 2215 ]
 "311
 [; ;nwk/nwk_src/nwkRx.c: 311:   if (0xffff == header->macDstPanId)
-[e $ ! == -> 65535 `ui -> . *U _header 2 `ui 2218  ]
+[e $ ! == -> 65535 `ui -> . *U _header 2 `ui 2216  ]
 "312
 [; ;nwk/nwk_src/nwkRx.c: 312:   {
 {
 "313
 [; ;nwk/nwk_src/nwkRx.c: 313:     if (nwkIb.addr == header->nwkDstAddr || 0xffff == header->nwkDstAddr)
-[e $ ! || == -> . _nwkIb 0 `ui -> . *U _header 8 `ui == -> 65535 `ui -> . *U _header 8 `ui 2219  ]
+[e $ ! || == -> . _nwkIb 0 `ui -> . *U _header 8 `ui == -> 65535 `ui -> . *U _header 8 `ui 2217  ]
 "314
 [; ;nwk/nwk_src/nwkRx.c: 314:     {
 {
 "320
 [; ;nwk/nwk_src/nwkRx.c: 320:         frame->state = NWK_RX_STATE_INDICATE;
-[e = . *U _frame 0 -> . `E16414 2 `uc ]
+[e = . *U _frame 0 -> . `E16407 2 `uc ]
 "321
 [; ;nwk/nwk_src/nwkRx.c: 321:     }
 }
-[e :U 2219 ]
+[e :U 2217 ]
 "322
 [; ;nwk/nwk_src/nwkRx.c: 322:     return;
-[e $UE 2215  ]
+[e $UE 2213  ]
 "323
 [; ;nwk/nwk_src/nwkRx.c: 323:   }
 }
-[e :U 2218 ]
+[e :U 2216 ]
 "330
 [; ;nwk/nwk_src/nwkRx.c: 330:   if (0xffff == header->nwkDstAddr && header->nwkFcf.ackRequest)
-[e $ ! && == -> 65535 `ui -> . *U _header 8 `ui != -> . . *U _header 5 0 `i -> 0 `i 2220  ]
+[e $ ! && == -> 65535 `ui -> . *U _header 8 `ui != -> . . *U _header 5 0 `i -> 0 `i 2218  ]
 "331
 [; ;nwk/nwk_src/nwkRx.c: 331:     return;
-[e $UE 2215  ]
-[e :U 2220 ]
+[e $UE 2213  ]
+[e :U 2218 ]
 "333
 [; ;nwk/nwk_src/nwkRx.c: 333:   if (nwkIb.addr == header->nwkSrcAddr)
-[e $ ! == -> . _nwkIb 0 `ui -> . *U _header 7 `ui 2221  ]
+[e $ ! == -> . _nwkIb 0 `ui -> . *U _header 7 `ui 2219  ]
 "334
 [; ;nwk/nwk_src/nwkRx.c: 334:     return;
-[e $UE 2215  ]
-[e :U 2221 ]
+[e $UE 2213  ]
+[e :U 2219 ]
 "337
 [; ;nwk/nwk_src/nwkRx.c: 337:   nwkRouteFrameReceived(frame);
 [e ( _nwkRouteFrameReceived (1 _frame ]
 "340
 [; ;nwk/nwk_src/nwkRx.c: 340:   if (nwkRxRejectDuplicate(header))
-[e $ ! != -> ( _nwkRxRejectDuplicate (1 _header `i -> 0 `i 2222  ]
+[e $ ! != -> ( _nwkRxRejectDuplicate (1 _header `i -> 0 `i 2220  ]
 "341
 [; ;nwk/nwk_src/nwkRx.c: 341:     return;
-[e $UE 2215  ]
-[e :U 2222 ]
+[e $UE 2213  ]
+[e :U 2220 ]
 "344
 [; ;nwk/nwk_src/nwkRx.c: 344:   if (header->nwkFcf.multicast)
-[e $ ! != -> . . *U _header 5 3 `i -> 0 `i 2223  ]
+[e $ ! != -> . . *U _header 5 3 `i -> 0 `i 2221  ]
 "345
 [; ;nwk/nwk_src/nwkRx.c: 345:   {
 {
@@ -3039,13 +3017,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _broadcast -> -> 0 `i `a ]
 "350
 [; ;nwk/nwk_src/nwkRx.c: 350:     if (0xffff == header->macDstAddr)
-[e $ ! == -> 65535 `ui -> . *U _header 3 `ui 2224  ]
+[e $ ! == -> 65535 `ui -> . *U _header 3 `ui 2222  ]
 "351
 [; ;nwk/nwk_src/nwkRx.c: 351:     {
 {
 "352
 [; ;nwk/nwk_src/nwkRx.c: 352:       if (member)
-[e $ ! != -> _member `i -> 0 `i 2225  ]
+[e $ ! != -> _member `i -> 0 `i 2223  ]
 "353
 [; ;nwk/nwk_src/nwkRx.c: 353:       {
 {
@@ -3061,10 +3039,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "357
 [; ;nwk/nwk_src/nwkRx.c: 357:       }
 }
-[e $U 2226  ]
+[e $U 2224  ]
 "358
 [; ;nwk/nwk_src/nwkRx.c: 358:       else
-[e :U 2225 ]
+[e :U 2223 ]
 "359
 [; ;nwk/nwk_src/nwkRx.c: 359:       {
 {
@@ -3080,20 +3058,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 "363
 [; ;nwk/nwk_src/nwkRx.c: 363:       }
 }
-[e :U 2226 ]
+[e :U 2224 ]
 "364
 [; ;nwk/nwk_src/nwkRx.c: 364:     }
 }
-[e $U 2227  ]
+[e $U 2225  ]
 "365
 [; ;nwk/nwk_src/nwkRx.c: 365:     else
-[e :U 2224 ]
+[e :U 2222 ]
 "366
 [; ;nwk/nwk_src/nwkRx.c: 366:     {
 {
 "367
 [; ;nwk/nwk_src/nwkRx.c: 367:       if (member)
-[e $ ! != -> _member `i -> 0 `i 2228  ]
+[e $ ! != -> _member `i -> 0 `i 2226  ]
 "368
 [; ;nwk/nwk_src/nwkRx.c: 368:       {
 {
@@ -3106,34 +3084,34 @@ Version 4.0 HI-TECH Software Intermediate Code
 "371
 [; ;nwk/nwk_src/nwkRx.c: 371:       }
 }
-[e $U 2229  ]
+[e $U 2227  ]
 "373
 [; ;nwk/nwk_src/nwkRx.c: 373:       else
-[e :U 2228 ]
+[e :U 2226 ]
 "374
 [; ;nwk/nwk_src/nwkRx.c: 374:       {
 {
 "375
 [; ;nwk/nwk_src/nwkRx.c: 375:         frame->state = NWK_RX_STATE_ROUTE;
-[e = . *U _frame 0 -> . `E16414 3 `uc ]
+[e = . *U _frame 0 -> . `E16407 3 `uc ]
 "376
 [; ;nwk/nwk_src/nwkRx.c: 376:       }
 }
-[e :U 2229 ]
+[e :U 2227 ]
 "378
 [; ;nwk/nwk_src/nwkRx.c: 378:     }
 }
-[e :U 2227 ]
+[e :U 2225 ]
 "380
 [; ;nwk/nwk_src/nwkRx.c: 380:     if (broadcast)
-[e $ ! != -> _broadcast `i -> 0 `i 2230  ]
+[e $ ! != -> _broadcast `i -> 0 `i 2228  ]
 "381
 [; ;nwk/nwk_src/nwkRx.c: 381:       nwkTxBroadcastFrame(frame);
 [e ( _nwkTxBroadcastFrame (1 _frame ]
-[e :U 2230 ]
+[e :U 2228 ]
 "383
 [; ;nwk/nwk_src/nwkRx.c: 383:     if (member)
-[e $ ! != -> _member `i -> 0 `i 2231  ]
+[e $ ! != -> _member `i -> 0 `i 2229  ]
 "384
 [; ;nwk/nwk_src/nwkRx.c: 384:     {
 {
@@ -3142,63 +3120,63 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e =+ . *U _frame 3 * -> -> # `QS2163 `ui `ux -> -> # *U . *U _frame 3 `ui `ux ]
 "392
 [; ;nwk/nwk_src/nwkRx.c: 392:         frame->state = NWK_RX_STATE_INDICATE;
-[e = . *U _frame 0 -> . `E16414 2 `uc ]
+[e = . *U _frame 0 -> . `E16407 2 `uc ]
 "393
 [; ;nwk/nwk_src/nwkRx.c: 393:     }
 }
-[e :U 2231 ]
+[e :U 2229 ]
 "394
 [; ;nwk/nwk_src/nwkRx.c: 394:   }
 }
-[e $U 2232  ]
+[e $U 2230  ]
 "395
 [; ;nwk/nwk_src/nwkRx.c: 395:   else
-[e :U 2223 ]
+[e :U 2221 ]
 "397
 [; ;nwk/nwk_src/nwkRx.c: 397:   {
 {
 "398
 [; ;nwk/nwk_src/nwkRx.c: 398:     if (0xffff == header->macDstAddr && nwkIb.addr != header->nwkDstAddr &&
-[e $ ! && && == -> 65535 `ui -> . *U _header 3 `ui != -> . _nwkIb 0 `ui -> . *U _header 8 `ui == -> 0 `i -> . . *U _header 5 2 `i 2233  ]
+[e $ ! && && == -> 65535 `ui -> . *U _header 3 `ui != -> . _nwkIb 0 `ui -> . *U _header 8 `ui == -> 0 `i -> . . *U _header 5 2 `i 2231  ]
 "400
 [; ;nwk/nwk_src/nwkRx.c: 400:       nwkTxBroadcastFrame(frame);
 [e ( _nwkTxBroadcastFrame (1 _frame ]
-[e :U 2233 ]
+[e :U 2231 ]
 "402
 [; ;nwk/nwk_src/nwkRx.c: 402:     if (nwkIb.addr == header->nwkDstAddr || 0xffff == header->nwkDstAddr)
-[e $ ! || == -> . _nwkIb 0 `ui -> . *U _header 8 `ui == -> 65535 `ui -> . *U _header 8 `ui 2234  ]
+[e $ ! || == -> . _nwkIb 0 `ui -> . *U _header 8 `ui == -> 65535 `ui -> . *U _header 8 `ui 2232  ]
 "403
 [; ;nwk/nwk_src/nwkRx.c: 403:     {
 {
 "409
 [; ;nwk/nwk_src/nwkRx.c: 409:         frame->state = NWK_RX_STATE_INDICATE;
-[e = . *U _frame 0 -> . `E16414 2 `uc ]
+[e = . *U _frame 0 -> . `E16407 2 `uc ]
 "410
 [; ;nwk/nwk_src/nwkRx.c: 410:     }
 }
-[e $U 2235  ]
+[e $U 2233  ]
 "413
 [; ;nwk/nwk_src/nwkRx.c: 413:     else if (nwkIb.addr == header->macDstAddr)
-[e :U 2234 ]
-[e $ ! == -> . _nwkIb 0 `ui -> . *U _header 3 `ui 2236  ]
+[e :U 2232 ]
+[e $ ! == -> . _nwkIb 0 `ui -> . *U _header 3 `ui 2234  ]
 "414
 [; ;nwk/nwk_src/nwkRx.c: 414:     {
 {
 "415
 [; ;nwk/nwk_src/nwkRx.c: 415:       frame->state = NWK_RX_STATE_ROUTE;
-[e = . *U _frame 0 -> . `E16414 3 `uc ]
+[e = . *U _frame 0 -> . `E16407 3 `uc ]
 "416
 [; ;nwk/nwk_src/nwkRx.c: 416:     }
 }
-[e :U 2236 ]
-[e :U 2235 ]
+[e :U 2234 ]
+[e :U 2233 ]
 "418
 [; ;nwk/nwk_src/nwkRx.c: 418:   }
 }
-[e :U 2232 ]
+[e :U 2230 ]
 "419
 [; ;nwk/nwk_src/nwkRx.c: 419: }
-[e :UE 2215 ]
+[e :UE 2213 ]
 }
 "423
 [; ;nwk/nwk_src/nwkRx.c: 423: static _Bool nwkRxIndicateFrame(NwkFrame_t *frame)
@@ -3222,12 +3200,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _ind `S2170 ~T0 @X0 1 a ]
 "428
 [; ;nwk/nwk_src/nwkRx.c: 428:   if (((void*)0) == nwkIb.endpoint[header->nwkDstEndpoint])
-[e $ ! == -> -> -> 0 `i `*v `*F16481 *U + &U . _nwkIb 4 * -> . . *U _header 9 1 `ux -> -> # *U &U . _nwkIb 4 `ui `ux 2238  ]
+[e $ ! == -> -> -> 0 `i `*v `*F16474 *U + &U . _nwkIb 4 * -> . . *U _header 9 1 `ux -> -> # *U &U . _nwkIb 4 `ui `ux 2236  ]
 "429
 [; ;nwk/nwk_src/nwkRx.c: 429:     return 0;
 [e ) -> -> 0 `i `a ]
-[e $UE 2237  ]
-[e :U 2238 ]
+[e $UE 2235  ]
+[e :U 2236 ]
 "431
 [; ;nwk/nwk_src/nwkRx.c: 431:   ind.srcAddr = header->nwkSrcAddr;
 [e = . _ind 0 . *U _header 7 ]
@@ -3276,10 +3254,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "448
 [; ;nwk/nwk_src/nwkRx.c: 448:   return nwkIb.endpoint[header->nwkDstEndpoint](&ind);
 [e ) ( *U *U + &U . _nwkIb 4 * -> . . *U _header 9 1 `ux -> -> # *U &U . _nwkIb 4 `ui `ux (1 &U _ind ]
-[e $UE 2237  ]
+[e $UE 2235  ]
 "449
 [; ;nwk/nwk_src/nwkRx.c: 449: }
-[e :UE 2237 ]
+[e :UE 2235 ]
 }
 "453
 [; ;nwk/nwk_src/nwkRx.c: 453: static void nwkRxHandleIndication(NwkFrame_t *frame)
@@ -3305,45 +3283,45 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _ack ( _nwkRxIndicateFrame (1 _frame ]
 "460
 [; ;nwk/nwk_src/nwkRx.c: 460:   if (0 == frame->header.nwkFcf.ackRequest)
-[e $ ! == -> 0 `i -> . . . . *U _frame 2 0 5 0 `i 2240  ]
+[e $ ! == -> 0 `i -> . . . . *U _frame 2 0 5 0 `i 2238  ]
 "461
 [; ;nwk/nwk_src/nwkRx.c: 461:     ack = 0;
 [e = _ack -> -> 0 `i `a ]
-[e :U 2240 ]
+[e :U 2238 ]
 "463
 [; ;nwk/nwk_src/nwkRx.c: 463:   if (0xffff == frame->header.macDstAddr &&
-[e $ ! && && == -> 65535 `ui -> . . . *U _frame 2 0 3 `ui == -> . _nwkIb 0 `ui -> . . . *U _frame 2 0 8 `ui == -> 0 `i -> . . . . *U _frame 2 0 5 3 `i 2241  ]
+[e $ ! && && == -> 65535 `ui -> . . . *U _frame 2 0 3 `ui == -> . _nwkIb 0 `ui -> . . . *U _frame 2 0 8 `ui == -> 0 `i -> . . . . *U _frame 2 0 5 3 `i 2239  ]
 "466
 [; ;nwk/nwk_src/nwkRx.c: 466:     ack = 1;
 [e = _ack -> -> 1 `i `a ]
-[e :U 2241 ]
+[e :U 2239 ]
 "468
 [; ;nwk/nwk_src/nwkRx.c: 468:   if (0xffff == frame->header.macDstPanId)
-[e $ ! == -> 65535 `ui -> . . . *U _frame 2 0 2 `ui 2242  ]
+[e $ ! == -> 65535 `ui -> . . . *U _frame 2 0 2 `ui 2240  ]
 "469
 [; ;nwk/nwk_src/nwkRx.c: 469:     ack = 0;
 [e = _ack -> -> 0 `i `a ]
-[e :U 2242 ]
+[e :U 2240 ]
 "471
 [; ;nwk/nwk_src/nwkRx.c: 471:   if (0xffff == nwkIb.addr)
-[e $ ! == -> 65535 `ui -> . _nwkIb 0 `ui 2243  ]
+[e $ ! == -> 65535 `ui -> . _nwkIb 0 `ui 2241  ]
 "472
 [; ;nwk/nwk_src/nwkRx.c: 472:     ack = 0;
 [e = _ack -> -> 0 `i `a ]
-[e :U 2243 ]
+[e :U 2241 ]
 "474
 [; ;nwk/nwk_src/nwkRx.c: 474:   if (ack)
-[e $ ! != -> _ack `i -> 0 `i 2244  ]
+[e $ ! != -> _ack `i -> 0 `i 2242  ]
 "475
 [; ;nwk/nwk_src/nwkRx.c: 475:     nwkRxSendAck(frame);
 [e ( _nwkRxSendAck (1 _frame ]
-[e :U 2244 ]
+[e :U 2242 ]
 "477
 [; ;nwk/nwk_src/nwkRx.c: 477:   frame->state = NWK_RX_STATE_FINISH;
-[e = . *U _frame 0 -> . `E16414 4 `uc ]
+[e = . *U _frame 0 -> . `E16407 4 `uc ]
 "478
 [; ;nwk/nwk_src/nwkRx.c: 478: }
-[e :UE 2239 ]
+[e :UE 2237 ]
 }
 "483
 [; ;nwk/nwk_src/nwkRx.c: 483: void nwkRxTaskHandler(void)
@@ -3359,20 +3337,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _frame -> -> -> 0 `i `*v `*S2164 ]
 "487
 [; ;nwk/nwk_src/nwkRx.c: 487:   while (((void*)0) != (frame = nwkFrameNext(frame)))
-[e $U 2246  ]
-[e :U 2247 ]
+[e $U 2244  ]
+[e :U 2245 ]
 "488
 [; ;nwk/nwk_src/nwkRx.c: 488:   {
 {
 "489
 [; ;nwk/nwk_src/nwkRx.c: 489:     switch (frame->state)
-[e $U 2250  ]
+[e $U 2248  ]
 "490
 [; ;nwk/nwk_src/nwkRx.c: 490:     {
 {
 "491
 [; ;nwk/nwk_src/nwkRx.c: 491:       case NWK_RX_STATE_RECEIVED:
-[e :U 2251 ]
+[e :U 2249 ]
 "492
 [; ;nwk/nwk_src/nwkRx.c: 492:       {
 {
@@ -3382,10 +3360,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "494
 [; ;nwk/nwk_src/nwkRx.c: 494:       } break;
 }
-[e $U 2249  ]
+[e $U 2247  ]
 "503
 [; ;nwk/nwk_src/nwkRx.c: 503:       case NWK_RX_STATE_INDICATE:
-[e :U 2252 ]
+[e :U 2250 ]
 "504
 [; ;nwk/nwk_src/nwkRx.c: 504:       {
 {
@@ -3395,10 +3373,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "506
 [; ;nwk/nwk_src/nwkRx.c: 506:       } break;
 }
-[e $U 2249  ]
+[e $U 2247  ]
 "509
 [; ;nwk/nwk_src/nwkRx.c: 509:       case NWK_RX_STATE_ROUTE:
-[e :U 2253 ]
+[e :U 2251 ]
 "510
 [; ;nwk/nwk_src/nwkRx.c: 510:       {
 {
@@ -3408,10 +3386,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "512
 [; ;nwk/nwk_src/nwkRx.c: 512:       } break;
 }
-[e $U 2249  ]
+[e $U 2247  ]
 "515
 [; ;nwk/nwk_src/nwkRx.c: 515:       case NWK_RX_STATE_FINISH:
-[e :U 2254 ]
+[e :U 2252 ]
 "516
 [; ;nwk/nwk_src/nwkRx.c: 516:       {
 {
@@ -3421,27 +3399,27 @@ Version 4.0 HI-TECH Software Intermediate Code
 "518
 [; ;nwk/nwk_src/nwkRx.c: 518:       } break;
 }
-[e $U 2249  ]
+[e $U 2247  ]
 "519
 [; ;nwk/nwk_src/nwkRx.c: 519:     }
 }
-[e $U 2249  ]
-[e :U 2250 ]
-[e [\ -> . *U _frame 0 `i , $ . `E16414 0 2251
- , $ . `E16414 2 2252
- , $ . `E16414 3 2253
- , $ . `E16414 4 2254
- 2249 ]
-[e :U 2249 ]
+[e $U 2247  ]
+[e :U 2248 ]
+[e [\ -> . *U _frame 0 `i , $ . `E16407 0 2249
+ , $ . `E16407 2 2250
+ , $ . `E16407 3 2251
+ , $ . `E16407 4 2252
+ 2247 ]
+[e :U 2247 ]
 "520
 [; ;nwk/nwk_src/nwkRx.c: 520:   }
 }
-[e :U 2246 ]
+[e :U 2244 ]
 "487
 [; ;nwk/nwk_src/nwkRx.c: 487:   while (((void*)0) != (frame = nwkFrameNext(frame)))
-[e $ != -> -> -> 0 `i `*v `*S2164 = _frame ( _nwkFrameNext (1 _frame 2247  ]
-[e :U 2248 ]
+[e $ != -> -> -> 0 `i `*v `*S2164 = _frame ( _nwkFrameNext (1 _frame 2245  ]
+[e :U 2246 ]
 "521
 [; ;nwk/nwk_src/nwkRx.c: 521: }
-[e :UE 2245 ]
+[e :UE 2243 ]
 }

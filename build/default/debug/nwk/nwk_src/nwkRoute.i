@@ -505,11 +505,6 @@ __pack typedef struct NwkCommandRouteReply_t
 # 58 "nwk/nwk_src/nwkRoute.c" 2
 
 # 1 "nwk/nwk_inc\\nwkRouteDiscovery.h" 1
-# 59 "nwk/nwk_inc\\nwkRouteDiscovery.h"
-void nwkRouteDiscoveryInit(void);
-void nwkRouteDiscoveryRequest(NwkFrame_t *frame);
-_Bool nwkRouteDiscoveryReplyReceived(NWK_DataInd_t *ind);
-_Bool nwkRouteDiscoveryRequestReceived(NWK_DataInd_t *ind);
 # 59 "nwk/nwk_src/nwkRoute.c" 2
 # 68 "nwk/nwk_src/nwkRoute.c"
 static void nwkRouteSendRouteError(uint16_t src, uint16_t dst, uint8_t multicast);
@@ -640,8 +635,41 @@ void nwkRouteRemove(uint16_t dst, uint8_t multicast)
 
 void nwkRouteFrameReceived(NwkFrame_t *frame)
 {
-# 230 "nwk/nwk_src/nwkRoute.c"
-  (void)frame;
+
+  NwkFrameHeader_t *header = &frame->header;
+  NWK_RouteTableEntry_t *entry;
+
+  if ((header->macSrcAddr & 0x8000) &&
+      (header->macSrcAddr != header->nwkSrcAddr))
+    return;
+
+  if (0xffff == header->macDstPanId)
+    return;
+
+  entry = NWK_RouteFindEntry(header->nwkSrcAddr, 0);
+
+  if (entry)
+  {
+    _Bool discovery = (0xffff == header->macDstAddr &&
+        nwkIb.addr == header->nwkDstAddr);
+
+    if ((entry->nextHopAddr != header->macSrcAddr && frame->rx.lqi > entry->lqi) || discovery)
+    {
+      entry->nextHopAddr = header->macSrcAddr;
+      entry->score = 3;
+    }
+  }
+  else
+  {
+    entry = NWK_RouteNewEntry();
+
+    entry->dstAddr = header->nwkSrcAddr;
+    entry->nextHopAddr = header->macSrcAddr;
+  }
+
+  entry->lqi = frame->rx.lqi;
+
+
 
 }
 
@@ -702,8 +730,8 @@ void nwkRoutePrepareTx(NwkFrame_t *frame)
     header->macDstAddr = NWK_RouteNextHop(header->nwkDstAddr, header->nwkFcf.multicast);
 
 
-    if (0xffff == header->macDstAddr)
-      nwkRouteDiscoveryRequest(frame);
+
+
 
   }
 }

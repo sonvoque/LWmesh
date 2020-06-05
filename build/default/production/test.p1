@@ -43,6 +43,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_inc/nwkDataReq.h: 67: {
 [s S2171 `*v 1 `*v 1 `uc 1 `us 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `*uc 1 `uc 1 `*F16292 1 `uc 1 `uc 1 ]
 [n S2171 NWK_DataReq_t next frame state dstAddr dstEndpoint srcEndpoint options memberRadius nonMemberRadius data size confirm status control ]
+"12 test.c
+[; ;test.c: 12:  if (NWK_SUCCESS_STATUS == req->status){
+[c E16301 0 1 2 16 17 32 33 .. ]
+[n E16301 . NWK_SUCCESS_STATUS NWK_ERROR_STATUS NWK_OUT_OF_MEMORY_STATUS NWK_NO_ACK_STATUS NWK_NO_ROUTE_STATUS NWK_PHY_CHANNEL_ACCESS_FAILURE_STATUS NWK_PHY_NO_ACK_STATUS  ]
+"68 nwk/nwk_inc/nwkRx.h
+[; ;nwk/nwk_inc/nwkRx.h: 68: {
+[s S2169 `us 1 `us 1 `uc 1 `uc 1 `uc 1 `*uc 1 `uc 1 `uc 1 `c 1 ]
+[n S2169 NWK_DataInd_t srcAddr dstAddr srcEndpoint dstEndpoint options data size lqi rssi ]
 "99 nwk/nwk_inc\nwk.h
 [; ;nwk/nwk_inc\nwk.h: 99: void NWK_SetAddr(uint16_t addr);
 [v _NWK_SetAddr `(v ~T0 @X0 0 ef1`us ]
@@ -55,14 +63,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "392
 [; ;phy/sx1216/phy_inc\phy.h: 392: void PHY_SetRxState(_Bool rx);
 [v _PHY_SetRxState `(v ~T0 @X0 0 ef1`a ]
-"16 test.c
-[; ;test.c: 16:  if (NWK_SUCCESS_STATUS == req->status){
-[c E16301 0 1 2 16 17 32 33 .. ]
-[n E16301 . NWK_SUCCESS_STATUS NWK_ERROR_STATUS NWK_OUT_OF_MEMORY_STATUS NWK_NO_ACK_STATUS NWK_NO_ROUTE_STATUS NWK_PHY_CHANNEL_ACCESS_FAILURE_STATUS NWK_PHY_NO_ACK_STATUS  ]
-"28
-[; ;test.c: 28:     nwkDataReq.options = NWK_OPT_ACK_REQUEST;
+[v F16327 `(a ~T0 @X0 0 tf1`*S2169 ]
+"101 nwk/nwk_inc\nwk.h
+[; ;nwk/nwk_inc\nwk.h: 101: void NWK_OpenEndpoint(uint8_t id, _Bool (*handler)(NWK_DataInd_t *ind));
+[v _NWK_OpenEndpoint `(v ~T0 @X0 0 ef2`uc`*F16327 ]
+"41 test.c
+[; ;test.c: 41:     nwkDataReq.options = NWK_OPT_ACK_REQUEST;
 [c E16273 1 2 4 8 16 .. ]
 [n E16273 . NWK_OPT_ACK_REQUEST NWK_OPT_ENABLE_SECURITY NWK_OPT_BROADCAST_PAN_ID NWK_OPT_LINK_LOCAL NWK_OPT_MULTICAST  ]
+[v F16356 `(v ~T0 @X0 0 tf1`*S2171 ]
 "92 nwk/nwk_inc/nwkDataReq.h
 [; ;nwk/nwk_inc/nwkDataReq.h: 92: void NWK_DataReq(NWK_DataReq_t *req);
 [v _NWK_DataReq `(v ~T0 @X0 0 ef1`*S2171 ]
@@ -2413,8 +2422,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_inc/nwkFrame.h: 137: }
 [e :UE 2168 ]
 }
-"4 test.c
-[; ;test.c: 4: static uint8_t message[] = "test";
+"5 test.c
+[; ;test.c: 5: static uint8_t message[] = "test";
 [v _message `uc ~T0 @X0 -> 5 `i s ]
 [i _message
 :U ..
@@ -2425,47 +2434,36 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-"5
-[; ;test.c: 5: static NWK_DataReq_t nwkDataReq;
+"6
+[; ;test.c: 6: static NWK_DataReq_t nwkDataReq;
 [v _nwkDataReq `S2171 ~T0 @X0 1 s ]
-"7
-[; ;test.c: 7: void test_init(){
-[v _test_init `(v ~T0 @X0 1 ef ]
-{
-[e :U _test_init ]
-[f ]
-"8
-[; ;test.c: 8:     NWK_SetAddr(0x8002);
-[e ( _NWK_SetAddr (1 -> -> 32770 `ui `us ]
-"9
-[; ;test.c: 9:     NWK_SetPanId(0x1234);
-[e ( _NWK_SetPanId (1 -> -> 4660 `i `us ]
 "10
-[; ;test.c: 10:     PHY_SetChannel(0x00);
-[e ( _PHY_SetChannel (1 -> -> 0 `i `uc ]
+[; ;test.c: 10: static _Bool appDataConf(NWK_DataReq_t *req)
+[v _appDataConf `(a ~T0 @X0 1 sf1`*S2171 ]
 "11
-[; ;test.c: 11:     PHY_SetRxState(1);
-[e ( _PHY_SetRxState (1 -> -> 1 `i `a ]
-"12
-[; ;test.c: 12: }
-[e :UE 2173 ]
-}
-"14
-[; ;test.c: 14: static void appDataConf(NWK_DataReq_t *req)
-[v _appDataConf `(v ~T0 @X0 1 sf1`*S2171 ]
-"15
-[; ;test.c: 15: {
+[; ;test.c: 11: {
 {
 [e :U _appDataConf ]
-"14
-[; ;test.c: 14: static void appDataConf(NWK_DataReq_t *req)
+"10
+[; ;test.c: 10: static _Bool appDataConf(NWK_DataReq_t *req)
 [v _req `*S2171 ~T0 @X0 1 r1 ]
-"15
-[; ;test.c: 15: {
+"11
+[; ;test.c: 11: {
 [f ]
+"12
+[; ;test.c: 12:  if (NWK_SUCCESS_STATUS == req->status){
+[e $ ! == -> . `E16301 0 `i -> . *U _req 12 `i 2174  ]
+{
+"13
+[; ;test.c: 13:      __asm("nop");
+[; <" nop ;# ">
+"14
+[; ;test.c: 14:  }
+}
+[e $U 2175  ]
 "16
-[; ;test.c: 16:  if (NWK_SUCCESS_STATUS == req->status){
-[e $ ! == -> . `E16301 0 `i -> . *U _req 12 `i 2175  ]
+[; ;test.c: 16:  else{
+[e :U 2174 ]
 {
 "17
 [; ;test.c: 17:      __asm("nop");
@@ -2473,48 +2471,92 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18
 [; ;test.c: 18:  }
 }
-[e $U 2176  ]
-"20
-[; ;test.c: 20:  else{}
 [e :U 2175 ]
-{
+"20
+[; ;test.c: 20:  return 1;
+[e ) -> -> 1 `i `a ]
+[e $UE 2173  ]
+"21
+[; ;test.c: 21: }
+[e :UE 2173 ]
 }
-[e :U 2176 ]
-"22
-[; ;test.c: 22: }
-[e :UE 2174 ]
-}
+"23
+[; ;test.c: 23: static _Bool appDataInd(NWK_DataInd_t *ind)
+[v _appDataInd `(a ~T0 @X0 1 sf1`*S2169 ]
 "24
-[; ;test.c: 24: void test_send(){
+[; ;test.c: 24: {
+{
+[e :U _appDataInd ]
+"23
+[; ;test.c: 23: static _Bool appDataInd(NWK_DataInd_t *ind)
+[v _ind `*S2169 ~T0 @X0 1 r1 ]
+"24
+[; ;test.c: 24: {
+[f ]
+"26
+[; ;test.c: 26:  return 1;
+[e ) -> -> 1 `i `a ]
+[e $UE 2176  ]
+"27
+[; ;test.c: 27: }
+[e :UE 2176 ]
+}
+"29
+[; ;test.c: 29: void test_init(){
+[v _test_init `(v ~T0 @X0 1 ef ]
+{
+[e :U _test_init ]
+[f ]
+"30
+[; ;test.c: 30:     NWK_SetAddr(0x8002);
+[e ( _NWK_SetAddr (1 -> -> 32770 `ui `us ]
+"31
+[; ;test.c: 31:     NWK_SetPanId(0x1234);
+[e ( _NWK_SetPanId (1 -> -> 4660 `i `us ]
+"32
+[; ;test.c: 32:     PHY_SetChannel(0x00);
+[e ( _PHY_SetChannel (1 -> -> 0 `i `uc ]
+"33
+[; ;test.c: 33:     PHY_SetRxState(1);
+[e ( _PHY_SetRxState (1 -> -> 1 `i `a ]
+"34
+[; ;test.c: 34:     NWK_OpenEndpoint(1, appDataInd);
+[e ( _NWK_OpenEndpoint (2 , -> -> 1 `i `uc &U _appDataInd ]
+"35
+[; ;test.c: 35: }
+[e :UE 2177 ]
+}
+"37
+[; ;test.c: 37: void test_send(){
 [v _test_send `(v ~T0 @X0 1 ef ]
 {
 [e :U _test_send ]
 [f ]
-"25
-[; ;test.c: 25:     nwkDataReq.dstAddr = 0x8001;
+"38
+[; ;test.c: 38:     nwkDataReq.dstAddr = 0x8001;
 [e = . _nwkDataReq 3 -> -> 32769 `ui `us ]
-"26
-[; ;test.c: 26:     nwkDataReq.dstEndpoint = 1;
+"39
+[; ;test.c: 39:     nwkDataReq.dstEndpoint = 1;
 [e = . _nwkDataReq 4 -> -> 1 `i `uc ]
-"27
-[; ;test.c: 27:     nwkDataReq.srcEndpoint = 5;
-[e = . _nwkDataReq 5 -> -> 5 `i `uc ]
-"28
-[; ;test.c: 28:     nwkDataReq.options = NWK_OPT_ACK_REQUEST;
+"40
+[; ;test.c: 40:     nwkDataReq.srcEndpoint = 1;
+[e = . _nwkDataReq 5 -> -> 1 `i `uc ]
+"41
+[; ;test.c: 41:     nwkDataReq.options = NWK_OPT_ACK_REQUEST;
 [e = . _nwkDataReq 6 -> . `E16273 0 `uc ]
-"29
-[; ;test.c: 29:     nwkDataReq.data = &message;
+"42
+[; ;test.c: 42:     nwkDataReq.data = &message;
 [e = . _nwkDataReq 9 -> &U _message `*uc ]
-"30
-[; ;test.c: 30:     nwkDataReq.size = sizeof(message);
+"43
+[; ;test.c: 43:     nwkDataReq.size = sizeof(message);
 [e = . _nwkDataReq 10 -> -> # _message `ui `uc ]
-"31
-[; ;test.c: 31:     nwkDataReq.confirm = &appDataConf;
-[e = . _nwkDataReq 11 &U _appDataConf ]
-"32
-[; ;test.c: 32:     NWK_DataReq(&nwkDataReq);
+"44
+[; ;test.c: 44:     nwkDataReq.confirm = &appDataConf;
+[e = . _nwkDataReq 11 -> &U _appDataConf `*F16356 ]
+"45
+[; ;test.c: 45:     NWK_DataReq(&nwkDataReq);
 [e ( _NWK_DataReq (1 &U _nwkDataReq ]
-"33
-[; ;test.c: 33: }
-[e :UE 2177 ]
+"46
+[; ;test.c: 46: }
+[e :UE 2178 ]
 }

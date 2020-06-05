@@ -26972,11 +26972,6 @@ __pack typedef struct NwkCommandRouteReply_t
 
 
 # 1 "nwk/nwk_inc\\nwkRouteDiscovery.h" 1
-# 59 "nwk/nwk_inc\\nwkRouteDiscovery.h"
-void nwkRouteDiscoveryInit(void);
-void nwkRouteDiscoveryRequest(NwkFrame_t *frame);
-_Bool nwkRouteDiscoveryReplyReceived(NWK_DataInd_t *ind);
-_Bool nwkRouteDiscoveryRequestReceived(NWK_DataInd_t *ind);
 # 62 "nwk/nwk_src/nwkRx.c" 2
 # 71 "nwk/nwk_src/nwkRx.c"
 enum
@@ -27169,16 +27164,7 @@ static _Bool nwkRxServiceDataInd(NWK_DataInd_t *ind)
 
     case NWK_COMMAND_ROUTE_ERROR:
       return nwkRouteErrorReceived(ind);
-
-
-
-    case NWK_COMMAND_ROUTE_REQUEST:
-      return nwkRouteDiscoveryRequestReceived(ind);
-
-    case NWK_COMMAND_ROUTE_REPLY:
-      return nwkRouteDiscoveryReplyReceived(ind);
-
-
+# 285 "nwk/nwk_src/nwkRx.c"
     default:
       return 0;
   }

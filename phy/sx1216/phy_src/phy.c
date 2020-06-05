@@ -812,6 +812,12 @@ static void radio_engine(void){
         case WAIT_FOR_TX:
             if((!get_timer0base(&txTimeOut)) || ((SX1276Read(REG_LR_IRQFLAGS) & RFLR_IRQFLAGS_TXDONE))){
                 radio_state_var = START_RX;
+                if(get_timer0base(&txTimeOut)){
+                    PHY_DataConf(PHY_STATUS_SUCCESS);
+                }
+                else{
+                    PHY_DataConf(PHY_STATUS_NO_ACK);
+                }
             }
             break;
         default:

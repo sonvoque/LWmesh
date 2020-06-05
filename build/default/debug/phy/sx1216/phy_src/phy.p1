@@ -90,6 +90,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 "44959
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44959: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x3FCB)));
 [v _PORTBbits `VS2034 ~T0 @X0 0 e@16331 ]
+"400 phy/sx1216/phy_inc\phy.h
+[; ;phy/sx1216/phy_inc\phy.h: 400: void PHY_DataConf(uint8_t status);
+[v _PHY_DataConf `(v ~T0 @X0 0 ef1`uc ]
+"816 phy/sx1216/phy_src/phy.c
+[; ;phy/sx1216/phy_src/phy.c: 816:                     PHY_DataConf(PHY_STATUS_SUCCESS);
+[c E16036 0 1 2 3 .. ]
+[n E16036 . PHY_STATUS_SUCCESS PHY_STATUS_CHANNEL_ACCESS_FAILURE PHY_STATUS_NO_ACK PHY_STATUS_ERROR  ]
 "250 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 250: __asm("STATUS_CSHAD equ 03880h");
 [; <" STATUS_CSHAD equ 03880h ;# ">
@@ -4014,20 +4021,42 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;phy/sx1216/phy_src/phy.c: 814:                 radio_state_var = START_RX;
 [e = _radio_state_var . `E16064 1 ]
 "815
-[; ;phy/sx1216/phy_src/phy.c: 815:             }
+[; ;phy/sx1216/phy_src/phy.c: 815:                 if(get_timer0base(&txTimeOut)){
+[e $ ! != -> ( _get_timer0base (1 -> &U _txTimeOut `*us `ui -> -> 0 `i `ui 2291  ]
+{
+"816
+[; ;phy/sx1216/phy_src/phy.c: 816:                     PHY_DataConf(PHY_STATUS_SUCCESS);
+[e ( _PHY_DataConf (1 -> . `E16036 0 `uc ]
+"817
+[; ;phy/sx1216/phy_src/phy.c: 817:                 }
+}
+[e $U 2292  ]
+"818
+[; ;phy/sx1216/phy_src/phy.c: 818:                 else{
+[e :U 2291 ]
+{
+"819
+[; ;phy/sx1216/phy_src/phy.c: 819:                     PHY_DataConf(PHY_STATUS_NO_ACK);
+[e ( _PHY_DataConf (1 -> . `E16036 2 `uc ]
+"820
+[; ;phy/sx1216/phy_src/phy.c: 820:                 }
+}
+[e :U 2292 ]
+"821
+[; ;phy/sx1216/phy_src/phy.c: 821:             }
 }
 [e :U 2290 ]
-"816
-[; ;phy/sx1216/phy_src/phy.c: 816:             break;
+"822
+[; ;phy/sx1216/phy_src/phy.c: 822:             break;
 [e $U 2274  ]
-"817
-[; ;phy/sx1216/phy_src/phy.c: 817:         default:
-[e :U 2291 ]
-"818
-[; ;phy/sx1216/phy_src/phy.c: 818:             radio_state_var = INIT_RADIO;
+"823
+[; ;phy/sx1216/phy_src/phy.c: 823:         default:
+[e :U 2293 ]
+"824
+[; ;phy/sx1216/phy_src/phy.c: 824:             radio_state_var = INIT_RADIO;
 [e = _radio_state_var . `E16064 0 ]
-"819
-[; ;phy/sx1216/phy_src/phy.c: 819:     }
+"825
+[; ;phy/sx1216/phy_src/phy.c: 825:     }
 }
 [e $U 2274  ]
 [e :U 2275 ]
@@ -4038,211 +4067,211 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> . `E16064 4 `ui 2282
  , $ -> . `E16064 6 `ui 2288
  , $ -> . `E16064 7 `ui 2289
- 2291 ]
+ 2293 ]
 [e :U 2274 ]
-"820
-[; ;phy/sx1216/phy_src/phy.c: 820: }
+"826
+[; ;phy/sx1216/phy_src/phy.c: 826: }
 [e :UE 2273 ]
 }
-"824
-[; ;phy/sx1216/phy_src/phy.c: 824: void PHY_Init(void){
+"830
+[; ;phy/sx1216/phy_src/phy.c: 830: void PHY_Init(void){
 [v _PHY_Init `(v ~T0 @X0 1 ef ]
 {
 [e :U _PHY_Init ]
 [f ]
-"825
-[; ;phy/sx1216/phy_src/phy.c: 825:     initRadio();
+"831
+[; ;phy/sx1216/phy_src/phy.c: 831:     initRadio();
 [e ( _initRadio ..  ]
-"826
-[; ;phy/sx1216/phy_src/phy.c: 826: }
-[e :UE 2292 ]
+"832
+[; ;phy/sx1216/phy_src/phy.c: 832: }
+[e :UE 2294 ]
 }
-"828
-[; ;phy/sx1216/phy_src/phy.c: 828: void PHY_SetRxState(_Bool rx){
+"834
+[; ;phy/sx1216/phy_src/phy.c: 834: void PHY_SetRxState(_Bool rx){
 [v _PHY_SetRxState `(v ~T0 @X0 1 ef1`a ]
 {
 [e :U _PHY_SetRxState ]
 [v _rx `a ~T0 @X0 1 r1 ]
 [f ]
-"829
-[; ;phy/sx1216/phy_src/phy.c: 829:     receive(0);
+"835
+[; ;phy/sx1216/phy_src/phy.c: 835:     receive(0);
 [e ( _receive (1 -> -> 0 `i `uc ]
-"830
-[; ;phy/sx1216/phy_src/phy.c: 830: }
-[e :UE 2293 ]
+"836
+[; ;phy/sx1216/phy_src/phy.c: 836: }
+[e :UE 2295 ]
 }
-"832
-[; ;phy/sx1216/phy_src/phy.c: 832: void PHY_SetChannel(uint8_t channel){
+"838
+[; ;phy/sx1216/phy_src/phy.c: 838: void PHY_SetChannel(uint8_t channel){
 [v _PHY_SetChannel `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _PHY_SetChannel ]
 [v _channel `uc ~T0 @X0 1 r1 ]
 [f ]
-"833
-[; ;phy/sx1216/phy_src/phy.c: 833:     setFrequency(fhssList[channel]);
+"839
+[; ;phy/sx1216/phy_src/phy.c: 839:     setFrequency(fhssList[channel]);
 [e ( _setFrequency (1 *U + &U _fhssList * -> _channel `ux -> -> # *U &U _fhssList `ui `ux ]
-"834
-[; ;phy/sx1216/phy_src/phy.c: 834: }
-[e :UE 2294 ]
+"840
+[; ;phy/sx1216/phy_src/phy.c: 840: }
+[e :UE 2296 ]
 }
-"836
-[; ;phy/sx1216/phy_src/phy.c: 836: void PHY_SetPanId(uint16_t panId){
+"842
+[; ;phy/sx1216/phy_src/phy.c: 842: void PHY_SetPanId(uint16_t panId){
 [v _PHY_SetPanId `(v ~T0 @X0 1 ef1`us ]
 {
 [e :U _PHY_SetPanId ]
 [v _panId `us ~T0 @X0 1 r1 ]
 [f ]
-"838
-[; ;phy/sx1216/phy_src/phy.c: 838: }
-[e :UE 2295 ]
+"844
+[; ;phy/sx1216/phy_src/phy.c: 844: }
+[e :UE 2297 ]
 }
-"840
-[; ;phy/sx1216/phy_src/phy.c: 840: void PHY_SetShortAddr(uint16_t addr){
+"846
+[; ;phy/sx1216/phy_src/phy.c: 846: void PHY_SetShortAddr(uint16_t addr){
 [v _PHY_SetShortAddr `(v ~T0 @X0 1 ef1`us ]
 {
 [e :U _PHY_SetShortAddr ]
 [v _addr `us ~T0 @X0 1 r1 ]
 [f ]
-"842
-[; ;phy/sx1216/phy_src/phy.c: 842: }
-[e :UE 2296 ]
+"848
+[; ;phy/sx1216/phy_src/phy.c: 848: }
+[e :UE 2298 ]
 }
-"844
-[; ;phy/sx1216/phy_src/phy.c: 844: void PHY_SetTxPower(uint8_t txPower){
+"850
+[; ;phy/sx1216/phy_src/phy.c: 850: void PHY_SetTxPower(uint8_t txPower){
 [v _PHY_SetTxPower `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _PHY_SetTxPower ]
 [v _txPower `uc ~T0 @X0 1 r1 ]
 [f ]
-"845
-[; ;phy/sx1216/phy_src/phy.c: 845:     setTxPower(txPower);
+"851
+[; ;phy/sx1216/phy_src/phy.c: 851:     setTxPower(txPower);
 [e ( _setTxPower (1 _txPower ]
-"846
-[; ;phy/sx1216/phy_src/phy.c: 846: }
-[e :UE 2297 ]
+"852
+[; ;phy/sx1216/phy_src/phy.c: 852: }
+[e :UE 2299 ]
 }
-"848
-[; ;phy/sx1216/phy_src/phy.c: 848: void PHY_Sleep(void){
+"854
+[; ;phy/sx1216/phy_src/phy.c: 854: void PHY_Sleep(void){
 [v _PHY_Sleep `(v ~T0 @X0 1 ef ]
 {
 [e :U _PHY_Sleep ]
 [f ]
-"850
-[; ;phy/sx1216/phy_src/phy.c: 850: }
-[e :UE 2298 ]
+"856
+[; ;phy/sx1216/phy_src/phy.c: 856: }
+[e :UE 2300 ]
 }
-"852
-[; ;phy/sx1216/phy_src/phy.c: 852: void PHY_Wakeup(void){
+"858
+[; ;phy/sx1216/phy_src/phy.c: 858: void PHY_Wakeup(void){
 [v _PHY_Wakeup `(v ~T0 @X0 1 ef ]
 {
 [e :U _PHY_Wakeup ]
 [f ]
-"854
-[; ;phy/sx1216/phy_src/phy.c: 854: }
-[e :UE 2299 ]
+"860
+[; ;phy/sx1216/phy_src/phy.c: 860: }
+[e :UE 2301 ]
 }
-"856
-[; ;phy/sx1216/phy_src/phy.c: 856: void PHY_DataReq(uint8_t *data, uint8_t size){
+"862
+[; ;phy/sx1216/phy_src/phy.c: 862: void PHY_DataReq(uint8_t *data, uint8_t size){
 [v _PHY_DataReq `(v ~T0 @X0 1 ef2`*uc`uc ]
 {
 [e :U _PHY_DataReq ]
 [v _data `*uc ~T0 @X0 1 r1 ]
 [v _size `uc ~T0 @X0 1 r2 ]
 [f ]
-"857
-[; ;phy/sx1216/phy_src/phy.c: 857:     idle();
+"863
+[; ;phy/sx1216/phy_src/phy.c: 863:     idle();
 [e ( _idle ..  ]
-"858
-[; ;phy/sx1216/phy_src/phy.c: 858:     explicitHeaderMode();
-[e ( _explicitHeaderMode ..  ]
-"860
-[; ;phy/sx1216/phy_src/phy.c: 860:     SX1276Write(0x0E, 0x0);
-[e ( _SX1276Write (2 , -> -> 14 `i `uc -> -> 0 `i `uc ]
-"861
-[; ;phy/sx1216/phy_src/phy.c: 861:     SX1276Write(0x0D, 0x00);
-[e ( _SX1276Write (2 , -> -> 13 `i `uc -> -> 0 `i `uc ]
-"862
-[; ;phy/sx1216/phy_src/phy.c: 862:     SX1276Write(0x22, size);
-[e ( _SX1276Write (2 , -> -> 34 `i `uc _size ]
 "864
-[; ;phy/sx1216/phy_src/phy.c: 864:     do { LATCbits.LATC6 = 0; } while(0);
-[e :U 2303 ]
+[; ;phy/sx1216/phy_src/phy.c: 864:     explicitHeaderMode();
+[e ( _explicitHeaderMode ..  ]
+"866
+[; ;phy/sx1216/phy_src/phy.c: 866:     SX1276Write(0x0E, 0x0);
+[e ( _SX1276Write (2 , -> -> 14 `i `uc -> -> 0 `i `uc ]
+"867
+[; ;phy/sx1216/phy_src/phy.c: 867:     SX1276Write(0x0D, 0x00);
+[e ( _SX1276Write (2 , -> -> 13 `i `uc -> -> 0 `i `uc ]
+"868
+[; ;phy/sx1216/phy_src/phy.c: 868:     SX1276Write(0x22, size);
+[e ( _SX1276Write (2 , -> -> 34 `i `uc _size ]
+"870
+[; ;phy/sx1216/phy_src/phy.c: 870:     do { LATCbits.LATC6 = 0; } while(0);
+[e :U 2305 ]
 {
 [e = . . _LATCbits 0 6 -> -> 0 `i `uc ]
 }
-[e :U 2302 ]
-"865
-[; ;phy/sx1216/phy_src/phy.c: 865:     SPI1_ExchangeByte(0x00 | 0x80);
+[e :U 2304 ]
+"871
+[; ;phy/sx1216/phy_src/phy.c: 871:     SPI1_ExchangeByte(0x00 | 0x80);
 [e ( _SPI1_ExchangeByte (1 -> | -> 0 `i -> 128 `i `uc ]
-"866
-[; ;phy/sx1216/phy_src/phy.c: 866:     SPI1_WriteBlock(data,size);
+"872
+[; ;phy/sx1216/phy_src/phy.c: 872:     SPI1_WriteBlock(data,size);
 [e ( _SPI1_WriteBlock (2 , -> _data `*v -> _size `ui ]
-"867
-[; ;phy/sx1216/phy_src/phy.c: 867:     do { LATCbits.LATC6 = 1; } while(0);
-[e :U 2306 ]
+"873
+[; ;phy/sx1216/phy_src/phy.c: 873:     do { LATCbits.LATC6 = 1; } while(0);
+[e :U 2308 ]
 {
 [e = . . _LATCbits 0 6 -> -> 1 `i `uc ]
 }
-[e :U 2305 ]
-"868
-[; ;phy/sx1216/phy_src/phy.c: 868:     SX1276Write(0x01,
+[e :U 2307 ]
+"874
+[; ;phy/sx1216/phy_src/phy.c: 874:     SX1276Write(0x01,
 [e ( _SX1276Write (2 , -> -> 1 `i `uc -> | -> 128 `i -> 3 `i `uc ]
-"870
-[; ;phy/sx1216/phy_src/phy.c: 870:     radio_state_var = START_TX;
+"876
+[; ;phy/sx1216/phy_src/phy.c: 876:     radio_state_var = START_TX;
 [e = _radio_state_var . `E16064 6 ]
-"871
-[; ;phy/sx1216/phy_src/phy.c: 871: }
-[e :UE 2300 ]
+"877
+[; ;phy/sx1216/phy_src/phy.c: 877: }
+[e :UE 2302 ]
 }
-"873
-[; ;phy/sx1216/phy_src/phy.c: 873: void PHY_TaskHandler(void){
+"879
+[; ;phy/sx1216/phy_src/phy.c: 879: void PHY_TaskHandler(void){
 [v _PHY_TaskHandler `(v ~T0 @X0 1 ef ]
 {
 [e :U _PHY_TaskHandler ]
 [f ]
-"874
-[; ;phy/sx1216/phy_src/phy.c: 874:     radio_engine();
+"880
+[; ;phy/sx1216/phy_src/phy.c: 880:     radio_engine();
 [e ( _radio_engine ..  ]
-"875
-[; ;phy/sx1216/phy_src/phy.c: 875: }
-[e :UE 2307 ]
+"881
+[; ;phy/sx1216/phy_src/phy.c: 881: }
+[e :UE 2309 ]
 }
-"877
-[; ;phy/sx1216/phy_src/phy.c: 877: void readAllReg(void)
+"883
+[; ;phy/sx1216/phy_src/phy.c: 883: void readAllReg(void)
 [v _readAllReg `(v ~T0 @X0 1 ef ]
-"878
-[; ;phy/sx1216/phy_src/phy.c: 878: {
+"884
+[; ;phy/sx1216/phy_src/phy.c: 884: {
 {
 [e :U _readAllReg ]
 [f ]
-"879
-[; ;phy/sx1216/phy_src/phy.c: 879:     uint8_t data[128],index;
+"885
+[; ;phy/sx1216/phy_src/phy.c: 885:     uint8_t data[128],index;
 [v _data `uc ~T0 @X0 -> 128 `i a ]
 [v _index `uc ~T0 @X0 1 a ]
-"880
-[; ;phy/sx1216/phy_src/phy.c: 880:     for(index = 0;index < 128; index++)
+"886
+[; ;phy/sx1216/phy_src/phy.c: 886:     for(index = 0;index < 128; index++)
 {
 [e = _index -> -> 0 `i `uc ]
-[e $ < -> _index `i -> 128 `i 2309  ]
-[e $U 2310  ]
-[e :U 2309 ]
-"881
-[; ;phy/sx1216/phy_src/phy.c: 881:     {
+[e $ < -> _index `i -> 128 `i 2311  ]
+[e $U 2312  ]
+[e :U 2311 ]
+"887
+[; ;phy/sx1216/phy_src/phy.c: 887:     {
 {
-"882
-[; ;phy/sx1216/phy_src/phy.c: 882:         data[index] = SX1276Read(index);
+"888
+[; ;phy/sx1216/phy_src/phy.c: 888:         data[index] = SX1276Read(index);
 [e = *U + &U _data * -> _index `ux -> -> # *U &U _data `ui `ux ( _SX1276Read (1 _index ]
-"883
-[; ;phy/sx1216/phy_src/phy.c: 883:     }
+"889
+[; ;phy/sx1216/phy_src/phy.c: 889:     }
 }
 [e ++ _index -> -> 1 `i `uc ]
-[e $ < -> _index `i -> 128 `i 2309  ]
-[e :U 2310 ]
+[e $ < -> _index `i -> 128 `i 2311  ]
+[e :U 2312 ]
 }
-"884
-[; ;phy/sx1216/phy_src/phy.c: 884:     __asm("nop");
+"890
+[; ;phy/sx1216/phy_src/phy.c: 890:     __asm("nop");
 [; <" nop ;# ">
-"885
-[; ;phy/sx1216/phy_src/phy.c: 885: }
-[e :UE 2308 ]
+"891
+[; ;phy/sx1216/phy_src/phy.c: 891: }
+[e :UE 2310 ]
 }

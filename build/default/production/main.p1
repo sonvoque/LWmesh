@@ -70,6 +70,21 @@ Version 4.0 HI-TECH Software Intermediate Code
 "16 ./test.h
 [; ;./test.h: 16:     void test_init();
 [v _test_init `(v ~T0 @X0 0 e? ]
+"44338 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44338:     struct {
+[s S2017 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2017 . LATA0 LATA1 LATA2 LATA3 LATA4 LATA5 LATA6 LATA7 ]
+"44348
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44348:     struct {
+[s S2018 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2018 . LA0 LA1 LA2 LA3 LA4 LA5 LA6 LA7 ]
+"44337
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44337: typedef union {
+[u S2016 `S2017 1 `S2018 1 ]
+[n S2016 . . . ]
+"44359
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44359: extern volatile LATAbits_t LATAbits __attribute__((address(0x3FBA)));
+[v _LATAbits `VS2016 ~T0 @X0 0 e@16314 ]
 "57 sys/sys_inc\sys.h
 [; ;sys/sys_inc\sys.h: 57: void SYS_TaskHandler(void);
 [v _SYS_TaskHandler `(v ~T0 @X0 0 ef ]
@@ -2463,35 +2478,42 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 73:     test_init();
 [e ( _test_init ..  ]
 "74
-[; ;main.c: 74:     while (1)
+[; ;main.c: 74:     do { LATAbits.LATA3 = 0; } while(0);
+[e :U 2176 ]
+{
+[e = . . _LATAbits 0 3 -> -> 0 `i `uc ]
+}
 [e :U 2175 ]
 "75
-[; ;main.c: 75:     {
-{
+[; ;main.c: 75:     while (1)
+[e :U 2178 ]
 "76
-[; ;main.c: 76:         SYS_TaskHandler();
-[e ( _SYS_TaskHandler ..  ]
-"77
-[; ;main.c: 77:         if(!test_timer){
-[e $ ! ! != -> _test_timer `ui -> -> 0 `i `ui 2177  ]
+[; ;main.c: 76:     {
 {
+"77
+[; ;main.c: 77:         SYS_TaskHandler();
+[e ( _SYS_TaskHandler ..  ]
 "78
-[; ;main.c: 78:             test_timer = 5000;
-[e = _test_timer -> -> 5000 `i `us ]
+[; ;main.c: 78:         if(!test_timer){
+[e $ ! ! != -> _test_timer `ui -> -> 0 `i `ui 2180  ]
+{
 "79
-[; ;main.c: 79:             test_send();
-[e ( _test_send ..  ]
+[; ;main.c: 79:             test_timer = 5000;
+[e = _test_timer -> -> 5000 `i `us ]
 "80
-[; ;main.c: 80:         }
+[; ;main.c: 80:             test_send();
+[e ( _test_send ..  ]
+"81
+[; ;main.c: 81:         }
+}
+[e :U 2180 ]
+"82
+[; ;main.c: 82:     }
 }
 [e :U 2177 ]
-"81
-[; ;main.c: 81:     }
-}
-[e :U 2174 ]
-[e $U 2175  ]
-[e :U 2176 ]
-"82
-[; ;main.c: 82: }
+[e $U 2178  ]
+[e :U 2179 ]
+"83
+[; ;main.c: 83: }
 [e :UE 2173 ]
 }

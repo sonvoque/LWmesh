@@ -26935,6 +26935,7 @@ void main(void)
     TMR0_SetInterruptHandler(Timer0Handler);
     SYS_Init();
     test_init();
+    do { LATAbits.LATA3 = 0; } while(0);
     while (1)
     {
         SYS_TaskHandler();
