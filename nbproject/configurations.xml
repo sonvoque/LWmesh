@@ -4,6 +4,14 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="app_inc" displayName="app_inc" projectFiles="true">
+        <itemPath>app/app_inc/application.h</itemPath>
+        <itemPath>app/app_inc/circular buffer.h</itemPath>
+        <itemPath>app/app_inc/crc.h</itemPath>
+        <itemPath>app/app_inc/EEPROM.h</itemPath>
+        <itemPath>app/app_inc/led.h</itemPath>
+        <itemPath>app/app_inc/Timers.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="hal_inc" displayName="hal_inc" projectFiles="true">
         <itemPath>hal/hal_inc/Timers.h</itemPath>
       </logicalFolder>
@@ -52,6 +60,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="app_src" displayName="app_src" projectFiles="true">
+        <itemPath>app/app_src/application.c</itemPath>
+        <itemPath>app/app_src/circular buffer.c</itemPath>
+        <itemPath>app/app_src/crc.c</itemPath>
+        <itemPath>app/app_src/EEPROM.c</itemPath>
+        <itemPath>app/app_src/led.c</itemPath>
+        <itemPath>app/app_src/Timers.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="hal_src" displayName="hal_src" projectFiles="true">
         <itemPath>hal/hal_src/Timers.c</itemPath>
       </logicalFolder>
@@ -145,10 +161,10 @@
         <property key="asmlist" value="true"/>
         <property key="default-bitfield-type" value="true"/>
         <property key="default-char-type" value="true"/>
-        <property key="define-macros" value=""/>
+        <property key="define-macros" value="ATCOMM"/>
         <property key="disable-optimizations" value="true"/>
         <property key="extra-include-directories"
-                  value="sys\sys_inc;phy\sx1216\phy_inc;nwk\nwk_inc;mcc_generated_files;hal\hal_inc"/>
+                  value="sys\sys_inc;phy\sx1216\phy_inc;nwk\nwk_inc;mcc_generated_files;hal\hal_inc;app\app_inc"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
         <property key="garbage-collect-functions" value="true"/>
@@ -228,7 +244,6 @@
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

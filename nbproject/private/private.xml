@@ -21,6 +21,12 @@
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwk.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRouteDiscovery.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRx.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_inc/application.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/application.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/crc.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/Timers.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_inc/led.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_inc/Timers.h</file>
         </group>
     </open-files>
 </project-private>

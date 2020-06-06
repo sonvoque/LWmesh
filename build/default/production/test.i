@@ -26923,7 +26923,7 @@ static _Bool appDataInd(NWK_DataInd_t *ind)
 }
 
 void test_init(){
-    NWK_SetAddr(0x8002);
+    NWK_SetAddr(0x8001);
     NWK_SetPanId(0x1234);
     PHY_SetChannel(0x00);
     PHY_SetRxState(1);
@@ -26931,7 +26931,7 @@ void test_init(){
 }
 
 void test_send(){
-    nwkDataReq.dstAddr = 0x8001;
+    nwkDataReq.dstAddr = 0x8002;
     nwkDataReq.dstEndpoint = 1;
     nwkDataReq.srcEndpoint = 1;
     nwkDataReq.options = NWK_OPT_ACK_REQUEST;

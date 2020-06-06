@@ -2508,8 +2508,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _test_init ]
 [f ]
 "30
-[; ;test.c: 30:     NWK_SetAddr(0x8002);
-[e ( _NWK_SetAddr (1 -> -> 32770 `ui `us ]
+[; ;test.c: 30:     NWK_SetAddr(0x8001);
+[e ( _NWK_SetAddr (1 -> -> 32769 `ui `us ]
 "31
 [; ;test.c: 31:     NWK_SetPanId(0x1234);
 [e ( _NWK_SetPanId (1 -> -> 4660 `i `us ]
@@ -2533,8 +2533,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _test_send ]
 [f ]
 "38
-[; ;test.c: 38:     nwkDataReq.dstAddr = 0x8001;
-[e = . _nwkDataReq 3 -> -> 32769 `ui `us ]
+[; ;test.c: 38:     nwkDataReq.dstAddr = 0x8002;
+[e = . _nwkDataReq 3 -> -> 32770 `ui `us ]
 "39
 [; ;test.c: 39:     nwkDataReq.dstEndpoint = 1;
 [e = . _nwkDataReq 4 -> -> 1 `i `uc ]
