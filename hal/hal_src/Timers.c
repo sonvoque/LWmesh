@@ -1,5 +1,5 @@
 //Handlers for all the timer ISRs
-#include "../hal_inc/Timers.h"
+#include "Timers.h"
 #include "phy.h"
 #include "application.h"
 #include "led.h"
