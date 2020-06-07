@@ -1,6 +1,6 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F15828 `(v ~T0 @X0 0 tf ]
 [v F15830 `(v ~T0 @X0 0 tf ]
+[v F15832 `(v ~T0 @X0 0 tf ]
 "45140 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 45140:     struct {
 [s S2046 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -2203,10 +2203,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 mcc_generated_files/uart1.h
 [; ;mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F15828 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F15830 ~T0 @X0 1 e ]
 "536
 [; ;mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F15830 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F15832 ~T0 @X0 1 e ]
 "52 mcc_generated_files/interrupt_manager.c
 [; ;mcc_generated_files/interrupt_manager.c: 52: void INTERRUPT_Initialize (void)
 [v _INTERRUPT_Initialize `(v ~T0 @X0 1 ef ]

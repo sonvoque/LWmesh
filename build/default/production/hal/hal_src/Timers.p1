@@ -1,10 +1,30 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F15828 `(v ~T0 @X0 0 tf ]
 [v F15830 `(v ~T0 @X0 0 tf ]
+[v F15832 `(v ~T0 @X0 0 tf ]
 "134 phy/sx1216/phy_inc\phy.h
 [; ;phy/sx1216/phy_inc\phy.h: 134: }radio_state_var = INIT_RADIO;
-[c E16075 0 1 2 3 4 5 6 7 8 .. ]
-[n E16075 radio_state_enum INIT_RADIO START_RX WAIT_FOR_RX RX_MESSAGE START_CAD WAIT_FOR_CAD START_TX WAIT_FOR_TX RESET_RADIO_ENGINE  ]
+[c E16077 0 1 2 3 4 5 6 7 8 .. ]
+[n E16077 radio_state_enum INIT_RADIO START_RX WAIT_FOR_RX RX_MESSAGE START_CAD WAIT_FOR_CAD START_TX WAIT_FOR_TX RESET_RADIO_ENGINE  ]
+"97 app/app_inc/EEPROM.h
+[; ;app/app_inc/EEPROM.h: 97: }eeprom_write_flags_enum;
+[c E16150 0 1 2 3 4 5 6 7 8 9 10 11 12 .. ]
+[n E16150 . EEPROM_BOOTLOADER EEPROM_SERIAL EEPROM_APPKEY EEPROM_NETKEY EEPROM_NETID EEPROM_SINK EEPROM_RADIO_CH EEPROM_TX_POWER EEPROM_RSSI EEPROM_UART_PARITY EEPROM_UART_BAUD EEPROM_SF EEPROM_MBADDR  ]
+"99
+[; ;app/app_inc/EEPROM.h: 99: struct eeprom_write_flags_type{
+[s S2159 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 ]
+[n S2159 eeprom_write_flags_type flag_master flag_bootload flag_serial flag_appkey flag_netkey flag_netid flag_sink flag_radio_ch flag_tx_power flag_rssi flag_uart_parity flag_uart_baud flag_sf flag_mbaddr resv ]
+"49 app/app_inc\application.h
+[; ;app/app_inc\application.h: 49: enum UART_BAUD_ENUM uart_baud_rate;
+[c E16215 0 1 2 3 4 5 .. ]
+[n E16215 UART_BAUD_ENUM UART_BAUD_9600 UART_BAUD_19200 UART_BAUD_38400 UART_BAUD_57600 UART_BAUD_115200 UART_BAUD_SENTINAL  ]
+"50
+[; ;app/app_inc\application.h: 50: enum UART_PARITY_ENUM uart_parity;
+[c E16209 0 1 2 3 4 .. ]
+[n E16209 UART_PARITY_ENUM UART_8BIT_NO_PARITY UART_7BIT_MODE UART_9BIT_ODD_PARITY UART_9BIT_EVEN_PARITY UART_PARITY_SENTINAL  ]
+"107
+[; ;app/app_inc\application.h: 107: }atStateVar = initMessage;
+[c E16248 0 1 2 3 4 5 6 .. ]
+[n E16248 atState initMessage lookingForA lookingForT readingCommand endingCommand processCommand resetATMachine  ]
 "3644 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 3644:     struct {
 [s S164 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -2168,10 +2188,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 mcc_generated_files/uart1.h
 [; ;mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F15828 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F15830 ~T0 @X0 1 e ]
 "536
 [; ;mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F15830 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F15832 ~T0 @X0 1 e ]
 "22 hal/hal_inc\Timers.h
 [; ;hal/hal_inc\Timers.h: 22:     volatile uint16_t halTimerIrqCount = 0;
 [v _halTimerIrqCount `Vus ~T0 @X0 1 e ]
@@ -2307,10 +2327,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> .912.75e6 `ul
 ..
 ]
-[v F16068 `uc ~T0 @X0 -> 3 `i t ]
+[v F16070 `uc ~T0 @X0 -> 3 `i t ]
 "104
 [; ;phy/sx1216/phy_inc\phy.h: 104: uint8_t fhssReg[sizeof(fhssList)/4][3];
-[v _fhssReg `F16068 ~T0 @X0 -> 63 `i e ]
+[v _fhssReg `F16070 ~T0 @X0 -> 63 `i e ]
 "106
 [; ;phy/sx1216/phy_inc\phy.h: 106: uint8_t syncList[] = {0x12,0x23,0x45,0x56,0x67,0x78,0x89,0x9A,0xAB,0xBC};
 [v _syncList `uc ~T0 @X0 -> 10 `i e ]
@@ -2351,92 +2371,265 @@ Version 4.0 HI-TECH Software Intermediate Code
 ]
 "134
 [; ;phy/sx1216/phy_inc\phy.h: 134: }radio_state_var = INIT_RADIO;
-[v _radio_state_var `E16075 ~T0 @X0 1 e ]
+[v _radio_state_var `E16077 ~T0 @X0 1 e ]
 [i _radio_state_var
-. `E16075 0
+. `E16077 0
 ]
-"5 hal/hal_src/Timers.c
-[; ;hal/hal_src/Timers.c: 5: void Timer0Handler(void){
+"97 app/app_inc/EEPROM.h
+[; ;app/app_inc/EEPROM.h: 97: }eeprom_write_flags_enum;
+[v _eeprom_write_flags_enum `E16150 ~T0 @X0 1 e ]
+"115
+[; ;app/app_inc/EEPROM.h: 115: }eeprom_write_flags;
+[v _eeprom_write_flags `S2159 ~T0 @X0 1 e ]
+"48 app/app_inc\application.h
+[; ;app/app_inc\application.h: 48: uint24_t current_baud_rate;
+[v _current_baud_rate `um ~T0 @X0 1 e ]
+"49
+[; ;app/app_inc\application.h: 49: enum UART_BAUD_ENUM uart_baud_rate;
+[v _uart_baud_rate `E16215 ~T0 @X0 1 e ]
+"50
+[; ;app/app_inc\application.h: 50: enum UART_PARITY_ENUM uart_parity;
+[v _uart_parity `E16209 ~T0 @X0 1 e ]
+"51
+[; ;app/app_inc\application.h: 51: uint8_t curent_parity;
+[v _curent_parity `uc ~T0 @X0 1 e ]
+"60
+[; ;app/app_inc\application.h: 60: uint8_t currentAddr0 = 0x12,currentAddr1 = 0x34,currentNetID = 0x55,
+[v _currentAddr0 `uc ~T0 @X0 1 e ]
+[i _currentAddr0
+-> -> 18 `i `uc
+]
+[v _currentAddr1 `uc ~T0 @X0 1 e ]
+[i _currentAddr1
+-> -> 52 `i `uc
+]
+[v _currentNetID `uc ~T0 @X0 1 e ]
+[i _currentNetID
+-> -> 85 `i `uc
+]
+"61
+[; ;app/app_inc\application.h: 61:         currentMsgID = 0;
+[v _currentMsgID `uc ~T0 @X0 1 e ]
+[i _currentMsgID
+-> -> 0 `i `uc
+]
+"62
+[; ;app/app_inc\application.h: 62: uint8_t sinkAddr0 = 0x00,sinkAddr1 = 0x00;
+[v _sinkAddr0 `uc ~T0 @X0 1 e ]
+[i _sinkAddr0
+-> -> 0 `i `uc
+]
+[v _sinkAddr1 `uc ~T0 @X0 1 e ]
+[i _sinkAddr1
+-> -> 0 `i `uc
+]
+"64
+[; ;app/app_inc\application.h: 64: uint8_t EUIDbyte[12];
+[v _EUIDbyte `uc ~T0 @X0 -> 12 `i e ]
+"66
+[; ;app/app_inc\application.h: 66: uint8_t currentMode = 0;
+[v _currentMode `uc ~T0 @X0 1 e ]
+[i _currentMode
+-> -> 0 `i `uc
+]
+"67
+[; ;app/app_inc\application.h: 67: uint8_t msgIDCounter = 0;
+[v _msgIDCounter `uc ~T0 @X0 1 e ]
+[i _msgIDCounter
+-> -> 0 `i `uc
+]
+"70
+[; ;app/app_inc\application.h: 70: uint8_t aes_key[16];
+[v _aes_key `uc ~T0 @X0 -> 16 `i e ]
+"71
+[; ;app/app_inc\application.h: 71: uint8_t net_key[16];
+[v _net_key `uc ~T0 @X0 -> 16 `i e ]
+"73
+[; ;app/app_inc\application.h: 73: char atCommand[80];
+[v _atCommand `uc ~T0 @X0 -> 80 `i e ]
+"74
+[; ;app/app_inc\application.h: 74: char uartmsg[6];
+[v _uartmsg `uc ~T0 @X0 -> 6 `i e ]
+"75
+[; ;app/app_inc\application.h: 75: volatile _Bool tx_done = 0;
+[v _tx_done `Va ~T0 @X0 1 e ]
+[i _tx_done
+-> -> 0 `i `a
+]
+"77
+[; ;app/app_inc\application.h: 77: uint8_t commandByteCounter = 0;
+[v _commandByteCounter `uc ~T0 @X0 1 e ]
+[i _commandByteCounter
+-> -> 0 `i `uc
+]
+"78
+[; ;app/app_inc\application.h: 78: volatile uint16_t ATTimeoutTimer = 1000;
+[v _ATTimeoutTimer `Vus ~T0 @X0 1 e ]
+[i _ATTimeoutTimer
+-> -> 1000 `i `us
+]
+"88
+[; ;app/app_inc\application.h: 88: const uint8_t ATVersionMajor = 1;
+[v _ATVersionMajor `Cuc ~T0 @X0 1 e ]
+[i _ATVersionMajor
+-> -> 1 `i `uc
+]
+"89
+[; ;app/app_inc\application.h: 89: const uint8_t ATVersionMinor = 0;
+[v _ATVersionMinor `Cuc ~T0 @X0 1 e ]
+[i _ATVersionMinor
+-> -> 0 `i `uc
+]
+"91
+[; ;app/app_inc\application.h: 91: const uint8_t FirmwareVersionMajor = 2;
+[v _FirmwareVersionMajor `Cuc ~T0 @X0 1 e ]
+[i _FirmwareVersionMajor
+-> -> 2 `i `uc
+]
+"96
+[; ;app/app_inc\application.h: 96: const uint8_t FirmwareVersionMinor = 1;
+[v _FirmwareVersionMinor `Cuc ~T0 @X0 1 e ]
+[i _FirmwareVersionMinor
+-> -> 1 `i `uc
+]
+"107
+[; ;app/app_inc\application.h: 107: }atStateVar = initMessage;
+[v _atStateVar `E16248 ~T0 @X0 1 e ]
+[i _atStateVar
+. `E16248 0
+]
+"16 app/app_inc\led.h
+[; ;app/app_inc\led.h: 16:     volatile uint16_t ledtimer = 0;
+[v _ledtimer `Vus ~T0 @X0 1 e ]
+[i _ledtimer
+-> -> 0 `i `us
+]
+"7 hal/hal_src/Timers.c
+[; ;hal/hal_src/Timers.c: 7: void Timer0Handler(void){
 [v _Timer0Handler `(v ~T0 @X0 1 ef ]
 {
 [e :U _Timer0Handler ]
 [f ]
-"7
-[; ;hal/hal_src/Timers.c: 7:     if(txTimeOut){
-[e $ ! != -> _txTimeOut `ui -> -> 0 `i `ui 2160  ]
-{
-"8
-[; ;hal/hal_src/Timers.c: 8:         txTimeOut--;
-[e -- _txTimeOut -> -> 1 `i `Vus ]
 "9
-[; ;hal/hal_src/Timers.c: 9:     }
-}
-[e :U 2160 ]
-"10
-[; ;hal/hal_src/Timers.c: 10:     if(test_timer){
-[e $ ! != -> _test_timer `ui -> -> 0 `i `ui 2161  ]
+[; ;hal/hal_src/Timers.c: 9:     if(txTimeOut){
+[e $ ! != -> _txTimeOut `ui -> -> 0 `i `ui 2161  ]
 {
+"10
+[; ;hal/hal_src/Timers.c: 10:         txTimeOut--;
+[e -- _txTimeOut -> -> 1 `i `Vus ]
 "11
-[; ;hal/hal_src/Timers.c: 11:         test_timer--;
-[e -- _test_timer -> -> 1 `i `Vus ]
-"12
-[; ;hal/hal_src/Timers.c: 12:     }
+[; ;hal/hal_src/Timers.c: 11:     }
 }
 [e :U 2161 ]
-"21
-[; ;hal/hal_src/Timers.c: 21:     halTimerIrqCount++;
-[e ++ _halTimerIrqCount -> -> 1 `i `Vus ]
-"22
-[; ;hal/hal_src/Timers.c: 22: }
-[e :UE 2159 ]
+"12
+[; ;hal/hal_src/Timers.c: 12:     if(test_timer){
+[e $ ! != -> _test_timer `ui -> -> 0 `i `ui 2162  ]
+{
+"13
+[; ;hal/hal_src/Timers.c: 13:         test_timer--;
+[e -- _test_timer -> -> 1 `i `Vus ]
+"14
+[; ;hal/hal_src/Timers.c: 14:     }
 }
-[v F16150 `(us ~T0 @X0 1 tf1`*us ]
+[e :U 2162 ]
+"15
+[; ;hal/hal_src/Timers.c: 15:     if(ATTimeoutTimer){
+[e $ ! != -> _ATTimeoutTimer `ui -> -> 0 `i `ui 2163  ]
+{
+"16
+[; ;hal/hal_src/Timers.c: 16:         ATTimeoutTimer--;
+[e -- _ATTimeoutTimer -> -> 1 `i `Vus ]
+"17
+[; ;hal/hal_src/Timers.c: 17:     }
+}
+[e :U 2163 ]
+"18
+[; ;hal/hal_src/Timers.c: 18:     if(cadTimeOut){
+[e $ ! != -> _cadTimeOut `ui -> -> 0 `i `ui 2164  ]
+{
+"19
+[; ;hal/hal_src/Timers.c: 19:         cadTimeOut--;
+[e -- _cadTimeOut -> -> 1 `i `Vus ]
+"20
+[; ;hal/hal_src/Timers.c: 20:     }
+}
+[e :U 2164 ]
+"21
+[; ;hal/hal_src/Timers.c: 21:     if(_cadBackoffTimer){
+[e $ ! != -> __cadBackoffTimer `ui -> -> 0 `i `ui 2165  ]
+{
+"22
+[; ;hal/hal_src/Timers.c: 22:         _cadBackoffTimer--;
+[e -- __cadBackoffTimer -> -> 1 `i `Vus ]
+"23
+[; ;hal/hal_src/Timers.c: 23:     }
+}
+[e :U 2165 ]
 "24
-[; ;hal/hal_src/Timers.c: 24: __attribute__((inline)) uint16_t get_timer0base(uint16_t* timer){
-[v _get_timer0base `TF16150 ~T0 @X0 1 e ]
+[; ;hal/hal_src/Timers.c: 24:     if(ledtimer){
+[e $ ! != -> _ledtimer `ui -> -> 0 `i `ui 2166  ]
+{
+"25
+[; ;hal/hal_src/Timers.c: 25:         ledtimer--;
+[e -- _ledtimer -> -> 1 `i `Vus ]
+"26
+[; ;hal/hal_src/Timers.c: 26:     }
+}
+[e :U 2166 ]
+"27
+[; ;hal/hal_src/Timers.c: 27:     halTimerIrqCount++;
+[e ++ _halTimerIrqCount -> -> 1 `i `Vus ]
+"28
+[; ;hal/hal_src/Timers.c: 28: }
+[e :UE 2160 ]
+}
+[v F16277 `(us ~T0 @X0 1 tf1`*us ]
+"30
+[; ;hal/hal_src/Timers.c: 30: __attribute__((inline)) uint16_t get_timer0base(uint16_t* timer){
+[v _get_timer0base `TF16277 ~T0 @X0 1 e ]
 {
 [e :U _get_timer0base ]
 [v _timer `*us ~T0 @X0 1 r1 ]
 [f ]
-"25
-[; ;hal/hal_src/Timers.c: 25:     uint16_t tval;
+"31
+[; ;hal/hal_src/Timers.c: 31:     uint16_t tval;
 [v _tval `us ~T0 @X0 1 a ]
-"26
-[; ;hal/hal_src/Timers.c: 26:     PIE3bits.TMR0IE = 0;;
-[e = . . _PIE3bits 0 7 -> -> 0 `i `uc ]
-"27
-[; ;hal/hal_src/Timers.c: 27:     tval = *timer;
-[e = _tval *U _timer ]
-"28
-[; ;hal/hal_src/Timers.c: 28:     PIE3bits.TMR0IE = 1;;
-[e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
-"29
-[; ;hal/hal_src/Timers.c: 29:     return tval;
-[e ) _tval ]
-[e $UE 2162  ]
-"30
-[; ;hal/hal_src/Timers.c: 30: }
-[e :UE 2162 ]
-}
-[v F16154 `(v ~T0 @X0 1 tf2`*us`us ]
 "32
-[; ;hal/hal_src/Timers.c: 32: __attribute__((inline)) void set_timer0base(uint16_t* timer, uint16_t tval){
-[v _set_timer0base `TF16154 ~T0 @X0 1 e ]
+[; ;hal/hal_src/Timers.c: 32:     PIE3bits.TMR0IE = 0;;
+[e = . . _PIE3bits 0 7 -> -> 0 `i `uc ]
+"33
+[; ;hal/hal_src/Timers.c: 33:     tval = *timer;
+[e = _tval *U _timer ]
+"34
+[; ;hal/hal_src/Timers.c: 34:     PIE3bits.TMR0IE = 1;;
+[e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
+"35
+[; ;hal/hal_src/Timers.c: 35:     return tval;
+[e ) _tval ]
+[e $UE 2167  ]
+"36
+[; ;hal/hal_src/Timers.c: 36: }
+[e :UE 2167 ]
+}
+[v F16281 `(v ~T0 @X0 1 tf2`*us`us ]
+"38
+[; ;hal/hal_src/Timers.c: 38: __attribute__((inline)) void set_timer0base(uint16_t* timer, uint16_t tval){
+[v _set_timer0base `TF16281 ~T0 @X0 1 e ]
 {
 [e :U _set_timer0base ]
 [v _timer `*us ~T0 @X0 1 r1 ]
 [v _tval `us ~T0 @X0 1 r2 ]
 [f ]
-"33
-[; ;hal/hal_src/Timers.c: 33:     PIE3bits.TMR0IE = 0;;
+"39
+[; ;hal/hal_src/Timers.c: 39:     PIE3bits.TMR0IE = 0;;
 [e = . . _PIE3bits 0 7 -> -> 0 `i `uc ]
-"34
-[; ;hal/hal_src/Timers.c: 34:     *timer = tval;
+"40
+[; ;hal/hal_src/Timers.c: 40:     *timer = tval;
 [e = *U _timer _tval ]
-"35
-[; ;hal/hal_src/Timers.c: 35:     PIE3bits.TMR0IE = 1;;
+"41
+[; ;hal/hal_src/Timers.c: 41:     PIE3bits.TMR0IE = 1;;
 [e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
-"36
-[; ;hal/hal_src/Timers.c: 36: }
-[e :UE 2163 ]
+"42
+[; ;hal/hal_src/Timers.c: 42: }
+[e :UE 2168 ]
 }

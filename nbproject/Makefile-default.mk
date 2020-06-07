@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=hal/hal_src/Timers.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c phy/sx1216/phy_src/phy.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c main.c test.c app/app_src/application.c "app/app_src/circular buffer.c" app/app_src/crc.c app/app_src/EEPROM.c app/app_src/led.c app/app_src/Timers.c
+SOURCEFILES_QUOTED_IF_SPACED=app/app_src/application.c "app/app_src/circular buffer.c" app/app_src/crc.c app/app_src/EEPROM.c app/app_src/led.c hal/hal_src/Timers.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c phy/sx1216/phy_src/phy.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/test.p1 ${OBJECTDIR}/app/app_src/application.p1 "${OBJECTDIR}/app/app_src/circular buffer.p1" ${OBJECTDIR}/app/app_src/crc.p1 ${OBJECTDIR}/app/app_src/EEPROM.p1 ${OBJECTDIR}/app/app_src/led.p1 ${OBJECTDIR}/app/app_src/Timers.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/hal/hal_src/Timers.p1.d ${OBJECTDIR}/mcc_generated_files/spi1.p1.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d ${OBJECTDIR}/mcc_generated_files/memory.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/uart1.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/crc.p1.d ${OBJECTDIR}/nwk/nwk_src/nwk.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d ${OBJECTDIR}/sys/sys_src/sys.p1.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/test.p1.d ${OBJECTDIR}/app/app_src/application.p1.d "${OBJECTDIR}/app/app_src/circular buffer.p1.d" ${OBJECTDIR}/app/app_src/crc.p1.d ${OBJECTDIR}/app/app_src/EEPROM.p1.d ${OBJECTDIR}/app/app_src/led.p1.d ${OBJECTDIR}/app/app_src/Timers.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/app/app_src/application.p1 "${OBJECTDIR}/app/app_src/circular buffer.p1" ${OBJECTDIR}/app/app_src/crc.p1 ${OBJECTDIR}/app/app_src/EEPROM.p1 ${OBJECTDIR}/app/app_src/led.p1 ${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/main.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/app/app_src/application.p1.d "${OBJECTDIR}/app/app_src/circular buffer.p1.d" ${OBJECTDIR}/app/app_src/crc.p1.d ${OBJECTDIR}/app/app_src/EEPROM.p1.d ${OBJECTDIR}/app/app_src/led.p1.d ${OBJECTDIR}/hal/hal_src/Timers.p1.d ${OBJECTDIR}/mcc_generated_files/spi1.p1.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d ${OBJECTDIR}/mcc_generated_files/memory.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/uart1.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/crc.p1.d ${OBJECTDIR}/nwk/nwk_src/nwk.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1.d ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1.d ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1.d ${OBJECTDIR}/sys/sys_src/sys.p1.d ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1.d ${OBJECTDIR}/sys/sys_src/sysTimer.p1.d ${OBJECTDIR}/main.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/test.p1 ${OBJECTDIR}/app/app_src/application.p1 ${OBJECTDIR}/app/app_src/circular\ buffer.p1 ${OBJECTDIR}/app/app_src/crc.p1 ${OBJECTDIR}/app/app_src/EEPROM.p1 ${OBJECTDIR}/app/app_src/led.p1 ${OBJECTDIR}/app/app_src/Timers.p1
+OBJECTFILES=${OBJECTDIR}/app/app_src/application.p1 ${OBJECTDIR}/app/app_src/circular\ buffer.p1 ${OBJECTDIR}/app/app_src/crc.p1 ${OBJECTDIR}/app/app_src/EEPROM.p1 ${OBJECTDIR}/app/app_src/led.p1 ${OBJECTDIR}/hal/hal_src/Timers.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/uart1.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/crc.p1 ${OBJECTDIR}/nwk/nwk_src/nwk.p1 ${OBJECTDIR}/nwk/nwk_src/nwkDataReq.p1 ${OBJECTDIR}/nwk/nwk_src/nwkFrame.p1 ${OBJECTDIR}/nwk/nwk_src/nwkGroup.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRoute.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRouteDiscovery.p1 ${OBJECTDIR}/nwk/nwk_src/nwkRx.p1 ${OBJECTDIR}/nwk/nwk_src/nwkSecurity.p1 ${OBJECTDIR}/nwk/nwk_src/nwkTx.p1 ${OBJECTDIR}/phy/sx1216/phy_src/phy.p1 ${OBJECTDIR}/sys/sys_src/sys.p1 ${OBJECTDIR}/sys/sys_src/sysEncrypt.p1 ${OBJECTDIR}/sys/sys_src/sysTimer.p1 ${OBJECTDIR}/main.p1
 
 # Source Files
-SOURCEFILES=hal/hal_src/Timers.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c phy/sx1216/phy_src/phy.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c main.c test.c app/app_src/application.c app/app_src/circular buffer.c app/app_src/crc.c app/app_src/EEPROM.c app/app_src/led.c app/app_src/Timers.c
+SOURCEFILES=app/app_src/application.c app/app_src/circular buffer.c app/app_src/crc.c app/app_src/EEPROM.c app/app_src/led.c hal/hal_src/Timers.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c mcc_generated_files/memory.c mcc_generated_files/device_config.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/crc.c nwk/nwk_src/nwk.c nwk/nwk_src/nwkDataReq.c nwk/nwk_src/nwkFrame.c nwk/nwk_src/nwkGroup.c nwk/nwk_src/nwkRoute.c nwk/nwk_src/nwkRouteDiscovery.c nwk/nwk_src/nwkRx.c nwk/nwk_src/nwkSecurity.c nwk/nwk_src/nwkTx.c phy/sx1216/phy_src/phy.c sys/sys_src/sys.c sys/sys_src/sysEncrypt.c sys/sys_src/sysTimer.c main.c
 
 
 
@@ -94,6 +94,46 @@ MP_PROCESSOR_OPTION=18F26K42
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/app/app_src/application.p1: app/app_src/application.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/app/app_src" 
+	@${RM} ${OBJECTDIR}/app/app_src/application.p1.d 
+	@${RM} ${OBJECTDIR}/app/app_src/application.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/application.p1 app/app_src/application.c 
+	@-${MV} ${OBJECTDIR}/app/app_src/application.d ${OBJECTDIR}/app/app_src/application.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/app/app_src/application.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/app/app_src/circular\ buffer.p1: app/app_src/circular\ buffer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/app/app_src" 
+	@${RM} "${OBJECTDIR}/app/app_src/circular buffer.p1".d 
+	@${RM} "${OBJECTDIR}/app/app_src/circular buffer.p1" 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o "${OBJECTDIR}/app/app_src/circular buffer.p1" "app/app_src/circular buffer.c" 
+	@-${MV} "${OBJECTDIR}/app/app_src/circular buffer".d "${OBJECTDIR}/app/app_src/circular buffer.p1".d 
+	@${FIXDEPS} "${OBJECTDIR}/app/app_src/circular buffer.p1".d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/app/app_src/crc.p1: app/app_src/crc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/app/app_src" 
+	@${RM} ${OBJECTDIR}/app/app_src/crc.p1.d 
+	@${RM} ${OBJECTDIR}/app/app_src/crc.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/crc.p1 app/app_src/crc.c 
+	@-${MV} ${OBJECTDIR}/app/app_src/crc.d ${OBJECTDIR}/app/app_src/crc.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/app/app_src/crc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/app/app_src/EEPROM.p1: app/app_src/EEPROM.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/app/app_src" 
+	@${RM} ${OBJECTDIR}/app/app_src/EEPROM.p1.d 
+	@${RM} ${OBJECTDIR}/app/app_src/EEPROM.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/EEPROM.p1 app/app_src/EEPROM.c 
+	@-${MV} ${OBJECTDIR}/app/app_src/EEPROM.d ${OBJECTDIR}/app/app_src/EEPROM.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/app/app_src/EEPROM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/app/app_src/led.p1: app/app_src/led.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/app/app_src" 
+	@${RM} ${OBJECTDIR}/app/app_src/led.p1.d 
+	@${RM} ${OBJECTDIR}/app/app_src/led.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/led.p1 app/app_src/led.c 
+	@-${MV} ${OBJECTDIR}/app/app_src/led.d ${OBJECTDIR}/app/app_src/led.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/app/app_src/led.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 ${OBJECTDIR}/hal/hal_src/Timers.p1: hal/hal_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/hal/hal_src" 
 	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
@@ -286,19 +326,12 @@ ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/test.p1: test.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/test.p1.d 
-	@${RM} ${OBJECTDIR}/test.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/test.p1 test.c 
-	@-${MV} ${OBJECTDIR}/test.d ${OBJECTDIR}/test.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/test.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
+else
 ${OBJECTDIR}/app/app_src/application.p1: app/app_src/application.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/app/app_src" 
 	@${RM} ${OBJECTDIR}/app/app_src/application.p1.d 
 	@${RM} ${OBJECTDIR}/app/app_src/application.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/application.p1 app/app_src/application.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/application.p1 app/app_src/application.c 
 	@-${MV} ${OBJECTDIR}/app/app_src/application.d ${OBJECTDIR}/app/app_src/application.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/app/app_src/application.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
@@ -306,7 +339,7 @@ ${OBJECTDIR}/app/app_src/circular\ buffer.p1: app/app_src/circular\ buffer.c  nb
 	@${MKDIR} "${OBJECTDIR}/app/app_src" 
 	@${RM} "${OBJECTDIR}/app/app_src/circular buffer.p1".d 
 	@${RM} "${OBJECTDIR}/app/app_src/circular buffer.p1" 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o "${OBJECTDIR}/app/app_src/circular buffer.p1" "app/app_src/circular buffer.c" 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o "${OBJECTDIR}/app/app_src/circular buffer.p1" "app/app_src/circular buffer.c" 
 	@-${MV} "${OBJECTDIR}/app/app_src/circular buffer".d "${OBJECTDIR}/app/app_src/circular buffer.p1".d 
 	@${FIXDEPS} "${OBJECTDIR}/app/app_src/circular buffer.p1".d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
@@ -314,7 +347,7 @@ ${OBJECTDIR}/app/app_src/crc.p1: app/app_src/crc.c  nbproject/Makefile-${CND_CON
 	@${MKDIR} "${OBJECTDIR}/app/app_src" 
 	@${RM} ${OBJECTDIR}/app/app_src/crc.p1.d 
 	@${RM} ${OBJECTDIR}/app/app_src/crc.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/crc.p1 app/app_src/crc.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/crc.p1 app/app_src/crc.c 
 	@-${MV} ${OBJECTDIR}/app/app_src/crc.d ${OBJECTDIR}/app/app_src/crc.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/app/app_src/crc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
@@ -322,7 +355,7 @@ ${OBJECTDIR}/app/app_src/EEPROM.p1: app/app_src/EEPROM.c  nbproject/Makefile-${C
 	@${MKDIR} "${OBJECTDIR}/app/app_src" 
 	@${RM} ${OBJECTDIR}/app/app_src/EEPROM.p1.d 
 	@${RM} ${OBJECTDIR}/app/app_src/EEPROM.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/EEPROM.p1 app/app_src/EEPROM.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/EEPROM.p1 app/app_src/EEPROM.c 
 	@-${MV} ${OBJECTDIR}/app/app_src/EEPROM.d ${OBJECTDIR}/app/app_src/EEPROM.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/app/app_src/EEPROM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
@@ -330,19 +363,10 @@ ${OBJECTDIR}/app/app_src/led.p1: app/app_src/led.c  nbproject/Makefile-${CND_CON
 	@${MKDIR} "${OBJECTDIR}/app/app_src" 
 	@${RM} ${OBJECTDIR}/app/app_src/led.p1.d 
 	@${RM} ${OBJECTDIR}/app/app_src/led.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/led.p1 app/app_src/led.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/led.p1 app/app_src/led.c 
 	@-${MV} ${OBJECTDIR}/app/app_src/led.d ${OBJECTDIR}/app/app_src/led.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/app/app_src/led.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/app/app_src/Timers.p1: app/app_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} ${OBJECTDIR}/app/app_src/Timers.p1.d 
-	@${RM} ${OBJECTDIR}/app/app_src/Timers.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/Timers.p1 app/app_src/Timers.c 
-	@-${MV} ${OBJECTDIR}/app/app_src/Timers.d ${OBJECTDIR}/app/app_src/Timers.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/app/app_src/Timers.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-else
 ${OBJECTDIR}/hal/hal_src/Timers.p1: hal/hal_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/hal/hal_src" 
 	@${RM} ${OBJECTDIR}/hal/hal_src/Timers.p1.d 
@@ -534,62 +558,6 @@ ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/main.p1 main.c 
 	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/test.p1: test.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/test.p1.d 
-	@${RM} ${OBJECTDIR}/test.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/test.p1 test.c 
-	@-${MV} ${OBJECTDIR}/test.d ${OBJECTDIR}/test.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/test.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/app/app_src/application.p1: app/app_src/application.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} ${OBJECTDIR}/app/app_src/application.p1.d 
-	@${RM} ${OBJECTDIR}/app/app_src/application.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/application.p1 app/app_src/application.c 
-	@-${MV} ${OBJECTDIR}/app/app_src/application.d ${OBJECTDIR}/app/app_src/application.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/app/app_src/application.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/app/app_src/circular\ buffer.p1: app/app_src/circular\ buffer.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} "${OBJECTDIR}/app/app_src/circular buffer.p1".d 
-	@${RM} "${OBJECTDIR}/app/app_src/circular buffer.p1" 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o "${OBJECTDIR}/app/app_src/circular buffer.p1" "app/app_src/circular buffer.c" 
-	@-${MV} "${OBJECTDIR}/app/app_src/circular buffer".d "${OBJECTDIR}/app/app_src/circular buffer.p1".d 
-	@${FIXDEPS} "${OBJECTDIR}/app/app_src/circular buffer.p1".d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/app/app_src/crc.p1: app/app_src/crc.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} ${OBJECTDIR}/app/app_src/crc.p1.d 
-	@${RM} ${OBJECTDIR}/app/app_src/crc.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/crc.p1 app/app_src/crc.c 
-	@-${MV} ${OBJECTDIR}/app/app_src/crc.d ${OBJECTDIR}/app/app_src/crc.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/app/app_src/crc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/app/app_src/EEPROM.p1: app/app_src/EEPROM.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} ${OBJECTDIR}/app/app_src/EEPROM.p1.d 
-	@${RM} ${OBJECTDIR}/app/app_src/EEPROM.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/EEPROM.p1 app/app_src/EEPROM.c 
-	@-${MV} ${OBJECTDIR}/app/app_src/EEPROM.d ${OBJECTDIR}/app/app_src/EEPROM.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/app/app_src/EEPROM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/app/app_src/led.p1: app/app_src/led.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} ${OBJECTDIR}/app/app_src/led.p1.d 
-	@${RM} ${OBJECTDIR}/app/app_src/led.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/led.p1 app/app_src/led.c 
-	@-${MV} ${OBJECTDIR}/app/app_src/led.d ${OBJECTDIR}/app/app_src/led.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/app/app_src/led.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/app/app_src/Timers.p1: app/app_src/Timers.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/app/app_src" 
-	@${RM} ${OBJECTDIR}/app/app_src/Timers.p1.d 
-	@${RM} ${OBJECTDIR}/app/app_src/Timers.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c    -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -DATCOMM -xassembler-with-cpp -I"sys/sys_inc" -I"phy/sx1216/phy_inc" -I"nwk/nwk_inc" -I"mcc_generated_files" -I"hal/hal_inc" -I"app/app_inc" -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=hybrid:auto:auto:auto     -o ${OBJECTDIR}/app/app_src/Timers.p1 app/app_src/Timers.c 
-	@-${MV} ${OBJECTDIR}/app/app_src/Timers.d ${OBJECTDIR}/app/app_src/Timers.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/app/app_src/Timers.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

@@ -26133,7 +26133,21 @@ void UART1_SetTxInterruptHandler(void (* InterruptHandler)(void));
 # 109 "mcc_generated_files/interrupt_manager.h"
 void INTERRUPT_Initialize (void);
 # 52 "mcc_generated_files/uart1.c" 2
-# 64 "mcc_generated_files/uart1.c"
+
+# 1 "mcc_generated_files/pin_manager.h" 1
+# 322 "mcc_generated_files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
+# 53 "mcc_generated_files/uart1.c" 2
+
+
+
+
+
+
+
+
+extern volatile _Bool tx_done;
+# 72 "mcc_generated_files/uart1.c"
 static volatile uint8_t uart1TxHead = 0;
 static volatile uint8_t uart1TxTail = 0;
 static volatile uint8_t uart1TxBuffer[64];
@@ -26141,8 +26155,8 @@ volatile uint8_t uart1TxBufferRemaining;
 
 static volatile uint8_t uart1RxHead = 0;
 static volatile uint8_t uart1RxTail = 0;
-static volatile uint8_t uart1RxBuffer[64];
-static volatile uart1_status_t uart1RxStatusBuffer[64];
+static volatile uint8_t uart1RxBuffer[16];
+static volatile uart1_status_t uart1RxStatusBuffer[16];
 volatile uint8_t uart1RxCount;
 static volatile uart1_status_t uart1RxLastError;
 
@@ -26189,16 +26203,16 @@ void UART1_Initialize(void)
     U1CON0 = 0xB3;
 
 
-    U1CON1 = 0x80;
+    U1CON1 = 0x00;
 
 
-    U1CON2 = 0x80;
+    U1CON2 = 0x82;
 
 
-    U1BRGL = 0x8A;
+    U1BRGL = 0x40;
 
 
-    U1BRGH = 0x00;
+    U1BRGH = 0x03;
 
 
     U1FIFO = 0x00;
@@ -26280,6 +26294,10 @@ void UART1_Write(uint8_t txData)
 
     if(0 == PIE3bits.U1TXIE)
     {
+
+
+
+
         U1TXB = txData;
     }
     else
@@ -26328,7 +26346,10 @@ void UART1_Transmit_ISR(void)
 
     if(sizeof(uart1TxBuffer) > uart1TxBufferRemaining)
     {
-        U1TXB = uart1TxBuffer[uart1TxTail++];
+
+
+
+       U1TXB = uart1TxBuffer[uart1TxTail++];
        if(sizeof(uart1TxBuffer) <= uart1TxTail)
         {
             uart1TxTail = 0;
@@ -26337,6 +26358,10 @@ void UART1_Transmit_ISR(void)
     }
     else
     {
+
+
+        tx_done = 1;
+
         PIE3bits.U1TXIE = 0;
     }
 

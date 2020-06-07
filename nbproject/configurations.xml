@@ -10,7 +10,6 @@
         <itemPath>app/app_inc/crc.h</itemPath>
         <itemPath>app/app_inc/EEPROM.h</itemPath>
         <itemPath>app/app_inc/led.h</itemPath>
-        <itemPath>app/app_inc/Timers.h</itemPath>
       </logicalFolder>
       <logicalFolder name="hal_inc" displayName="hal_inc" projectFiles="true">
         <itemPath>hal/hal_inc/Timers.h</itemPath>
@@ -51,7 +50,6 @@
         <itemPath>sys/sys_inc/sysTimer.h</itemPath>
         <itemPath>sys/sys_inc/sysTypes.h</itemPath>
       </logicalFolder>
-      <itemPath>test.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -66,7 +64,6 @@
         <itemPath>app/app_src/crc.c</itemPath>
         <itemPath>app/app_src/EEPROM.c</itemPath>
         <itemPath>app/app_src/led.c</itemPath>
-        <itemPath>app/app_src/Timers.c</itemPath>
       </logicalFolder>
       <logicalFolder name="hal_src" displayName="hal_src" projectFiles="true">
         <itemPath>hal/hal_src/Timers.c</itemPath>
@@ -104,7 +101,6 @@
         <itemPath>sys/sys_src/sysTimer.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
-      <itemPath>test.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -244,6 +240,7 @@
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

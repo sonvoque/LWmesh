@@ -25856,7 +25856,7 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 50 "mcc_generated_files\\mcc.h" 2
 
 # 1 "mcc_generated_files/pin_manager.h" 1
-# 330 "mcc_generated_files/pin_manager.h"
+# 322 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 # 51 "mcc_generated_files\\mcc.h" 2
 
@@ -26001,6 +26001,8 @@ void FLASH_EraseBlock(uint32_t baseAddr);
 void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
 # 275 "mcc_generated_files/memory.h"
 uint8_t DATAEE_ReadByte(uint16_t bAdd);
+# 301 "mcc_generated_files/memory.h"
+uint8_t DIA_ReadByte(uint32_t flashAddr);
 
 void MEMORY_Tasks(void);
 # 56 "mcc_generated_files\\mcc.h" 2

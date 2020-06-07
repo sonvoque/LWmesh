@@ -44,7 +44,7 @@
 #include "mcc.h"
 #include "sys.h"
 #include "Timers.h"
-#include "test.h"
+#include "app/app_inc/application.h"
 /*
                          Main application
  */
@@ -69,16 +69,18 @@ void main(void)
     // Disable low priority global interrupts.
     //INTERRUPT_GlobalInterruptLowDisable();
     TMR0_SetInterruptHandler(Timer0Handler);
+    
     SYS_Init();
-    test_init();
-    LED_SetLow();
+    bootLoadApplication();
+    LED_SetHigh();
     while (1)
     {
         SYS_TaskHandler();
-        if(!test_timer){
-            test_timer = 5000;
-            test_send();
-        }
+        processATCommand();
+//        if(!test_timer){
+//            test_timer = 5000;
+//            test_send();
+//        }
     }
 }
 /**

@@ -13,12 +13,12 @@
   @Description
     This header file provides APIs for driver for .
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.80.0
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.0
         Device            :  PIC18F26K42
         Driver Version    :  2.11
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.10 and above
-        MPLAB 	          :  MPLAB X 5.30	
+        MPLAB 	          :  MPLAB X 5.35	
 */
 
 /*
@@ -125,18 +125,6 @@
 #define LED_SetAnalogMode()      do { ANSELAbits.ANSELA3 = 1; } while(0)
 #define LED_SetDigitalMode()     do { ANSELAbits.ANSELA3 = 0; } while(0)
 
-// get/set RA5 procedures
-#define RA5_SetHigh()            do { LATAbits.LATA5 = 1; } while(0)
-#define RA5_SetLow()             do { LATAbits.LATA5 = 0; } while(0)
-#define RA5_Toggle()             do { LATAbits.LATA5 = ~LATAbits.LATA5; } while(0)
-#define RA5_GetValue()              PORTAbits.RA5
-#define RA5_SetDigitalInput()    do { TRISAbits.TRISA5 = 1; } while(0)
-#define RA5_SetDigitalOutput()   do { TRISAbits.TRISA5 = 0; } while(0)
-#define RA5_SetPullup()             do { WPUAbits.WPUA5 = 1; } while(0)
-#define RA5_ResetPullup()           do { WPUAbits.WPUA5 = 0; } while(0)
-#define RA5_SetAnalogMode()         do { ANSELAbits.ANSELA5 = 1; } while(0)
-#define RA5_SetDigitalMode()        do { ANSELAbits.ANSELA5 = 0; } while(0)
-
 // get/set RB0 procedures
 #define RB0_SetHigh()            do { LATBbits.LATB0 = 1; } while(0)
 #define RB0_SetLow()             do { LATBbits.LATB0 = 0; } while(0)
@@ -213,25 +201,17 @@
 #define RC0_SetAnalogMode()         do { ANSELCbits.ANSELC0 = 1; } while(0)
 #define RC0_SetDigitalMode()        do { ANSELCbits.ANSELC0 = 0; } while(0)
 
-// get/set TXEN aliases
-#define TXEN_TRIS                 TRISCbits.TRISC1
-#define TXEN_LAT                  LATCbits.LATC1
-#define TXEN_PORT                 PORTCbits.RC1
-#define TXEN_WPU                  WPUCbits.WPUC1
-#define TXEN_OD                   ODCONCbits.ODCC1
-#define TXEN_ANS                  ANSELCbits.ANSELC1
-#define TXEN_SetHigh()            do { LATCbits.LATC1 = 1; } while(0)
-#define TXEN_SetLow()             do { LATCbits.LATC1 = 0; } while(0)
-#define TXEN_Toggle()             do { LATCbits.LATC1 = ~LATCbits.LATC1; } while(0)
-#define TXEN_GetValue()           PORTCbits.RC1
-#define TXEN_SetDigitalInput()    do { TRISCbits.TRISC1 = 1; } while(0)
-#define TXEN_SetDigitalOutput()   do { TRISCbits.TRISC1 = 0; } while(0)
-#define TXEN_SetPullup()          do { WPUCbits.WPUC1 = 1; } while(0)
-#define TXEN_ResetPullup()        do { WPUCbits.WPUC1 = 0; } while(0)
-#define TXEN_SetPushPull()        do { ODCONCbits.ODCC1 = 0; } while(0)
-#define TXEN_SetOpenDrain()       do { ODCONCbits.ODCC1 = 1; } while(0)
-#define TXEN_SetAnalogMode()      do { ANSELCbits.ANSELC1 = 1; } while(0)
-#define TXEN_SetDigitalMode()     do { ANSELCbits.ANSELC1 = 0; } while(0)
+// get/set RC1 procedures
+#define RC1_SetHigh()            do { LATCbits.LATC1 = 1; } while(0)
+#define RC1_SetLow()             do { LATCbits.LATC1 = 0; } while(0)
+#define RC1_Toggle()             do { LATCbits.LATC1 = ~LATCbits.LATC1; } while(0)
+#define RC1_GetValue()              PORTCbits.RC1
+#define RC1_SetDigitalInput()    do { TRISCbits.TRISC1 = 1; } while(0)
+#define RC1_SetDigitalOutput()   do { TRISCbits.TRISC1 = 0; } while(0)
+#define RC1_SetPullup()             do { WPUCbits.WPUC1 = 1; } while(0)
+#define RC1_ResetPullup()           do { WPUCbits.WPUC1 = 0; } while(0)
+#define RC1_SetAnalogMode()         do { ANSELCbits.ANSELC1 = 1; } while(0)
+#define RC1_SetDigitalMode()        do { ANSELCbits.ANSELC1 = 0; } while(0)
 
 // get/set RC2 procedures
 #define RC2_SetHigh()            do { LATCbits.LATC2 = 1; } while(0)
@@ -244,6 +224,18 @@
 #define RC2_ResetPullup()           do { WPUCbits.WPUC2 = 0; } while(0)
 #define RC2_SetAnalogMode()         do { ANSELCbits.ANSELC2 = 1; } while(0)
 #define RC2_SetDigitalMode()        do { ANSELCbits.ANSELC2 = 0; } while(0)
+
+// get/set RC3 procedures
+#define RC3_SetHigh()            do { LATCbits.LATC3 = 1; } while(0)
+#define RC3_SetLow()             do { LATCbits.LATC3 = 0; } while(0)
+#define RC3_Toggle()             do { LATCbits.LATC3 = ~LATCbits.LATC3; } while(0)
+#define RC3_GetValue()              PORTCbits.RC3
+#define RC3_SetDigitalInput()    do { TRISCbits.TRISC3 = 1; } while(0)
+#define RC3_SetDigitalOutput()   do { TRISCbits.TRISC3 = 0; } while(0)
+#define RC3_SetPullup()             do { WPUCbits.WPUC3 = 1; } while(0)
+#define RC3_ResetPullup()           do { WPUCbits.WPUC3 = 0; } while(0)
+#define RC3_SetAnalogMode()         do { ANSELCbits.ANSELC3 = 1; } while(0)
+#define RC3_SetDigitalMode()        do { ANSELCbits.ANSELC3 = 0; } while(0)
 
 // get/set DIO5 aliases
 #define DIO5_TRIS                 TRISCbits.TRISC4

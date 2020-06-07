@@ -50,12 +50,20 @@
 #include <xc.h>
 #include "uart1.h"
 #include "interrupt_manager.h"
+#include "pin_manager.h"
 
 /**
   Section: Macro Declarations
 */
+#ifdef ATCOMM
+#define UART1_TX_BUFFER_SIZE 64
+#define UART1_RX_BUFFER_SIZE 16
+extern volatile bool tx_done;
+#endif
+#ifdef MBRTU
 #define UART1_TX_BUFFER_SIZE 64
 #define UART1_RX_BUFFER_SIZE 64
+#endif
 
 /**
   Section: Global Variables
@@ -115,17 +123,17 @@ void UART1_Initialize(void)
     // BRGS high speed; MODE Asynchronous 8-bit mode with 9th bit even parity; RXEN enabled; TXEN enabled; ABDEN disabled; 
     U1CON0 = 0xB3;
 
-    // RXBIMD Set RXBKIF on rising RX input; BRKOVR disabled; WUE disabled; SENDB disabled; ON enabled; 
-    U1CON1 = 0x80;
+    // RXBIMD Set RXBKIF on rising RX input; BRKOVR disabled; WUE disabled; SENDB disabled; ON disabled; 
+    U1CON1 = 0x00;
 
-    // TXPOL not inverted; FLO off; C0EN disabled; RXPOL not inverted; RUNOVF RX input shifter continues; STP Transmit 1Stop bit, receiver verifies first Stop bit; 
-    U1CON2 = 0x80;
+    // TXPOL not inverted; FLO Hardware flow control; C0EN disabled; RXPOL not inverted; RUNOVF RX input shifter continues; STP Transmit 1Stop bit, receiver verifies first Stop bit; 
+    U1CON2 = 0x82;
 
-    // BRGL 138; 
-    U1BRGL = 0x8A;
+    // BRGL 64; 
+    U1BRGL = 0x40;
 
-    // BRGH 0; 
-    U1BRGH = 0x00;
+    // BRGH 3; 
+    U1BRGH = 0x03;
 
     // STPMD in middle of first Stop bit; TXWRE No error; 
     U1FIFO = 0x00;
@@ -207,6 +215,10 @@ void UART1_Write(uint8_t txData)
 
     if(0 == PIE3bits.U1TXIE)
     {
+#ifndef MBRTU
+        //Enable RS485 transmitter
+//        TXEN_SetHigh();
+#endif
         U1TXB = txData;
     }
     else
@@ -255,7 +267,10 @@ void UART1_Transmit_ISR(void)
     // use this default transmit interrupt handler code
     if(sizeof(uart1TxBuffer) > uart1TxBufferRemaining)
     {
-        U1TXB = uart1TxBuffer[uart1TxTail++];
+#ifndef MBRTU
+//       TXEN_SetHigh();
+#endif
+       U1TXB = uart1TxBuffer[uart1TxTail++];
        if(sizeof(uart1TxBuffer) <= uart1TxTail)
         {
             uart1TxTail = 0;
@@ -264,6 +279,10 @@ void UART1_Transmit_ISR(void)
     }
     else
     {
+#ifndef MBRTU
+        //Turn off RS485 transmitter
+        tx_done = 1;
+#endif
         PIE3bits.U1TXIE = 0;
     }
     

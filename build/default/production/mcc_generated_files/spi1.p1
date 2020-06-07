@@ -18,17 +18,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "22058
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 22058: extern volatile unsigned char SPI1BAUD __attribute__((address(0x3D19)));
 [v _SPI1BAUD `Vuc ~T0 @X0 0 e@15641 ]
-"44798
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44798:     struct {
-[s S2032 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S2032 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 TRISC6 TRISC7 ]
-"44797
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44797: typedef union {
-[u S2031 `S2032 1 ]
-[n S2031 . . ]
-"44809
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44809: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x3FC4)));
-[v _TRISCbits `VS2031 ~T0 @X0 0 e@16324 ]
+"44736
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44736:     struct {
+[s S2030 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2030 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
+"44735
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44735: typedef union {
+[u S2029 `S2030 1 ]
+[n S2029 . . ]
+"44747
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44747: extern volatile TRISBbits_t TRISBbits __attribute__((address(0x3FC3)));
+[v _TRISBbits `VS2029 ~T0 @X0 0 e@16323 ]
 "79 mcc_generated_files/spi1.c
 [; ;mcc_generated_files/spi1.c: 79: _Bool SPI1_Open(spi1_modes_t spi1UniqueConfiguration)
 [c E353 0 .. ]
@@ -2252,8 +2252,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/spi1.c: 75:     SPI1BAUD = 0x03;
 [e = _SPI1BAUD -> -> 3 `i `uc ]
 "76
-[; ;mcc_generated_files/spi1.c: 76:     TRISCbits.TRISC7 = 0;
-[e = . . _TRISCbits 0 7 -> -> 0 `i `uc ]
+[; ;mcc_generated_files/spi1.c: 76:     TRISBbits.TRISB2 = 0;
+[e = . . _TRISBbits 0 2 -> -> 0 `i `uc ]
 "77
 [; ;mcc_generated_files/spi1.c: 77: }
 [e :UE 2156 ]
@@ -2293,8 +2293,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/spi1.c: 87:         SPI1BAUD = spi1_configuration[spi1UniqueConfiguration].baud;
 [e = _SPI1BAUD . *U + &U _spi1_configuration * -> _spi1UniqueConfiguration `ux -> -> # *U &U _spi1_configuration `ui `ux 3 ]
 "88
-[; ;mcc_generated_files/spi1.c: 88:         TRISCbits.TRISC7 = spi1_configuration[spi1UniqueConfiguration].operation;
-[e = . . _TRISCbits 0 7 . *U + &U _spi1_configuration * -> _spi1UniqueConfiguration `ux -> -> # *U &U _spi1_configuration `ui `ux 4 ]
+[; ;mcc_generated_files/spi1.c: 88:         TRISBbits.TRISB2 = spi1_configuration[spi1UniqueConfiguration].operation;
+[e = . . _TRISBbits 0 2 . *U + &U _spi1_configuration * -> _spi1UniqueConfiguration `ux -> -> # *U &U _spi1_configuration `ui `ux 4 ]
 "89
 [; ;mcc_generated_files/spi1.c: 89:         SPI1CON0bits.EN = 1;
 [e = . . _SPI1CON0bits 0 4 -> -> 1 `i `uc ]

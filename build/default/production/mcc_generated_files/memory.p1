@@ -2667,3 +2667,39 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/memory.c: 210: }
 [e :UE 2172 ]
 }
+"212
+[; ;mcc_generated_files/memory.c: 212: uint8_t DIA_ReadByte(uint32_t flashAddr)
+[v _DIA_ReadByte `(uc ~T0 @X0 1 ef1`ul ]
+"213
+[; ;mcc_generated_files/memory.c: 213: {
+{
+[e :U _DIA_ReadByte ]
+"212
+[; ;mcc_generated_files/memory.c: 212: uint8_t DIA_ReadByte(uint32_t flashAddr)
+[v _flashAddr `ul ~T0 @X0 1 r1 ]
+"213
+[; ;mcc_generated_files/memory.c: 213: {
+[f ]
+"214
+[; ;mcc_generated_files/memory.c: 214:  NVMCON1bits.NVMREG = 1;
+[e = . . _NVMCON1bits 2 1 -> -> 1 `i `uc ]
+"215
+[; ;mcc_generated_files/memory.c: 215:     TBLPTRU = (uint8_t)((flashAddr & 0x00FF0000) >> 16);
+[e = _TBLPTRU -> >> & _flashAddr -> -> 16711680 `l `ul -> 16 `i `uc ]
+"216
+[; ;mcc_generated_files/memory.c: 216:     TBLPTRH = (uint8_t)((flashAddr & 0x0000FF00)>> 8);
+[e = _TBLPTRH -> >> & _flashAddr -> -> 65280 `ui `ul -> 8 `i `uc ]
+"217
+[; ;mcc_generated_files/memory.c: 217:     TBLPTRL = (uint8_t)(flashAddr & 0x000000FF);
+[e = _TBLPTRL -> & _flashAddr -> -> -> 255 `i `l `ul `uc ]
+"219
+[; ;mcc_generated_files/memory.c: 219:     __asm("TBLRD");
+[; <" TBLRD ;# ">
+"221
+[; ;mcc_generated_files/memory.c: 221:     return (TABLAT);
+[e ) _TABLAT ]
+[e $UE 2173  ]
+"222
+[; ;mcc_generated_files/memory.c: 222: }
+[e :UE 2173 ]
+}

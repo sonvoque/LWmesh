@@ -25,6 +25,7 @@ extern "C" {
     
 #define atCommandLen 80 
 #define atCommandMaxTimeout 1000
+#define payloadSizeMax 64
     
 //Uart mode of operations
 enum UART_PARITY_ENUM {
@@ -55,11 +56,15 @@ uint8_t curent_parity;
 //Radio modes
 #define ROUTER          0
 #define ENDDEVICE       1
+#define AESKEYLEN       32
 uint8_t currentAddr0 = 0x12,currentAddr1 = 0x34,currentNetID = 0x55,
         currentMsgID = 0;
 uint8_t sinkAddr0 = 0x00,sinkAddr1 = 0x00;
+//Unit EUID
+uint8_t EUIDbyte[12];
 
 uint8_t currentMode = ROUTER;
+uint8_t msgIDCounter = 0;
 
 //AES encryption key default value
 uint8_t aes_key[16];

@@ -1,10 +1,10 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F15828 `(v ~T0 @X0 0 tf ]
 [v F15830 `(v ~T0 @X0 0 tf ]
+[v F15832 `(v ~T0 @X0 0 tf ]
 "134 phy/sx1216/phy_inc\phy.h
 [; ;phy/sx1216/phy_inc\phy.h: 134: }radio_state_var = INIT_RADIO;
-[c E16064 0 1 2 3 4 5 6 7 8 .. ]
-[n E16064 radio_state_enum INIT_RADIO START_RX WAIT_FOR_RX RX_MESSAGE START_CAD WAIT_FOR_CAD START_TX WAIT_FOR_TX RESET_RADIO_ENGINE  ]
+[c E16066 0 1 2 3 4 5 6 7 8 .. ]
+[n E16066 radio_state_enum INIT_RADIO START_RX WAIT_FOR_RX RX_MESSAGE START_CAD WAIT_FOR_CAD START_TX WAIT_FOR_TX RESET_RADIO_ENGINE  ]
 "67 nwk/nwk_inc/nwkFrame.h
 [; ;nwk/nwk_inc/nwkFrame.h: 67:   {
 [s S2160 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
@@ -25,10 +25,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_inc/nwkFrame.h: 108:     {
 [s S2166 `uc 1 `c 1 ]
 [n S2166 . lqi rssi ]
-[v F16182 `(v ~T0 @X0 0 tf1`*S2163 ]
+[v F16184 `(v ~T0 @X0 0 tf1`*S2163 ]
 "114
 [; ;nwk/nwk_inc/nwkFrame.h: 114:     {
-[s S2167 `uc 1 `us 1 `uc 1 `*F16182 1 ]
+[s S2167 `uc 1 `us 1 `uc 1 `*F16184 1 ]
 [n S2167 . status timeout control confirm ]
 "106
 [; ;nwk/nwk_inc/nwkFrame.h: 106:   {
@@ -38,6 +38,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nwk/nwk_inc/nwkFrame.h: 93: {
 [s S2163 `uc 1 `uc 1 `S2164 1 `*uc 1 `S2165 1 ]
 [n S2163 NwkFrame_t state size . payload . ]
+"97 app/app_inc/EEPROM.h
+[; ;app/app_inc/EEPROM.h: 97: }eeprom_write_flags_enum;
+[c E16353 0 1 2 3 4 5 6 7 8 9 10 11 12 .. ]
+[n E16353 . EEPROM_BOOTLOADER EEPROM_SERIAL EEPROM_APPKEY EEPROM_NETKEY EEPROM_NETID EEPROM_SINK EEPROM_RADIO_CH EEPROM_TX_POWER EEPROM_RSSI EEPROM_UART_PARITY EEPROM_UART_BAUD EEPROM_SF EEPROM_MBADDR  ]
+"99
+[; ;app/app_inc/EEPROM.h: 99: struct eeprom_write_flags_type{
+[s S2173 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 ]
+[n S2173 eeprom_write_flags_type flag_master flag_bootload flag_serial flag_appkey flag_netkey flag_netid flag_sink flag_radio_ch flag_tx_power flag_rssi flag_uart_parity flag_uart_baud flag_sf flag_mbaddr resv ]
+"49 ./app/app_inc/application.h
+[; ;./app/app_inc/application.h: 49: enum UART_BAUD_ENUM uart_baud_rate;
+[c E16418 0 1 2 3 4 5 .. ]
+[n E16418 UART_BAUD_ENUM UART_BAUD_9600 UART_BAUD_19200 UART_BAUD_38400 UART_BAUD_57600 UART_BAUD_115200 UART_BAUD_SENTINAL  ]
+"50
+[; ;./app/app_inc/application.h: 50: enum UART_PARITY_ENUM uart_parity;
+[c E16412 0 1 2 3 4 .. ]
+[n E16412 UART_PARITY_ENUM UART_8BIT_NO_PARITY UART_7BIT_MODE UART_9BIT_ODD_PARITY UART_9BIT_EVEN_PARITY UART_PARITY_SENTINAL  ]
+"107
+[; ;./app/app_inc/application.h: 107: }atStateVar = initMessage;
+[c E16451 0 1 2 3 4 5 6 .. ]
+[n E16451 atState initMessage lookingForA lookingForT readingCommand endingCommand processCommand resetATMachine  ]
 [p mainexit ]
 "75 mcc_generated_files\mcc.h
 [; ;mcc_generated_files\mcc.h: 75: void SYSTEM_Initialize(void);
@@ -57,19 +77,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 "45154
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 45154: extern volatile INTCON0bits_t INTCON0bits __attribute__((address(0x3FD2)));
 [v _INTCON0bits `VS2045 ~T0 @X0 0 e@16338 ]
-[v F15469 `(v ~T0 @X0 0 tf ]
+[v F15471 `(v ~T0 @X0 0 tf ]
 "315 mcc_generated_files/tmr0.h
 [; ;mcc_generated_files/tmr0.h: 315:  void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
-[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F15469 ]
+[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F15471 ]
 "24 hal/hal_inc\Timers.h
 [; ;hal/hal_inc\Timers.h: 24:     void Timer0Handler(void);
 [v _Timer0Handler `(v ~T0 @X0 0 ef ]
 "56 sys/sys_inc\sys.h
 [; ;sys/sys_inc\sys.h: 56: void SYS_Init(void);
 [v _SYS_Init `(v ~T0 @X0 0 ef ]
-"16 ./test.h
-[; ;./test.h: 16:     void test_init();
-[v _test_init `(v ~T0 @X0 0 e? ]
+"248 ./app/app_inc/application.h
+[; ;./app/app_inc/application.h: 248: void bootLoadApplication(void);
+[v _bootLoadApplication `(v ~T0 @X0 0 ef ]
 "44338 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 44338:     struct {
 [s S2017 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -88,9 +108,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "57 sys/sys_inc\sys.h
 [; ;sys/sys_inc\sys.h: 57: void SYS_TaskHandler(void);
 [v _SYS_TaskHandler `(v ~T0 @X0 0 ef ]
-"17 ./test.h
-[; ;./test.h: 17:     void test_send();
-[v _test_send `(v ~T0 @X0 0 e? ]
+"215 ./app/app_inc/application.h
+[; ;./app/app_inc/application.h: 215: void processATCommand(void);
+[v _processATCommand `(v ~T0 @X0 0 ef ]
 "250 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 250: __asm("STATUS_CSHAD equ 03880h");
 [; <" STATUS_CSHAD equ 03880h ;# ">
@@ -2235,10 +2255,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 mcc_generated_files/uart1.h
 [; ;mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F15828 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F15830 ~T0 @X0 1 e ]
 "536
 [; ;mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F15830 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F15832 ~T0 @X0 1 e ]
 "80 phy/sx1216/phy_inc\phy.h
 [; ;phy/sx1216/phy_inc\phy.h: 80: uint8_t _implicitHeaderMode = 0;
 [v __implicitHeaderMode `uc ~T0 @X0 1 e ]
@@ -2362,10 +2382,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> .912.75e6 `ul
 ..
 ]
-[v F16057 `uc ~T0 @X0 -> 3 `i t ]
+[v F16059 `uc ~T0 @X0 -> 3 `i t ]
 "104
 [; ;phy/sx1216/phy_inc\phy.h: 104: uint8_t fhssReg[sizeof(fhssList)/4][3];
-[v _fhssReg `F16057 ~T0 @X0 -> 63 `i e ]
+[v _fhssReg `F16059 ~T0 @X0 -> 63 `i e ]
 "106
 [; ;phy/sx1216/phy_inc\phy.h: 106: uint8_t syncList[] = {0x12,0x23,0x45,0x56,0x67,0x78,0x89,0x9A,0xAB,0xBC};
 [v _syncList `uc ~T0 @X0 -> 10 `i e ]
@@ -2406,14 +2426,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 ]
 "134
 [; ;phy/sx1216/phy_inc\phy.h: 134: }radio_state_var = INIT_RADIO;
-[v _radio_state_var `E16064 ~T0 @X0 1 e ]
+[v _radio_state_var `E16066 ~T0 @X0 1 e ]
 [i _radio_state_var
-. `E16064 0
+. `E16066 0
 ]
-[v F16196 `(uc ~T0 @X0 1 tf1`*S2163 ]
+[v F16198 `(uc ~T0 @X0 1 tf1`*S2163 ]
 "134 nwk/nwk_inc/nwkFrame.h
 [; ;nwk/nwk_inc/nwkFrame.h: 134: static __attribute__((inline)) uint8_t nwkFramePayloadSize(NwkFrame_t *frame)
-[v _nwkFramePayloadSize `TF16196 ~T0 @X0 1 s ]
+[v _nwkFramePayloadSize `TF16198 ~T0 @X0 1 s ]
 "135
 [; ;nwk/nwk_inc/nwkFrame.h: 135: {
 {
@@ -2444,11 +2464,128 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _test_timer
 -> -> 5000 `i `us
 ]
-"15 ./test.h
-[; ;./test.h: 15:     uint8_t test_send_ctl = 0;
-[v _test_send_ctl `uc ~T0 @X0 1 e ]
-[i _test_send_ctl
+"97 app/app_inc/EEPROM.h
+[; ;app/app_inc/EEPROM.h: 97: }eeprom_write_flags_enum;
+[v _eeprom_write_flags_enum `E16353 ~T0 @X0 1 e ]
+"115
+[; ;app/app_inc/EEPROM.h: 115: }eeprom_write_flags;
+[v _eeprom_write_flags `S2173 ~T0 @X0 1 e ]
+"48 ./app/app_inc/application.h
+[; ;./app/app_inc/application.h: 48: uint24_t current_baud_rate;
+[v _current_baud_rate `um ~T0 @X0 1 e ]
+"49
+[; ;./app/app_inc/application.h: 49: enum UART_BAUD_ENUM uart_baud_rate;
+[v _uart_baud_rate `E16418 ~T0 @X0 1 e ]
+"50
+[; ;./app/app_inc/application.h: 50: enum UART_PARITY_ENUM uart_parity;
+[v _uart_parity `E16412 ~T0 @X0 1 e ]
+"51
+[; ;./app/app_inc/application.h: 51: uint8_t curent_parity;
+[v _curent_parity `uc ~T0 @X0 1 e ]
+"60
+[; ;./app/app_inc/application.h: 60: uint8_t currentAddr0 = 0x12,currentAddr1 = 0x34,currentNetID = 0x55,
+[v _currentAddr0 `uc ~T0 @X0 1 e ]
+[i _currentAddr0
+-> -> 18 `i `uc
+]
+[v _currentAddr1 `uc ~T0 @X0 1 e ]
+[i _currentAddr1
+-> -> 52 `i `uc
+]
+[v _currentNetID `uc ~T0 @X0 1 e ]
+[i _currentNetID
+-> -> 85 `i `uc
+]
+"61
+[; ;./app/app_inc/application.h: 61:         currentMsgID = 0;
+[v _currentMsgID `uc ~T0 @X0 1 e ]
+[i _currentMsgID
 -> -> 0 `i `uc
+]
+"62
+[; ;./app/app_inc/application.h: 62: uint8_t sinkAddr0 = 0x00,sinkAddr1 = 0x00;
+[v _sinkAddr0 `uc ~T0 @X0 1 e ]
+[i _sinkAddr0
+-> -> 0 `i `uc
+]
+[v _sinkAddr1 `uc ~T0 @X0 1 e ]
+[i _sinkAddr1
+-> -> 0 `i `uc
+]
+"64
+[; ;./app/app_inc/application.h: 64: uint8_t EUIDbyte[12];
+[v _EUIDbyte `uc ~T0 @X0 -> 12 `i e ]
+"66
+[; ;./app/app_inc/application.h: 66: uint8_t currentMode = 0;
+[v _currentMode `uc ~T0 @X0 1 e ]
+[i _currentMode
+-> -> 0 `i `uc
+]
+"67
+[; ;./app/app_inc/application.h: 67: uint8_t msgIDCounter = 0;
+[v _msgIDCounter `uc ~T0 @X0 1 e ]
+[i _msgIDCounter
+-> -> 0 `i `uc
+]
+"70
+[; ;./app/app_inc/application.h: 70: uint8_t aes_key[16];
+[v _aes_key `uc ~T0 @X0 -> 16 `i e ]
+"71
+[; ;./app/app_inc/application.h: 71: uint8_t net_key[16];
+[v _net_key `uc ~T0 @X0 -> 16 `i e ]
+"73
+[; ;./app/app_inc/application.h: 73: char atCommand[80];
+[v _atCommand `uc ~T0 @X0 -> 80 `i e ]
+"74
+[; ;./app/app_inc/application.h: 74: char uartmsg[6];
+[v _uartmsg `uc ~T0 @X0 -> 6 `i e ]
+"75
+[; ;./app/app_inc/application.h: 75: volatile _Bool tx_done = 0;
+[v _tx_done `Va ~T0 @X0 1 e ]
+[i _tx_done
+-> -> 0 `i `a
+]
+"77
+[; ;./app/app_inc/application.h: 77: uint8_t commandByteCounter = 0;
+[v _commandByteCounter `uc ~T0 @X0 1 e ]
+[i _commandByteCounter
+-> -> 0 `i `uc
+]
+"78
+[; ;./app/app_inc/application.h: 78: volatile uint16_t ATTimeoutTimer = 1000;
+[v _ATTimeoutTimer `Vus ~T0 @X0 1 e ]
+[i _ATTimeoutTimer
+-> -> 1000 `i `us
+]
+"88
+[; ;./app/app_inc/application.h: 88: const uint8_t ATVersionMajor = 1;
+[v _ATVersionMajor `Cuc ~T0 @X0 1 e ]
+[i _ATVersionMajor
+-> -> 1 `i `uc
+]
+"89
+[; ;./app/app_inc/application.h: 89: const uint8_t ATVersionMinor = 0;
+[v _ATVersionMinor `Cuc ~T0 @X0 1 e ]
+[i _ATVersionMinor
+-> -> 0 `i `uc
+]
+"91
+[; ;./app/app_inc/application.h: 91: const uint8_t FirmwareVersionMajor = 2;
+[v _FirmwareVersionMajor `Cuc ~T0 @X0 1 e ]
+[i _FirmwareVersionMajor
+-> -> 2 `i `uc
+]
+"96
+[; ;./app/app_inc/application.h: 96: const uint8_t FirmwareVersionMinor = 1;
+[v _FirmwareVersionMinor `Cuc ~T0 @X0 1 e ]
+[i _FirmwareVersionMinor
+-> -> 1 `i `uc
+]
+"107
+[; ;./app/app_inc/application.h: 107: }atStateVar = initMessage;
+[v _atStateVar `E16451 ~T0 @X0 1 e ]
+[i _atStateVar
+. `E16451 0
 ]
 [v $root$_main `(v ~T0 @X0 0 e ]
 "51 main.c
@@ -2471,49 +2608,38 @@ Version 4.0 HI-TECH Software Intermediate Code
 "71
 [; ;main.c: 71:     TMR0_SetInterruptHandler(Timer0Handler);
 [e ( _TMR0_SetInterruptHandler (1 &U _Timer0Handler ]
-"72
-[; ;main.c: 72:     SYS_Init();
-[e ( _SYS_Init ..  ]
 "73
-[; ;main.c: 73:     test_init();
-[e ( _test_init ..  ]
+[; ;main.c: 73:     SYS_Init();
+[e ( _SYS_Init ..  ]
 "74
-[; ;main.c: 74:     do { LATAbits.LATA3 = 0; } while(0);
-[e :U 2176 ]
-{
-[e = . . _LATAbits 0 3 -> -> 0 `i `uc ]
-}
-[e :U 2175 ]
+[; ;main.c: 74:     bootLoadApplication();
+[e ( _bootLoadApplication ..  ]
 "75
-[; ;main.c: 75:     while (1)
-[e :U 2178 ]
-"76
-[; ;main.c: 76:     {
-{
-"77
-[; ;main.c: 77:         SYS_TaskHandler();
-[e ( _SYS_TaskHandler ..  ]
-"78
-[; ;main.c: 78:         if(!test_timer){
-[e $ ! ! != -> _test_timer `ui -> -> 0 `i `ui 2180  ]
-{
-"79
-[; ;main.c: 79:             test_timer = 5000;
-[e = _test_timer -> -> 5000 `i `us ]
-"80
-[; ;main.c: 80:             test_send();
-[e ( _test_send ..  ]
-"81
-[; ;main.c: 81:         }
-}
-[e :U 2180 ]
-"82
-[; ;main.c: 82:     }
-}
+[; ;main.c: 75:     do { LATAbits.LATA3 = 1; } while(0);
 [e :U 2177 ]
-[e $U 2178  ]
+{
+[e = . . _LATAbits 0 3 -> -> 1 `i `uc ]
+}
+[e :U 2176 ]
+"76
+[; ;main.c: 76:     while (1)
 [e :U 2179 ]
-"83
-[; ;main.c: 83: }
-[e :UE 2173 ]
+"77
+[; ;main.c: 77:     {
+{
+"78
+[; ;main.c: 78:         SYS_TaskHandler();
+[e ( _SYS_TaskHandler ..  ]
+"79
+[; ;main.c: 79:         processATCommand();
+[e ( _processATCommand ..  ]
+"84
+[; ;main.c: 84:     }
+}
+[e :U 2178 ]
+[e $U 2179  ]
+[e :U 2180 ]
+"85
+[; ;main.c: 85: }
+[e :UE 2174 ]
 }

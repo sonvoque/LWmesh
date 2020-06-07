@@ -25951,6 +25951,8 @@ void FLASH_EraseBlock(uint32_t baseAddr);
 void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
 # 275 "mcc_generated_files/memory.h"
 uint8_t DATAEE_ReadByte(uint16_t bAdd);
+# 301 "mcc_generated_files/memory.h"
+uint8_t DIA_ReadByte(uint32_t flashAddr);
 
 void MEMORY_Tasks(void);
 # 52 "mcc_generated_files/memory.c" 2
@@ -26112,4 +26114,16 @@ void MEMORY_Tasks( void )
 {
 
     PIR0bits.NVMIF = 0;
+}
+
+uint8_t DIA_ReadByte(uint32_t flashAddr)
+{
+ NVMCON1bits.NVMREG = 1;
+    TBLPTRU = (uint8_t)((flashAddr & 0x00FF0000) >> 16);
+    TBLPTRH = (uint8_t)((flashAddr & 0x0000FF00)>> 8);
+    TBLPTRL = (uint8_t)(flashAddr & 0x000000FF);
+
+    __asm("TBLRD");
+
+    return (TABLAT);
 }

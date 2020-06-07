@@ -4,9 +4,40 @@
 #include "crc.h"
 #include "EEPROM.h"
 #include <stdlib.h>
+#include "sys.h"
+#include <stdbool.h>
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 extern void queue_serial_led_event(void);
+extern uint16_t crc16_app(void* dptr, uint16_t len, uint16_t seed);
+static NWK_DataReq_t nwkDataReq;
+
+static bool appDataConf(NWK_DataReq_t *req)
+{
+ if (NWK_SUCCESS_STATUS == req->status){
+     asm("nop");
+ }
+ // frame was sent successfully
+ else{
+     asm("nop");
+ }
+ // some error happened
+ return true;
+}
+
+static bool appDataInd(NWK_DataInd_t *ind)
+{
+    // process the frame
+    uint8_t data[payloadSizeMax + 1];
+    uint8_t* dataptr = ind->data;
+    memset(data, 0 , sizeof(data));
+    for(uint8_t i = 0; i < payloadSizeMax; i++){
+        data[i] = *dataptr++;
+    }
+    printf("RX:%04X:%s\r\n", ind->srcAddr, data);
+    return true;
+}
+
 #ifdef MBRTU
 #include "mb.h"
 extern void prvvTIMERExpiredISR( void );
@@ -180,7 +211,14 @@ static void cmdSend(char* cmd){
         uint8_t msgid;
         memset(msgstr, 0, sizeof(msgstr));
 		memcpy(msgstr,p1,strlen(p1));
-		msgid = queueMyMessage(msgstr,(uint8_t)(tempaddr >> 8),(uint8_t)(tempaddr),strlen(msgstr),USERASCII);
+		nwkDataReq.dstAddr = tempaddr;
+        nwkDataReq.dstEndpoint = 1;
+        nwkDataReq.srcEndpoint = 1;
+        nwkDataReq.options = NWK_OPT_ACK_REQUEST;
+        nwkDataReq.data = &msgstr;
+        nwkDataReq.size = strlen(p1);
+        nwkDataReq.confirm = &appDataConf;
+        NWK_DataReq(&nwkDataReq); 
 		printf("OK:%u\r\n",(uint16_t)msgid);
 	}
 	return;
@@ -205,8 +243,14 @@ static void cmdBcast(char* cmd){
         uint8_t msgid;
         memset(msgstr, 0, sizeof(msgstr));
 		memcpy(msgstr,p1,strlen(p1));
-		msgid = queueMyMessage(msgstr, 0, 0, 
-                strlen(msgstr), USERASCII);
+		nwkDataReq.dstAddr = 0xFFFF;
+        nwkDataReq.dstEndpoint = 1;
+        nwkDataReq.srcEndpoint = 1;
+        nwkDataReq.options = 0;
+        nwkDataReq.data = &msgstr;
+        nwkDataReq.size = strlen(p1);
+        nwkDataReq.confirm = &appDataConf;
+        NWK_DataReq(&nwkDataReq); 
 		printf("OK:%u\r\n",(uint16_t)(msgIDCounter - 1));
 	}
 	return;
@@ -286,19 +330,19 @@ static void cmdSetNaddr(char* cmd){
  * \param [IN] None.
  */
 static void cmdRecv(){
-	if(!CircularBufferEmpty(&at_rx_buf)){
-        struct rx_messages temp;
-        if(0 == CircularBufferPopFront(&at_rx_buf,&temp))
-        {
-            printf("%02X%02X:%.*s\r\n",temp.rx_message.scr0,
-                    temp.rx_message.scr1, payloadSizeMax, 
-                    temp.rx_message.msg);
-            printf("RSSI:%i\r\n", temp.rssi);
-        }
-    }
-    else{
-        printf("NOT OK:%u\r\n", (uint16_t)NO_RX_MESSAGES);
-    }
+//	if(!CircularBufferEmpty(&at_rx_buf)){
+//        struct rx_messages temp;
+//        if(0 == CircularBufferPopFront(&at_rx_buf,&temp))
+//        {
+//            printf("%02X%02X:%.*s\r\n",temp.rx_message.scr0,
+//                    temp.rx_message.scr1, payloadSizeMax, 
+//                    temp.rx_message.msg);
+//            printf("RSSI:%i\r\n", temp.rssi);
+//        }
+//    }
+//    else{
+//        printf("NOT OK:%u\r\n", (uint16_t)NO_RX_MESSAGES);
+//    }
 	return;
 }
 
@@ -325,18 +369,18 @@ static void cmdMac(){
  * \param [IN] None.
  */
 static void cmdSetSink(){
-	char msgstr[16];
-    memset(msgstr, 0, sizeof(msgstr));
-	//Set this node as sink
-	sinkAddr0 = currentAddr0;
-	sinkAddr1 = currentAddr1;
-	//Set the internal EEPROM address to self ID
-	DATAEE_WriteByte(sinkAddrEE0,currentAddr0);
-	DATAEE_WriteByte(sinkAddrEE1,currentAddr1);
-	//Send a message on network end point to all the node as BCAST
-	sprintf(msgstr,"SINK=%02X%02X",currentAddr0,currentAddr1);
-	//Use Broadcast address of 0x0000
-	queueMyMessage(msgstr,0x00,0x00,strlen(msgstr),NETWORK);
+//	char msgstr[16];
+//    memset(msgstr, 0, sizeof(msgstr));
+//	//Set this node as sink
+//	sinkAddr0 = currentAddr0;
+//	sinkAddr1 = currentAddr1;
+//	//Set the internal EEPROM address to self ID
+//	DATAEE_WriteByte(sinkAddrEE0,currentAddr0);
+//	DATAEE_WriteByte(sinkAddrEE1,currentAddr1);
+//	//Send a message on network end point to all the node as BCAST
+//	sprintf(msgstr,"SINK=%02X%02X",currentAddr0,currentAddr1);
+//	//Use Broadcast address of 0x0000
+//	queueMyMessage(msgstr,0x00,0x00,strlen(msgstr),NETWORK);
 #ifdef ATCOMM
 	printf("OK\r\n");
 #endif
@@ -350,18 +394,18 @@ static void cmdSetSink(){
  * \param [IN] AT cmmand.
  */
 static void cmdSendSink(char* cmd){
-	char *p1;
-	p1 = strstr(atCommand,"=") + 1;
-	if(strlen(p1) > payloadSizeMax){
-		printf("NOT OK:%u\r\n",MESSAGE_TOO_LONG);
-	}
-	else{
-		char msgstr[payloadSizeMax];
-        memset(msgstr, 0, sizeof(msgstr));
-		memcpy(msgstr,p1,strlen(p1));
-		queueMyMessage(msgstr,sinkAddr0,sinkAddr1,strlen(msgstr),USERASCII);
-		printf("OK:%u\r\n",(msgIDCounter - 1));
-	}
+//	char *p1;
+//	p1 = strstr(atCommand,"=") + 1;
+//	if(strlen(p1) > payloadSizeMax){
+//		printf("NOT OK:%u\r\n",MESSAGE_TOO_LONG);
+//	}
+//	else{
+//		char msgstr[payloadSizeMax];
+//        memset(msgstr, 0, sizeof(msgstr));
+//		memcpy(msgstr,p1,strlen(p1));
+//		queueMyMessage(msgstr,sinkAddr0,sinkAddr1,strlen(msgstr),USERASCII);
+//		printf("OK:%u\r\n",(msgIDCounter - 1));
+//	}
 }
 
 /*!
@@ -425,7 +469,7 @@ static void cmdSetAES(char* cmd){
  * \param [IN] None.
  */
 static void cmdGetTTL(){
-	printf("HOPS=0x%02X\r\n", currentHopCount);
+//	printf("HOPS=0x%02X\r\n", currentHopCount);
 	return;
 }
 
@@ -436,12 +480,12 @@ static void cmdGetTTL(){
  * \param [IN] AT cmmand.
  */
 static void cmdSetTTL(char* cmd){
-	char *p1,*p2;
-	char HOPSstr[3];
-	p1 = strstr(atCommand,"=") + 1;
-	memcpy(HOPSstr,p1,2);
-	currentHopCount = (uint8_t)strtoul(HOPSstr,&p2,16);
-	printf("OK\r\n");
+//	char *p1,*p2;
+//	char HOPSstr[3];
+//	p1 = strstr(atCommand,"=") + 1;
+//	memcpy(HOPSstr,p1,2);
+//	currentHopCount = (uint8_t)strtoul(HOPSstr,&p2,16);
+//	printf("OK\r\n");
 	return;
 }
 
@@ -704,8 +748,8 @@ static void cmdSetSF(char* atCommand){
  * \param [IN] None.
  */
 static void cmdGetRxCnt(char* atCommand){
-    printf("RXCNT=%u/%u\r\n", CircularBufferSize(&at_rx_buf), 
-            AT_RX_MESSAGE_DEPTH);
+//    printf("RXCNT=%u/%u\r\n", CircularBufferSize(&at_rx_buf), 
+//            AT_RX_MESSAGE_DEPTH);
 }
 
 /*!
@@ -716,12 +760,12 @@ static void cmdGetRxCnt(char* atCommand){
  */
 static void print_hop_table(char* atCommand){
     printf("Hop table\r\n");
-    for(uint8_t i = 0; i < HOP_TABLE_SIZE; i++){
-        if(hop_table[i].TTL){
-            printf("Dest = %04X  Hops = %u  TTL = %us\r\n", 
-                  hop_table[i].target_node,hop_table[i].hops, hop_table[i].TTL);
-        }       
-    }
+//    for(uint8_t i = 0; i < HOP_TABLE_SIZE; i++){
+//        if(hop_table[i].TTL){
+//            printf("Dest = %04X  Hops = %u  TTL = %us\r\n", 
+//                  hop_table[i].target_node,hop_table[i].hops, hop_table[i].TTL);
+//        }       
+//    }
 }
 
 /*!
@@ -731,18 +775,18 @@ static void print_hop_table(char* atCommand){
  * \param [IN] AT command.
  */
 static void set_hop_table_ttl(char* cmd){
-    char* p1;
-    uint16_t ttl;
-    p1 = strstr(cmd,"=") + 1;
-    if(!p1){
-        printf("NOT OK:%u\r\n", UNDEFCMD);
-        return;
-    }
-    ttl = strtoul(p1, NULL, 10); //Time in seconds
-    if(ttl < HOP_TTL_DEFAULT){
-        ttl = HOP_TTL_DEFAULT;
-    }
-    hop_table_ttl = ttl;
+//    char* p1;
+//    uint16_t ttl;
+//    p1 = strstr(cmd,"=") + 1;
+//    if(!p1){
+//        printf("NOT OK:%u\r\n", UNDEFCMD);
+//        return;
+//    }
+//    ttl = strtoul(p1, NULL, 10); //Time in seconds
+//    if(ttl < HOP_TTL_DEFAULT){
+//        ttl = HOP_TTL_DEFAULT;
+//    }
+//    hop_table_ttl = ttl;
     printf("OK\r\n");
 }
 
@@ -1089,90 +1133,90 @@ void sendInfo(void)
  * \param [OUT] None.
  * \param [IN] None.
  */
-void app_processes_msg(void){
-    if(!CircularBufferEmpty(&message_to_process_buf)){
-        struct message m; 
-        if(0 == CircularBufferPopFront(&message_to_process_buf,&m))
-        {
-            char data[74];
-            uint8_t i,endpoint;
-            newSelfMessage = 0;
-            //Now verify the end point and as as needed
-            endpoint = m.endpt;
-
-            //Calculate RSSI and SNR for all end points
-            if(SNR > 0){
-                packetRSSI = -157 + packetRSSI;
-            }
-            else{
-                packetRSSI = (int8_t)(-157 + packetRSSI + (int8_t)(SNR>>2));
-            }
-            if(endpoint == USERASCII){ 
-                int8_t rc = 0;
-#ifdef ATCOMM
-                struct rx_messages temp;
-                memcpy((void*)&temp.rx_message, (void*)&m, sizeof(struct message));
-                temp.rssi = packetRSSI;
-                rc = CircularBufferPushBack(&at_rx_buf, &temp);
-                
-#endif
-                //Now send ack to the source with mesg id if it was not a bcast
-                if((m.dest0 != 0) && (m.dest1 != 0)){
-                    memset(data,0,sizeof(data));
-                    sprintf(&data,"ACK:%u",m.msgCnt);
-                    queueMyMessage(data,m.scr0,m.scr1,strlen(data),NETWORK);
-                }                        
-            }
-            else if(USERBIN == endpoint){
-#ifdef MBRTU
-                CircularBufferPushBack(&mb_rx_buf, &m);
-                read_only_mb_regs[RO_RX_MSG_COUNT] = 
-                        CircularBufferSize(&mb_rx_buf);
-#endif
-            }
-            else if(NETWORK == endpoint){
-                char* ptr;
-                //check if this is an ACK
-                ptr = strstr(m.msg,"ACK");
-                if(ptr){
-#ifdef ATCOMM
-                struct rx_messages temp;
-                memcpy((void*)&temp.rx_message, (void*)&m, sizeof(struct message));
-                temp.rssi = packetRSSI;
-                CircularBufferPushBack(&at_rx_buf, &temp);
-#endif
-                }
-                //Check if there is Sink node command
-                ptr = strstr(m.msg,"SINK");
-                if(ptr)
-                {
-                    uint16_t tempaddr;
-                    char *p1,*p2;
-                    volatile char addrstr[5];
-
-                    memset(addrstr,0,sizeof(addrstr));
-                    p1 = strstr(m.msg,"=");
-                    p1++;
-                    memcpy(addrstr,p1,4);
-                    //Now converter the string number to a int
-                    tempaddr = strtoul(addrstr,&p2,16);
-                    sinkAddr0 = (uint8_t)(tempaddr >> 8);
-                    sinkAddr1 = (uint8_t)(tempaddr & 0xFF);
-                    //Save the sink address to EEPROM
-                    DATAEE_WriteByte_Platform(sinkAddrEE0,sinkAddr0);
-                    DATAEE_WriteByte_Platform(sinkAddrEE1,sinkAddr1);
-#ifdef MBRTU
-                    read_only_mb_regs[RO_SINK_ID] = (sinkAddr0 << 8) | (sinkAddr1);
-#endif
-#ifdef ATCOMM
-                    printf("Sink node set:%02X%02X\r\n",DATAEE_ReadByte_Platform(sinkAddrEE0),DATAEE_ReadByte_Platform(sinkAddrEE1));
-#endif                    
-                }
-            }
-        }
-    }
-}
-
+//void app_processes_msg(void){
+//    if(!CircularBufferEmpty(&message_to_process_buf)){
+//        struct message m; 
+//        if(0 == CircularBufferPopFront(&message_to_process_buf,&m))
+//        {
+//            char data[74];
+//            uint8_t i,endpoint;
+//            newSelfMessage = 0;
+//            //Now verify the end point and as as needed
+//            endpoint = m.endpt;
+//
+//            //Calculate RSSI and SNR for all end points
+//            if(SNR > 0){
+//                packetRSSI = -157 + packetRSSI;
+//            }
+//            else{
+//                packetRSSI = (int8_t)(-157 + packetRSSI + (int8_t)(SNR>>2));
+//            }
+//            if(endpoint == USERASCII){ 
+//                int8_t rc = 0;
+//#ifdef ATCOMM
+//                struct rx_messages temp;
+//                memcpy((void*)&temp.rx_message, (void*)&m, sizeof(struct message));
+//                temp.rssi = packetRSSI;
+//                rc = CircularBufferPushBack(&at_rx_buf, &temp);
+//                
+//#endif
+//                //Now send ack to the source with mesg id if it was not a bcast
+//                if((m.dest0 != 0) && (m.dest1 != 0)){
+//                    memset(data,0,sizeof(data));
+//                    sprintf(&data,"ACK:%u",m.msgCnt);
+//                    queueMyMessage(data,m.scr0,m.scr1,strlen(data),NETWORK);
+//                }                        
+//            }
+//            else if(USERBIN == endpoint){
+//#ifdef MBRTU
+//                CircularBufferPushBack(&mb_rx_buf, &m);
+//                read_only_mb_regs[RO_RX_MSG_COUNT] = 
+//                        CircularBufferSize(&mb_rx_buf);
+//#endif
+//            }
+//            else if(NETWORK == endpoint){
+//                char* ptr;
+//                //check if this is an ACK
+//                ptr = strstr(m.msg,"ACK");
+//                if(ptr){
+//#ifdef ATCOMM
+//                struct rx_messages temp;
+//                memcpy((void*)&temp.rx_message, (void*)&m, sizeof(struct message));
+//                temp.rssi = packetRSSI;
+//                CircularBufferPushBack(&at_rx_buf, &temp);
+//#endif
+//                }
+//                //Check if there is Sink node command
+//                ptr = strstr(m.msg,"SINK");
+//                if(ptr)
+//                {
+//                    uint16_t tempaddr;
+//                    char *p1,*p2;
+//                    volatile char addrstr[5];
+//
+//                    memset(addrstr,0,sizeof(addrstr));
+//                    p1 = strstr(m.msg,"=");
+//                    p1++;
+//                    memcpy(addrstr,p1,4);
+//                    //Now converter the string number to a int
+//                    tempaddr = strtoul(addrstr,&p2,16);
+//                    sinkAddr0 = (uint8_t)(tempaddr >> 8);
+//                    sinkAddr1 = (uint8_t)(tempaddr & 0xFF);
+//                    //Save the sink address to EEPROM
+//                    DATAEE_WriteByte_Platform(sinkAddrEE0,sinkAddr0);
+//                    DATAEE_WriteByte_Platform(sinkAddrEE1,sinkAddr1);
+//#ifdef MBRTU
+//                    read_only_mb_regs[RO_SINK_ID] = (sinkAddr0 << 8) | (sinkAddr1);
+//#endif
+//#ifdef ATCOMM
+//                    printf("Sink node set:%02X%02X\r\n",DATAEE_ReadByte_Platform(sinkAddrEE0),DATAEE_ReadByte_Platform(sinkAddrEE1));
+//#endif                    
+//                }
+//            }
+//        }
+//    }
+//}
+//
 /*!
  * \brief Load the MAC address from EEPROM to global EUID array
  *
@@ -1204,11 +1248,11 @@ void bootLoadApplication(void)
     uint8_t i;
     
     //Initialize the message buffer
-    init_message_buffers();
+//    init_message_buffers();
     //Load the EUID of the node
     loadMACAddr();
     //Load the serial number and compute short id
-    temp = crc16(&EUIDbyte[0], sizeof(EUIDbyte), 0);
+    temp = crc16_app(&EUIDbyte[0], sizeof(EUIDbyte), 0);
     currentAddr0 = (temp >> 8) & 0xFF;
     currentAddr1 = (temp) & 0xFF;
     
@@ -1311,6 +1355,18 @@ void bootLoadApplication(void)
     eMBInit( MB_RTU, mb_rtu_addr, 0, current_baud_rate, curent_parity);
     eMBEnable();
 #endif
+    /*Init the Stack*/
+    temp = (currentAddr0 << 8) | currentAddr1;
+    if(temp < 0x8000){
+        temp += 0x8000;
+        currentAddr0 = (temp >> 8) & 0xFF;
+        currentAddr1 = temp & 0xFF;
+    }
+    NWK_SetAddr(temp);
+    NWK_SetPanId(0x1234);
+    PHY_SetChannel(0x00);
+    PHY_SetRxState(true);
+    NWK_OpenEndpoint(1, appDataInd);
 }
 
 /*!

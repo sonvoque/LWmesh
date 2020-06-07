@@ -1,10 +1,10 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F15999 `(v ~T0 @X0 0 tf ]
 [v F16001 `(v ~T0 @X0 0 tf ]
+[v F16003 `(v ~T0 @X0 0 tf ]
 "134 phy/sx1216/phy_inc\phy.h
 [; ;phy/sx1216/phy_inc\phy.h: 134: }radio_state_var = INIT_RADIO;
-[c E16068 0 1 2 3 4 5 6 7 8 .. ]
-[n E16068 radio_state_enum INIT_RADIO START_RX WAIT_FOR_RX RX_MESSAGE START_CAD WAIT_FOR_CAD START_TX WAIT_FOR_TX RESET_RADIO_ENGINE  ]
+[c E16070 0 1 2 3 4 5 6 7 8 .. ]
+[n E16070 radio_state_enum INIT_RADIO START_RX WAIT_FOR_RX RX_MESSAGE START_CAD WAIT_FOR_CAD START_TX WAIT_FOR_TX RESET_RADIO_ENGINE  ]
 "250 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h: 250: __asm("STATUS_CSHAD equ 03880h");
 [; <" STATUS_CSHAD equ 03880h ;# ">
@@ -2149,10 +2149,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 mcc_generated_files/uart1.h
 [; ;mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F15999 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F16001 ~T0 @X0 1 e ]
 "536
 [; ;mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F16001 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F16003 ~T0 @X0 1 e ]
 "80 phy/sx1216/phy_inc\phy.h
 [; ;phy/sx1216/phy_inc\phy.h: 80: uint8_t _implicitHeaderMode = 0;
 [v __implicitHeaderMode `uc ~T0 @X0 1 e ]
@@ -2276,10 +2276,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> .912.75e6 `ul
 ..
 ]
-[v F16061 `uc ~T0 @X0 -> 3 `i t ]
+[v F16063 `uc ~T0 @X0 -> 3 `i t ]
 "104
 [; ;phy/sx1216/phy_inc\phy.h: 104: uint8_t fhssReg[sizeof(fhssList)/4][3];
-[v _fhssReg `F16061 ~T0 @X0 -> 63 `i e ]
+[v _fhssReg `F16063 ~T0 @X0 -> 63 `i e ]
 "106
 [; ;phy/sx1216/phy_inc\phy.h: 106: uint8_t syncList[] = {0x12,0x23,0x45,0x56,0x67,0x78,0x89,0x9A,0xAB,0xBC};
 [v _syncList `uc ~T0 @X0 -> 10 `i e ]
@@ -2320,7 +2320,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 ]
 "134
 [; ;phy/sx1216/phy_inc\phy.h: 134: }radio_state_var = INIT_RADIO;
-[v _radio_state_var `E16068 ~T0 @X0 1 e ]
+[v _radio_state_var `E16070 ~T0 @X0 1 e ]
 [i _radio_state_var
-. `E16068 0
+. `E16070 0
 ]

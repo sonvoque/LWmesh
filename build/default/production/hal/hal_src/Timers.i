@@ -25856,7 +25856,7 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 50 "mcc_generated_files\\mcc.h" 2
 
 # 1 "mcc_generated_files/pin_manager.h" 1
-# 330 "mcc_generated_files/pin_manager.h"
+# 322 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 # 51 "mcc_generated_files\\mcc.h" 2
 
@@ -26001,6 +26001,8 @@ void FLASH_EraseBlock(uint32_t baseAddr);
 void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
 # 275 "mcc_generated_files/memory.h"
 uint8_t DATAEE_ReadByte(uint16_t bAdd);
+# 301 "mcc_generated_files/memory.h"
+uint8_t DIA_ReadByte(uint32_t flashAddr);
 
 void MEMORY_Tasks(void);
 # 56 "mcc_generated_files\\mcc.h" 2
@@ -26632,6 +26634,202 @@ void PHY_TaskHandler(void);
 void readAllReg(void);
 # 3 "hal/hal_src/Timers.c" 2
 
+# 1 "app/app_inc\\application.h" 1
+# 16 "app/app_inc\\application.h"
+# 1 "app/app_inc/EEPROM.h" 1
+# 83 "app/app_inc/EEPROM.h"
+enum{
+    EEPROM_BOOTLOADER,
+    EEPROM_SERIAL,
+    EEPROM_APPKEY,
+    EEPROM_NETKEY,
+    EEPROM_NETID,
+    EEPROM_SINK,
+    EEPROM_RADIO_CH,
+    EEPROM_TX_POWER,
+    EEPROM_RSSI,
+    EEPROM_UART_PARITY,
+    EEPROM_UART_BAUD,
+    EEPROM_SF,
+    EEPROM_MBADDR
+}eeprom_write_flags_enum;
+
+struct eeprom_write_flags_type{
+    unsigned flag_master:1;
+    unsigned flag_bootload:1;
+    unsigned flag_serial:1;
+    unsigned flag_appkey:1;
+    unsigned flag_netkey:1;
+    unsigned flag_netid:1;
+    unsigned flag_sink:1;
+    unsigned flag_radio_ch:1;
+    unsigned flag_tx_power:1;
+    unsigned flag_rssi:1;
+    unsigned flag_uart_parity:1;
+    unsigned flag_uart_baud:1;
+    unsigned flag_sf:1;
+    unsigned flag_mbaddr:1;
+    unsigned resv:2;
+}eeprom_write_flags;
+
+uint8_t DATAEE_ReadByte_Platform(uint16_t addr);
+void DATAEE_WriteByte_Platform(uint16_t addr, uint8_t data);
+void sync_eeprom(void);
+uint8_t set_eeprom_sync(uint8_t);
+# 16 "app/app_inc\\application.h" 2
+
+# 1 "app/app_inc/errors.h" 1
+# 15 "app/app_inc/errors.h"
+    enum{
+        DIG_ZERO = 0,
+        DIG_ONE,
+        E_OK,
+        E_PIN,
+        E_MODE,
+        NOT_VADLID_ADDR,
+        FAILED_SAVE_NADDR,
+        MESSAGE_TOO_LONG,
+        KEYLENERROR,
+        UNDEFCMD,
+        CHOUTOFBOUNDS,
+        TXOUTOFBOUNDS,
+        RSSIOUTOFBOUNDS,
+        ILLEGALPARAMETER,
+        MESSAGE_IN_CACHE,
+        MESSAGE_NOT_IN_CACHE,
+        NO_RX_MESSAGES,
+        E_UNKNOWN
+    };
+# 17 "app/app_inc\\application.h" 2
+# 31 "app/app_inc\\application.h"
+enum UART_PARITY_ENUM {
+    UART_8BIT_NO_PARITY = 0,
+    UART_7BIT_MODE,
+    UART_9BIT_ODD_PARITY,
+    UART_9BIT_EVEN_PARITY,
+    UART_PARITY_SENTINAL
+};
+
+
+enum UART_BAUD_ENUM {
+    UART_BAUD_9600 = 0,
+    UART_BAUD_19200,
+    UART_BAUD_38400,
+    UART_BAUD_57600,
+    UART_BAUD_115200,
+    UART_BAUD_SENTINAL
+};
+uint24_t current_baud_rate;
+enum UART_BAUD_ENUM uart_baud_rate;
+enum UART_PARITY_ENUM uart_parity;
+uint8_t curent_parity;
+# 60 "app/app_inc\\application.h"
+uint8_t currentAddr0 = 0x12,currentAddr1 = 0x34,currentNetID = 0x55,
+        currentMsgID = 0;
+uint8_t sinkAddr0 = 0x00,sinkAddr1 = 0x00;
+
+uint8_t EUIDbyte[12];
+
+uint8_t currentMode = 0;
+uint8_t msgIDCounter = 0;
+
+
+uint8_t aes_key[16];
+uint8_t net_key[16];
+
+char atCommand[80];
+char uartmsg[6];
+volatile _Bool tx_done = 0;
+
+uint8_t commandByteCounter = 0;
+volatile uint16_t ATTimeoutTimer = 1000;
+extern uint8_t currentAddr0,currentAddr1;
+# 88 "app/app_inc\\application.h"
+const uint8_t ATVersionMajor = 1;
+const uint8_t ATVersionMinor = 0;
+
+const uint8_t FirmwareVersionMajor = 2;
+
+
+
+
+const uint8_t FirmwareVersionMinor = 1;
+
+enum atState
+{
+    initMessage = 0,
+    lookingForA,
+    lookingForT,
+    readingCommand,
+    endingCommand,
+    processCommand,
+    resetATMachine
+}atStateVar = initMessage;
+# 215 "app/app_inc\\application.h"
+void processATCommand(void);
+
+
+
+
+
+
+
+void sendOKMessage(void);
+
+
+
+
+
+
+
+void sendUARTMessage(char*);
+
+
+
+
+
+
+
+void sendInfo(void);
+# 248 "app/app_inc\\application.h"
+void bootLoadApplication(void);
+
+
+
+
+
+
+
+void UART1_framing_error_handler(void);
+
+
+
+
+
+
+
+void app_processes_msg(void);
+
+
+
+
+
+
+
+void MBRTUStack(void);
+# 4 "hal/hal_src/Timers.c" 2
+
+# 1 "app/app_inc\\led.h" 1
+# 16 "app/app_inc\\led.h"
+    volatile uint16_t ledtimer = 0;
+    void ledInit(void);
+    void handle_led_events(void);
+    int8_t queueLedEvent(uint8_t LEDState,uint16_t duration);
+    void queue_serial_led_event(void);
+    void queue_tx_led_event(void);
+    void queue_rx_led_event(void);
+# 5 "hal/hal_src/Timers.c" 2
+
 
 void Timer0Handler(void){
 
@@ -26641,7 +26839,18 @@ void Timer0Handler(void){
     if(test_timer){
         test_timer--;
     }
-# 21 "hal/hal_src/Timers.c"
+    if(ATTimeoutTimer){
+        ATTimeoutTimer--;
+    }
+    if(cadTimeOut){
+        cadTimeOut--;
+    }
+    if(_cadBackoffTimer){
+        _cadBackoffTimer--;
+    }
+    if(ledtimer){
+        ledtimer--;
+    }
     halTimerIrqCount++;
 }
 

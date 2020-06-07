@@ -274,6 +274,32 @@ void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
 */
 uint8_t DATAEE_ReadByte(uint16_t bAdd);
 
+/**
+  @Summary
+    Reads a data byte from DIA
+
+  @Description
+    This routine reads a data byte from given DIA address
+
+  @Preconditions
+    None
+
+  @Param
+    flashAddr - DIA Flash program memory location from which data has to be read
+
+  @Returns
+    Data byte read from given DIA address
+
+  @Example
+    <code>
+    uint8_t    readByte;
+    uint32_t    flashAddr = 0x7D00;
+
+    readByte = DIA_ReadByte(flashAddr);
+    </code>
+*/
+uint8_t DIA_ReadByte(uint32_t flashAddr);
+
 void MEMORY_Tasks(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility

@@ -1,7 +1,7 @@
 #include "mcc.h"
 #include "crc.h"
 
-uint16_t crc16(void* dptr, uint16_t len, uint16_t seed){
+uint16_t crc16_app(void* dptr, uint16_t len, uint16_t seed){
     uint8_t* ptr = (uint8_t*)dptr;
     uint16_t result;
     //Reset the CRC engine

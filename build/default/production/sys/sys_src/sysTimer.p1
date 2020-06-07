@@ -1,6 +1,6 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F15849 `(v ~T0 @X0 0 tf ]
 [v F15851 `(v ~T0 @X0 0 tf ]
+[v F15853 `(v ~T0 @X0 0 tf ]
 "57 sys/sys_src/sysTimer.c
 [; ;sys/sys_src/sysTimer.c: 57: static SYS_Timer_t *timers;
 [c E175 0 1 .. ]
@@ -2179,10 +2179,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 mcc_generated_files/uart1.h
 [; ;mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F15849 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F15851 ~T0 @X0 1 e ]
 "536
 [; ;mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F15851 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F15853 ~T0 @X0 1 e ]
 "22 hal/hal_inc\Timers.h
 [; ;hal/hal_inc\Timers.h: 22:     volatile uint16_t halTimerIrqCount = 0;
 [v _halTimerIrqCount `Vus ~T0 @X0 1 e ]

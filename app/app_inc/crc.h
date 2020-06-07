@@ -1,6 +1,6 @@
 /* 
  * File:   crc.h
- * Author: samue
+ * Author: samuel
  *
  * Created on March 29, 2020, 11:02 AM
  */
@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-    uint16_t crc16(void* dptr, uint16_t len, uint16_t seed);
+    uint16_t crc16_app(void* dptr, uint16_t len, uint16_t seed);
 
 
 #ifdef	__cplusplus

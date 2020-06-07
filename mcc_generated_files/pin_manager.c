@@ -73,7 +73,7 @@ void PIN_MANAGER_Initialize(void)
     */
     ANSELC = 0x29;
     ANSELB = 0xCD;
-    ANSELA = 0xD2;
+    ANSELA = 0xF2;
 
     /**
     WPUx registers
@@ -95,8 +95,8 @@ void PIN_MANAGER_Initialize(void)
     ODx registers
     */
     ODCONA = 0x00;
-    ODCONB = 0x00;
-    ODCONC = 0x08;
+    ODCONB = 0x06;
+    ODCONC = 0x18;
 
     /**
     SLRCONx registers
@@ -124,7 +124,9 @@ void PIN_MANAGER_Initialize(void)
     SPI1SCKPPS = 0x17;   //RC7->SPI1:SCK1;    
     SPI1SSPPS = 0x05;   //RA5->SPI1:SS1;    
     RB0PPS = 0x1F;   //RB0->SPI1:SDO1;    
-    U1RXPPS = 0x12;   //RC2->UART1:RX1;    
+    RC1PPS = 0x14;   //RC1->UART1:TXDE1;    
+    U1RXPPS = 0x12;   //RC2->UART1:RX1;
+    U1CTSPPS = 0x1F;  //RF7->UART1:CTS;    
     RC7PPS = 0x1E;   //RC7->SPI1:SCK1;    
     SPI1SDIPPS = 0x09;   //RB1->SPI1:SDI1;    
 }
