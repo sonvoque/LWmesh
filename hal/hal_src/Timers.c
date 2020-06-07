@@ -9,9 +9,6 @@ void Timer0Handler(void){
     if(txTimeOut){
         txTimeOut--;
     }
-    if(test_timer){
-        test_timer--;
-    }
     if(ATTimeoutTimer){
         ATTimeoutTimer--;
     }
