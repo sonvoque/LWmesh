@@ -1,5 +1,5 @@
 //Handlers for all the timer ISRs
-#include "Timers.h"
+#include "../hal_inc/Timers.h"
 #include "phy.h"
 #include "application.h"
 #include "led.h"
@@ -8,9 +8,6 @@ void Timer0Handler(void){
 
     if(txTimeOut){
         txTimeOut--;
-    }
-    if(test_timer){
-        test_timer--;
     }
     if(ATTimeoutTimer){
         ATTimeoutTimer--;
