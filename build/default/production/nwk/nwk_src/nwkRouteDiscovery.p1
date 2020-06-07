@@ -1,0 +1,42 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"67 nwk/nwk_inc\nwkFrame.h
+[s S8 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S8 . ackRequest security linkLocal multicast reserved ]
+"78
+[s S9 :4 `uc 1 :4 `uc 1 ]
+[n S9 . nwkSrcEndpoint nwkDstEndpoint ]
+"59
+[s S7 `us 1 `uc 1 `us 1 `us 1 `us 1 `QS8 1 `uc 1 `us 1 `us 1 `S9 1 ]
+[n S7 NwkFrameHeader_t macFcf macSeq macDstPanId macDstAddr macSrcAddr nwkFcf nwkSeq nwkSrcAddr nwkDstAddr . ]
+"98
+[u S12 `QS7 1 `uc -> 127 `i ]
+[n S12 . header data ]
+"108
+[s S14 `uc 1 `c 1 ]
+[n S14 . lqi rssi ]
+[v F241 `(v ~T0 @X0 0 tf1`*S11 ]
+"114
+[s S15 `uc 1 `us 1 `uc 1 `*F241 1 ]
+[n S15 . status timeout control confirm ]
+"106
+[u S13 `S14 1 `S15 1 ]
+[n S13 . rx tx ]
+"93
+[s S11 `uc 1 `uc 1 `S12 1 `*uc 1 `S13 1 ]
+[n S11 NwkFrame_t state size . payload . ]
+[v F255 `(uc ~T0 @X0 1 tf1`*S11 ]
+"134 nwk/nwk_inc\nwkFrame.h
+[v _nwkFramePayloadSize `TF255 ~T0 @X0 1 s ]
+"135
+{
+[e :U _nwkFramePayloadSize ]
+"134
+[v _frame `*S11 ~T0 @X0 1 r1 ]
+"135
+[f ]
+"136
+[e ) -> - -> . *U _frame 1 `i / - -> . *U _frame 3 `x -> &U . . *U _frame 2 1 `x -> -> # *U . *U _frame 3 `i `x `uc ]
+[e $UE 16  ]
+"137
+[e :UE 16 ]
+}
