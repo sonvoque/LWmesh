@@ -8,6 +8,9 @@
             <file>file:/D:/projects/xTendLoRa/LWmesh/hal/hal_inc/Timers.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_src/sysTimer.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_inc/sysTimer.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_inc/application.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/application.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/phy/sx1216/phy_src/phy.c</file>
         </group>
     </open-files>
 </project-private>

@@ -10,33 +10,7 @@
 #define swap_16(x) ((x << 8) | (x >> 8))
 extern void queue_serial_led_event(void);
 extern uint16_t crc16_app(void* dptr, uint16_t len, uint16_t seed);
-static NWK_DataReq_t nwkDataReq;
-
-static bool appDataConf(NWK_DataReq_t *req)
-{
- if (NWK_SUCCESS_STATUS == req->status){
-     asm("nop");
- }
- // frame was sent successfully
- else{
-     asm("nop");
- }
- // some error happened
- return true;
-}
-
-static bool appDataInd(NWK_DataInd_t *ind)
-{
-    // process the frame
-    uint8_t data[payloadSizeMax + 1];
-    uint8_t* dataptr = ind->data;
-    memset(data, 0 , sizeof(data));
-    for(uint8_t i = 0; i < payloadSizeMax; i++){
-        data[i] = *dataptr++;
-    }
-    printf("RX:%04X:%s\r\n", ind->srcAddr, data);
-    return true;
-}
+static void free_tx_buffer(NWK_DataReq_t *req);
 
 #ifdef MBRTU
 #include "mb.h"
@@ -55,6 +29,56 @@ static uint8_t read_write_mb_regs_update = 0;
 static uint8_t tx_ctl_mb_regs_upadte     = 0;
 static uint8_t rx_ctl_mb_regs_upadte     = 0;
 #endif
+
+void appDataConf(NWK_DataReq_t *req)
+{
+ if (NWK_SUCCESS_STATUS == req->status){
+     asm("nop"); // frame was sent successfully
+ } 
+ else{
+     asm("nop"); // some error happened
+ }
+ //Free the app tx buffer any way
+ free_tx_buffer(req);
+}
+
+static bool appDataInd(NWK_DataInd_t *ind)
+{
+    // process the frame
+    uint8_t data[payloadSizeMax + 1];
+    uint8_t* dataptr = ind->data;
+    memset(data, 0 , sizeof(data));
+    for(uint8_t i = 0; i < payloadSizeMax; i++){
+        data[i] = *dataptr++;
+    }
+    printf("RX:%04X:%s\r\n", ind->srcAddr, data);
+    return true;
+}
+
+static bool get_free_tx_buffer(uint8_t *buf_id){
+    *buf_id = 0;
+    while(*buf_id < APP_TX_BUFFER_DEPTH){
+        if(tx_buffer[*buf_id].free){
+            tx_buffer[*buf_id].free = 0;
+            return true;
+        }
+        (*buf_id)++;
+    }
+    return false;
+}
+
+static void free_tx_buffer(NWK_DataReq_t *req){
+    uint8_t buf_id = 0;
+    //Find which NWK_DataReq_t matches with the one passed as argument
+    while(buf_id < APP_TX_BUFFER_DEPTH){
+        if(req == &tx_buffer[buf_id].nwkDataReq){
+            //Found the tx buffer we need to free
+            tx_buffer[buf_id].free = 1;
+            return;
+        }
+        buf_id++;
+    }    
+}
 
 /*!
  * \brief UART error handle
@@ -207,19 +231,23 @@ static void cmdSend(char* cmd){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
-        char msgstr[payloadSizeMax];
-        uint8_t msgid;
-        memset(msgstr, 0, sizeof(msgstr));
-		memcpy(msgstr,p1,strlen(p1));
-		nwkDataReq.dstAddr = tempaddr;
-        nwkDataReq.dstEndpoint = 1;
-        nwkDataReq.srcEndpoint = 1;
-        nwkDataReq.options = NWK_OPT_ACK_REQUEST;
-        nwkDataReq.data = &msgstr;
-        nwkDataReq.size = strlen(p1);
-        nwkDataReq.confirm = &appDataConf;
-        NWK_DataReq(&nwkDataReq); 
-		printf("OK:%u\r\n",(uint16_t)msgid);
+        uint8_t buf_id;
+        if(!get_free_tx_buffer(&buf_id)){
+            printf("NOT OK:%u\r\n", NO_FREE_BUF);
+            return;
+        }
+        memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
+		memcpy(&tx_buffer[buf_id].payload,p1,strlen(p1));
+		tx_buffer[buf_id].nwkDataReq.dstAddr = tempaddr;
+        tx_buffer[buf_id].nwkDataReq.dstEndpoint = ASCII_EP;
+        tx_buffer[buf_id].nwkDataReq.srcEndpoint = ASCII_EP;
+        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
+        tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
+        tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
+        tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
+        tx_buffer[buf_id].msgid = msgIDCounter++;
+        NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
+		printf("OK:%u\r\n", tx_buffer[buf_id].msgid);
 	}
 	return;
 }
@@ -239,19 +267,23 @@ static void cmdBcast(char* cmd){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
-		char msgstr[payloadSizeMax];
-        uint8_t msgid;
-        memset(msgstr, 0, sizeof(msgstr));
-		memcpy(msgstr,p1,strlen(p1));
-		nwkDataReq.dstAddr = 0xFFFF;
-        nwkDataReq.dstEndpoint = 1;
-        nwkDataReq.srcEndpoint = 1;
-        nwkDataReq.options = 0;
-        nwkDataReq.data = &msgstr;
-        nwkDataReq.size = strlen(p1);
-        nwkDataReq.confirm = &appDataConf;
-        NWK_DataReq(&nwkDataReq); 
-		printf("OK:%u\r\n",(uint16_t)(msgIDCounter - 1));
+		uint8_t buf_id;
+        if(!get_free_tx_buffer(&buf_id)){
+            printf("NOT OK:%u\r\n", NO_FREE_BUF);
+            return;
+        }
+        memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
+		memcpy(&tx_buffer[buf_id].payload,p1,strlen(p1));
+		tx_buffer[buf_id].nwkDataReq.dstAddr = NWK_BROADCAST_ADDR;
+        tx_buffer[buf_id].nwkDataReq.dstEndpoint = ASCII_EP;
+        tx_buffer[buf_id].nwkDataReq.srcEndpoint = ASCII_EP;
+        tx_buffer[buf_id].nwkDataReq.options = 0;
+        tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
+        tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
+        tx_buffer[buf_id].nwkDataReq.confirm = (void*)&appDataConf;
+        tx_buffer[buf_id].msgid = msgIDCounter++;
+        NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
+		printf("OK:%u\r\n", tx_buffer[buf_id].msgid);
 	}
 	return;
 }
@@ -1356,6 +1388,10 @@ void bootLoadApplication(void)
     eMBEnable();
 #endif
     /*Init the Stack*/
+    //Free all app buffers used with stack
+    for(uint8_t buf_id = 0; buf_id < APP_TX_BUFFER_DEPTH; buf_id++){
+        tx_buffer[buf_id].free = 1;
+    }
     temp = (currentAddr0 << 8) | currentAddr1;
     if(temp < 0x8000){
         temp += 0x8000;
@@ -1366,7 +1402,7 @@ void bootLoadApplication(void)
     NWK_SetPanId(0x1234);
     PHY_SetChannel(0x00);
     PHY_SetRxState(true);
-    NWK_OpenEndpoint(1, appDataInd);
+    NWK_OpenEndpoint(ASCII_EP, appDataInd);
 }
 
 /*!
