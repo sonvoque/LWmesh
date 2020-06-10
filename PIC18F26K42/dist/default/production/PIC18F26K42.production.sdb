@@ -600,17 +600,17 @@ resetATMachine 6
 [v _cmdGetRxCnt cmdGetRxCnt `(v  1 s 1 cmdGetRxCnt ]
 "793
 [v _print_hop_table print_hop_table `(v  1 s 1 print_hop_table ]
-"809
+"807
 [v _set_hop_table_ttl set_hop_table_ttl `(v  1 s 1 set_hop_table_ttl ]
-"831
+"829
 [v _executeATCommand executeATCommand `(uc  1 s 1 executeATCommand ]
-"1008
+"1006
 [v _processATCommand processATCommand `(v  1 e 1 0 ]
-"1146
+"1144
 [v _sendInfo sendInfo `(v  1 e 1 0 ]
-"1258
+"1256
 [v _loadMACAddr loadMACAddr `(v  1 s 1 loadMACAddr ]
-"1277
+"1275
 [v _bootLoadApplication bootLoadApplication `(v  1 e 1 0 ]
 "56 D:\projects\xTendLoRa\LWmesh/app/app_src/circular buffer.c
 [v _CircularBufferInit CircularBufferInit `(v  1 e 1 0 ]
@@ -734,26 +734,34 @@ resetATMachine 6
 [v _nwkGroupSwitch nwkGroupSwitch `(a  1 s 1 nwkGroupSwitch ]
 "79 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
 [v _nwkRouteInit nwkRouteInit `(v  1 e 1 0 ]
-"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc\nwkRoute.h
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc/nwkRoute.h
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "91 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
-[v _NWK_RouteFindEntry NWK_RouteFindEntry `(*.39S3838  1 e 2 0 ]
-"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc\nwkRoute.h
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[v _NWK_RouteFindEntry NWK_RouteFindEntry `(*.39S324  1 e 2 0 ]
+"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc/nwkRoute.h
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "105 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
-[v _NWK_RouteNewEntry NWK_RouteNewEntry `(*.39S3838  1 e 2 0 ]
+[v _NWK_RouteNewEntry NWK_RouteNewEntry `(*.39S324  1 e 2 0 ]
 "134
 [v _NWK_RouteFreeEntry NWK_RouteFreeEntry `(v  1 e 1 0 ]
 "144
 [v _NWK_RouteNextHop NWK_RouteNextHop `(us  1 e 2 0 ]
+"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc/nwkRoute.h
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+`uc 1 multicast 1 0 :1:1 
+`uc 1 reserved 1 0 :2:2 
+`uc 1 score 1 0 :4:4 
+`us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
+"157 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
+[v _NWK_RouteTable NWK_RouteTable `(*.39S324  1 e 2 0 ]
 "183
 [v _nwkRouteRemove nwkRouteRemove `(v  1 e 1 0 ]
 "194
@@ -1132,19 +1140,19 @@ resetATMachine 6
 [v _atStateVar atStateVar `E16358  1 e 1 0 ]
 "16 D:\projects\xTendLoRa\LWmesh/app/app_inc\led.h
 [v _ledtimer ledtimer `VEus  1 e 2 0 ]
-[s S1296 ledEvent 3 `uc 1 LEDCondition 1 0 `us 1 eventDuration 2 1 ]
+[s S1319 ledEvent 3 `uc 1 LEDCondition 1 0 `us 1 eventDuration 2 1 ]
 "16 D:\projects\xTendLoRa\LWmesh/app/app_src/led.c
-[v _ledqueue ledqueue `[32]S1296  1 e 96 0 ]
-[s S891 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
+[v _ledqueue ledqueue `[32]S1319  1 e 96 0 ]
+[s S914 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
 "20
-[v _ledtasksbuf ledtasksbuf `S891  1 e 10 0 ]
+[v _ledtasksbuf ledtasksbuf `S914  1 e 10 0 ]
 "22 D:\projects\xTendLoRa\LWmesh/hal/hal_inc\Timers.h
 [v _halTimerIrqCount halTimerIrqCount `VEus  1 e 2 0 ]
 "23
 [v _test_timer test_timer `VEus  1 e 2 0 ]
-[s S2743 NwkIb_t 40 `us 1 addr 2 0 `us 1 panId 2 2 `uc 1 nwkSeqNum 1 4 `uc 1 macSeqNum 1 5 `[16]*.37(a 1 endpoint 32 6 `us 1 lock 2 38 ]
+[s S2766 NwkIb_t 40 `us 1 addr 2 0 `us 1 panId 2 2 `uc 1 nwkSeqNum 1 4 `uc 1 macSeqNum 1 5 `[16]*.37(a 1 endpoint 32 6 `us 1 lock 2 38 ]
 "63 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwk.c
-[v _nwkIb nwkIb `S2743  1 e 40 0 ]
+[v _nwkIb nwkIb `S2766  1 e 40 0 ]
 "71 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkDataReq.c
 [v _nwkDataReqQueue nwkDataReqQueue `*.39S115  1 s 2 nwkDataReqQueue ]
 [s S56 . 1 `uc 1 ackRequest 1 0 :1:0 
@@ -1166,27 +1174,27 @@ resetATMachine 6
 [v _nwkFrameFrames nwkFrameFrames `[5]S83  1 s 685 nwkFrameFrames ]
 "63 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkGroup.c
 [v _nwkGroups nwkGroups `[10]us  1 s 20 nwkGroups ]
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "72 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
-[v _nwkRouteTable nwkRouteTable `[10]S3838  1 s 70 nwkRouteTable ]
-[s S4560 NwkDuplicateRejectionEntry_t 5 `us 1 src 2 0 `uc 1 seq 1 2 `uc 1 mask 1 3 `uc 1 ttl 1 4 ]
+[v _nwkRouteTable nwkRouteTable `[10]S324  1 s 70 nwkRouteTable ]
+[s S4580 NwkDuplicateRejectionEntry_t 5 `us 1 src 2 0 `uc 1 seq 1 2 `uc 1 mask 1 3 `uc 1 ttl 1 4 ]
 "93 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRx.c
-[v _nwkRxDuplicateRejectionTable nwkRxDuplicateRejectionTable `[10]S4560  1 s 50 nwkRxDuplicateRejectionTable ]
+[v _nwkRxDuplicateRejectionTable nwkRxDuplicateRejectionTable `[10]S4580  1 s 50 nwkRxDuplicateRejectionTable ]
 "94
 [v _nwkRxAckControl nwkRxAckControl `uc  1 s 1 nwkRxAckControl ]
 "95
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v _nwkRxDuplicateRejectionTimer nwkRxDuplicateRejectionTimer `S4569  1 s 13 nwkRxDuplicateRejectionTimer ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v _nwkRxDuplicateRejectionTimer nwkRxDuplicateRejectionTimer `S4589  1 s 13 nwkRxDuplicateRejectionTimer ]
 "85 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkTx.c
 [v _nwkTxPhyActiveFrame nwkTxPhyActiveFrame `*.39S83  1 s 2 nwkTxPhyActiveFrame ]
 "86
-[v _nwkTxAckWaitTimer nwkTxAckWaitTimer `S4569  1 s 13 nwkTxAckWaitTimer ]
+[v _nwkTxAckWaitTimer nwkTxAckWaitTimer `S4589  1 s 13 nwkTxAckWaitTimer ]
 "87
-[v _nwkTxDelayTimer nwkTxDelayTimer `S4569  1 s 13 nwkTxDelayTimer ]
+[v _nwkTxDelayTimer nwkTxDelayTimer `S4589  1 s 13 nwkTxDelayTimer ]
 "80 D:\projects\xTendLoRa\LWmesh/phy/sx1216/phy_inc\phy.h
 [v __implicitHeaderMode _implicitHeaderMode `uc  1 e 1 0 ]
 "81
@@ -1222,7 +1230,7 @@ resetATMachine 6
 "24 D:\projects\xTendLoRa\LWmesh/phy/sx1216/phy_src/phy.c
 [v _phyRxBuffer phyRxBuffer `[128]uc  1 s 128 phyRxBuffer ]
 "57 D:\projects\xTendLoRa\LWmesh/sys/sys_src/sysTimer.c
-[v _timers timers `*.39S4569  1 s 2 timers ]
+[v _timers timers `*.39S4589  1 s 2 timers ]
 "1308 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f26k42.h
 [v _CRCDATL CRCDATL `VEuc  1 e 1 @14688 ]
 "1370
@@ -1237,7 +1245,7 @@ resetATMachine 6
 [v _CRCXORH CRCXORH `VEuc  1 e 1 @14695 ]
 "1820
 [v _CRCCON0 CRCCON0 `VEuc  1 e 1 @14696 ]
-[s S973 . 1 `uc 1 FULL 1 0 :1:0 
+[s S996 . 1 `uc 1 FULL 1 0 :1:0 
 `uc 1 SHIFTM 1 0 :1:1 
 `uc 1 . 1 0 :2:2 
 `uc 1 ACCM 1 0 :1:4 
@@ -1246,18 +1254,18 @@ resetATMachine 6
 `uc 1 EN 1 0 :1:7 
 ]
 "1840
-[s S981 . 1 `uc 1 . 1 0 :7:0 
+[s S1004 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 CRCEN 1 0 :1:7 
 ]
-[u S984 . 1 `S973 1 . 1 0 `S981 1 . 1 0 ]
-[v _CRCCON0bits CRCCON0bits `VES984  1 e 1 @14696 ]
+[u S1007 . 1 `S996 1 . 1 0 `S1004 1 . 1 0 ]
+[v _CRCCON0bits CRCCON0bits `VES1007  1 e 1 @14696 ]
 "1880
 [v _CRCCON1 CRCCON1 `VEuc  1 e 1 @14697 ]
-[s S2560 . 1 `uc 1 PLEN 1 0 :4:0 
+[s S2583 . 1 `uc 1 PLEN 1 0 :4:0 
 `uc 1 DLEN 1 0 :4:4 
 ]
 "1901
-[s S2563 . 1 `uc 1 PLEN0 1 0 :1:0 
+[s S2586 . 1 `uc 1 PLEN0 1 0 :1:0 
 `uc 1 PLEN1 1 0 :1:1 
 `uc 1 PLEN2 1 0 :1:2 
 `uc 1 PLEN3 1 0 :1:3 
@@ -1266,8 +1274,8 @@ resetATMachine 6
 `uc 1 DLEN2 1 0 :1:6 
 `uc 1 DLEN3 1 0 :1:7 
 ]
-[u S2572 . 1 `S2560 1 . 1 0 `S2563 1 . 1 0 ]
-[v _CRCCON1bits CRCCON1bits `VES2572  1 e 1 @14697 ]
+[u S2595 . 1 `S2583 1 . 1 0 `S2586 1 . 1 0 ]
+[v _CRCCON1bits CRCCON1bits `VES2595  1 e 1 @14697 ]
 "1965
 [v _SCANLADRL SCANLADRL `VEuc  1 e 1 @14710 ]
 "2093
@@ -1284,7 +1292,7 @@ resetATMachine 6
 [v _SCANCON0 SCANCON0 `VEuc  1 e 1 @14716 ]
 "2745
 [v _SCANTRIG SCANTRIG `VEuc  1 e 1 @14717 ]
-[s S2196 . 1 `uc 1 I2C1TXIP 1 0 :1:0 
+[s S2219 . 1 `uc 1 I2C1TXIP 1 0 :1:0 
 `uc 1 I2C1IP 1 0 :1:1 
 `uc 1 I2C1EIP 1 0 :1:2 
 `uc 1 U1RXIP 1 0 :1:3 
@@ -1294,14 +1302,14 @@ resetATMachine 6
 `uc 1 TMR0IP 1 0 :1:7 
 ]
 "3005
-[s S2205 . 1 `uc 1 . 1 0 :1:0 
+[s S2228 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RXBNIP 1 0 :1:1 
 `uc 1 . 1 0 :2:2 
 `uc 1 TXBNIP 1 0 :1:4 
 ]
-[u S2210 . 1 `S2196 1 . 1 0 `S2205 1 . 1 0 ]
-[v _IPR3bits IPR3bits `VES2210  1 e 1 @14723 ]
-[s S1545 . 1 `uc 1 I2C1TXIE 1 0 :1:0 
+[u S2233 . 1 `S2219 1 . 1 0 `S2228 1 . 1 0 ]
+[v _IPR3bits IPR3bits `VES2233  1 e 1 @14723 ]
+[s S1568 . 1 `uc 1 I2C1TXIE 1 0 :1:0 
 `uc 1 I2C1IE 1 0 :1:1 
 `uc 1 I2C1EIE 1 0 :1:2 
 `uc 1 U1RXIE 1 0 :1:3 
@@ -1311,20 +1319,20 @@ resetATMachine 6
 `uc 1 TMR0IE 1 0 :1:7 
 ]
 "3668
-[s S1554 . 1 `uc 1 RXB0IE 1 0 :1:0 
+[s S1577 . 1 `uc 1 RXB0IE 1 0 :1:0 
 `uc 1 RXB1IE 1 0 :1:1 
 `uc 1 TXB0IE 1 0 :1:2 
 `uc 1 TXB1IE 1 0 :1:3 
 `uc 1 TXB2IE 1 0 :1:4 
 ]
-[s S1560 . 1 `uc 1 . 1 0 :1:0 
+[s S1583 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RXBNIE 1 0 :1:1 
 `uc 1 . 1 0 :2:2 
 `uc 1 TXBNIE 1 0 :1:4 
 ]
-[u S1565 . 1 `S1545 1 . 1 0 `S1554 1 . 1 0 `S1560 1 . 1 0 ]
-[v _PIE3bits PIE3bits `VES1565  1 e 1 @14739 ]
-[s S2092 . 1 `uc 1 SWIF 1 0 :1:0 
+[u S1588 . 1 `S1568 1 . 1 0 `S1577 1 . 1 0 `S1583 1 . 1 0 ]
+[v _PIE3bits PIE3bits `VES1588  1 e 1 @14739 ]
+[s S2115 . 1 `uc 1 SWIF 1 0 :1:0 
 `uc 1 HLVDIF 1 0 :1:1 
 `uc 1 OSFIF 1 0 :1:2 
 `uc 1 CSWIF 1 0 :1:3 
@@ -1334,9 +1342,9 @@ resetATMachine 6
 `uc 1 IOCIF 1 0 :1:7 
 ]
 "4082
-[u S2101 . 1 `S2092 1 . 1 0 ]
-[v _PIR0bits PIR0bits `VES2101  1 e 1 @14752 ]
-[s S1762 . 1 `uc 1 DMA1SCNTIF 1 0 :1:0 
+[u S2124 . 1 `S2115 1 . 1 0 ]
+[v _PIR0bits PIR0bits `VES2124  1 e 1 @14752 ]
+[s S1785 . 1 `uc 1 DMA1SCNTIF 1 0 :1:0 
 `uc 1 DMA1DCNTIF 1 0 :1:1 
 `uc 1 DMA1ORIF 1 0 :1:2 
 `uc 1 DMA1AIF 1 0 :1:3 
@@ -1346,12 +1354,12 @@ resetATMachine 6
 `uc 1 I2C1RXIF 1 0 :1:7 
 ]
 "4241
-[s S1771 . 1 `uc 1 . 1 0 :6:0 
+[s S1794 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 CMIF 1 0 :1:6 
 ]
-[u S1774 . 1 `S1762 1 . 1 0 `S1771 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES1774  1 e 1 @14754 ]
-[s S1844 . 1 `uc 1 I2C1TXIF 1 0 :1:0 
+[u S1797 . 1 `S1785 1 . 1 0 `S1794 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES1797  1 e 1 @14754 ]
+[s S1867 . 1 `uc 1 I2C1TXIF 1 0 :1:0 
 `uc 1 I2C1IF 1 0 :1:1 
 `uc 1 I2C1EIF 1 0 :1:2 
 `uc 1 U1RXIF 1 0 :1:3 
@@ -1361,13 +1369,13 @@ resetATMachine 6
 `uc 1 TMR0IF 1 0 :1:7 
 ]
 "4314
-[s S1853 . 1 `uc 1 . 1 0 :1:0 
+[s S1876 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RXBNIF 1 0 :1:1 
 `uc 1 . 1 0 :2:2 
 `uc 1 TXBNIF 1 0 :1:4 
 ]
-[u S1858 . 1 `S1844 1 . 1 0 `S1853 1 . 1 0 ]
-[v _PIR3bits PIR3bits `VES1858  1 e 1 @14755 ]
+[u S1881 . 1 `S1867 1 . 1 0 `S1876 1 . 1 0 ]
+[v _PIR3bits PIR3bits `VES1881  1 e 1 @14755 ]
 "4686
 [v _PMD0 PMD0 `VEuc  1 e 1 @14784 ]
 "4763
@@ -1400,7 +1408,7 @@ resetATMachine 6
 [v _NVMADRH NVMADRH `VEuc  1 e 1 @14817 ]
 "5918
 [v _NVMDAT NVMDAT `VEuc  1 e 1 @14819 ]
-[s S1999 . 1 `uc 1 RD 1 0 :1:0 
+[s S2022 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -1409,19 +1417,19 @@ resetATMachine 6
 `uc 1 REG 1 0 :2:6 
 ]
 "6076
-[s S2007 . 1 `uc 1 . 1 0 :6:0 
+[s S2030 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 REG0 1 0 :1:6 
 `uc 1 REG1 1 0 :1:7 
 ]
-[s S2011 . 1 `uc 1 . 1 0 :6:0 
+[s S2034 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 NVMREG 1 0 :2:6 
 ]
-[s S2014 . 1 `uc 1 . 1 0 :6:0 
+[s S2037 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 NVMREG0 1 0 :1:6 
 `uc 1 NVMREG1 1 0 :1:7 
 ]
-[u S2018 . 1 `S1999 1 . 1 0 `S2007 1 . 1 0 `S2011 1 . 1 0 `S2014 1 . 1 0 ]
-[v _NVMCON1bits NVMCON1bits `VES2018  1 e 1 @14821 ]
+[u S2041 . 1 `S2022 1 . 1 0 `S2030 1 . 1 0 `S2034 1 . 1 0 `S2037 1 . 1 0 ]
+[v _NVMCON1bits NVMCON1bits `VES2041  1 e 1 @14821 ]
 "6136
 [v _NVMCON2 NVMCON2 `VEuc  1 e 1 @14822 ]
 "6916
@@ -1532,7 +1540,7 @@ resetATMachine 6
 [v _U1UIR U1UIR `VEuc  1 e 1 @15864 ]
 "26192
 [v _U1ERRIR U1ERRIR `VEuc  1 e 1 @15865 ]
-[s S324 . 1 `uc 1 TXCIF 1 0 :1:0 
+[s S337 . 1 `uc 1 TXCIF 1 0 :1:0 
 `uc 1 RXFOIF 1 0 :1:1 
 `uc 1 RXBKIF 1 0 :1:2 
 `uc 1 FERIF 1 0 :1:3 
@@ -1542,7 +1550,7 @@ resetATMachine 6
 `uc 1 TXMTIF 1 0 :1:7 
 ]
 "26219
-[s S333 . 1 `uc 1 U1TXCIF 1 0 :1:0 
+[s S346 . 1 `uc 1 U1TXCIF 1 0 :1:0 
 `uc 1 U1RXFOIF 1 0 :1:1 
 `uc 1 U1RXBKIF 1 0 :1:2 
 `uc 1 U1FERIF 1 0 :1:3 
@@ -1551,8 +1559,8 @@ resetATMachine 6
 `uc 1 U1PERIF 1 0 :1:6 
 `uc 1 U1TXMTIF 1 0 :1:7 
 ]
-[u S342 . 1 `S324 1 . 1 0 `S333 1 . 1 0 ]
-[v _U1ERRIRbits U1ERRIRbits `VES342  1 e 1 @15865 ]
+[u S355 . 1 `S337 1 . 1 0 `S346 1 . 1 0 ]
+[v _U1ERRIRbits U1ERRIRbits `VES355  1 e 1 @15865 ]
 "26304
 [v _U1ERRIE U1ERRIE `VEuc  1 e 1 @15866 ]
 "43700
@@ -1565,7 +1573,7 @@ resetATMachine 6
 [v _T0CON1 T0CON1 `VEuc  1 e 1 @16313 ]
 "44332
 [v _LATA LATA `VEuc  1 e 1 @16314 ]
-[s S1321 . 1 `uc 1 LATA0 1 0 :1:0 
+[s S1344 . 1 `uc 1 LATA0 1 0 :1:0 
 `uc 1 LATA1 1 0 :1:1 
 `uc 1 LATA2 1 0 :1:2 
 `uc 1 LATA3 1 0 :1:3 
@@ -1575,7 +1583,7 @@ resetATMachine 6
 `uc 1 LATA7 1 0 :1:7 
 ]
 "44359
-[s S1330 . 1 `uc 1 LA0 1 0 :1:0 
+[s S1353 . 1 `uc 1 LA0 1 0 :1:0 
 `uc 1 LA1 1 0 :1:1 
 `uc 1 LA2 1 0 :1:2 
 `uc 1 LA3 1 0 :1:3 
@@ -1585,15 +1593,15 @@ resetATMachine 6
 `uc 1 LA7 1 0 :1:7 
 ]
 "44359
-[u S1339 . 1 `S1321 1 . 1 0 `S1330 1 . 1 0 ]
+[u S1362 . 1 `S1344 1 . 1 0 `S1353 1 . 1 0 ]
 "44359
 "44359
-[v _LATAbits LATAbits `VES1339  1 e 1 @16314 ]
+[v _LATAbits LATAbits `VES1362  1 e 1 @16314 ]
 "44444
 [v _LATB LATB `VEuc  1 e 1 @16315 ]
 "44556
 [v _LATC LATC `VEuc  1 e 1 @16316 ]
-[s S6255 . 1 `uc 1 LATC0 1 0 :1:0 
+[s S6275 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 LATC3 1 0 :1:3 
@@ -1603,7 +1611,7 @@ resetATMachine 6
 `uc 1 LATC7 1 0 :1:7 
 ]
 "44583
-[s S6264 . 1 `uc 1 LC0 1 0 :1:0 
+[s S6284 . 1 `uc 1 LC0 1 0 :1:0 
 `uc 1 LC1 1 0 :1:1 
 `uc 1 LC2 1 0 :1:2 
 `uc 1 LC3 1 0 :1:3 
@@ -1613,15 +1621,15 @@ resetATMachine 6
 `uc 1 LC7 1 0 :1:7 
 ]
 "44583
-[u S6273 . 1 `S6255 1 . 1 0 `S6264 1 . 1 0 ]
+[u S6293 . 1 `S6275 1 . 1 0 `S6284 1 . 1 0 ]
 "44583
 "44583
-[v _LATCbits LATCbits `VES6273  1 e 1 @16316 ]
+[v _LATCbits LATCbits `VES6293  1 e 1 @16316 ]
 "44668
 [v _TRISA TRISA `VEuc  1 e 1 @16322 ]
 "44730
 [v _TRISB TRISB `VEuc  1 e 1 @16323 ]
-[s S1709 . 1 `uc 1 TRISB0 1 0 :1:0 
+[s S1732 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
 `uc 1 TRISB3 1 0 :1:3 
@@ -1631,13 +1639,13 @@ resetATMachine 6
 `uc 1 TRISB7 1 0 :1:7 
 ]
 "44747
-[u S1718 . 1 `S1709 1 . 1 0 ]
+[u S1741 . 1 `S1732 1 . 1 0 ]
 "44747
 "44747
-[v _TRISBbits TRISBbits `VES1718  1 e 1 @16323 ]
+[v _TRISBbits TRISBbits `VES1741  1 e 1 @16323 ]
 "44792
 [v _TRISC TRISC `VEuc  1 e 1 @16324 ]
-[s S6331 . 1 `uc 1 RB0 1 0 :1:0 
+[s S6351 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -1647,15 +1655,15 @@ resetATMachine 6
 `uc 1 RB7 1 0 :1:7 
 ]
 "44959
-[s S6340 . 1 `uc 1 . 1 0 :3:0 
+[s S6360 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
 "44959
-[u S6343 . 1 `S6331 1 . 1 0 `S6340 1 . 1 0 ]
+[u S6363 . 1 `S6351 1 . 1 0 `S6360 1 . 1 0 ]
 "44959
 "44959
-[v _PORTBbits PORTBbits `VES6343  1 e 1 @16331 ]
-[s S2053 . 1 `uc 1 INT0EDG 1 0 :1:0 
+[v _PORTBbits PORTBbits `VES6363  1 e 1 @16331 ]
+[s S2076 . 1 `uc 1 INT0EDG 1 0 :1:0 
 `uc 1 INT1EDG 1 0 :1:1 
 `uc 1 INT2EDG 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
@@ -1664,23 +1672,23 @@ resetATMachine 6
 `uc 1 GIE 1 0 :1:7 
 ]
 "45154
-[s S2061 . 1 `uc 1 . 1 0 :7:0 
+[s S2084 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 GIEH 1 0 :1:7 
 ]
 "45154
-[u S2064 . 1 `S2053 1 . 1 0 `S2061 1 . 1 0 ]
+[u S2087 . 1 `S2076 1 . 1 0 `S2084 1 . 1 0 ]
 "45154
 "45154
-[v _INTCON0bits INTCON0bits `VES2064  1 e 1 @16338 ]
+[v _INTCON0bits INTCON0bits `VES2087  1 e 1 @16338 ]
 "45230
 [v _IVTLOCK IVTLOCK `VEuc  1 e 1 @16340 ]
-[s S2186 . 1 `uc 1 IVTLOCKED 1 0 :1:0 
+[s S2209 . 1 `uc 1 IVTLOCKED 1 0 :1:0 
 ]
 "45240
-[u S2188 . 1 `S2186 1 . 1 0 ]
+[u S2211 . 1 `S2209 1 . 1 0 ]
 "45240
 "45240
-[v _IVTLOCKbits IVTLOCKbits `VES2188  1 e 1 @16340 ]
+[v _IVTLOCKbits IVTLOCKbits `VES2211  1 e 1 @16340 ]
 "45259
 [v _IVTBASEL IVTBASEL `VEuc  1 e 1 @16341 ]
 "45321
@@ -1709,9 +1717,9 @@ resetATMachine 6
 [v _errno errno `i  1 e 2 0 ]
 "7 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\rand.c
 [v _seed seed `uo  1 s 8 seed ]
-[s S2542 . 3 `uc 1 dataWidth 1 0 `uc 1 polyWidth 1 1 `uc 1 seedDirection 1 2 ]
+[s S2565 . 3 `uc 1 dataWidth 1 0 `uc 1 polyWidth 1 1 `uc 1 seedDirection 1 2 ]
 "69 D:\projects\xTendLoRa\LWmesh\PIC18F26K42\mcc_generated_files/crc.c
-[v _crcObj crcObj `S2542  1 s 3 crcObj ]
+[v _crcObj crcObj `S2565  1 s 3 crcObj ]
 "59 D:\projects\xTendLoRa\LWmesh\PIC18F26K42\mcc_generated_files/tmr0.c
 [v _timer0ReloadVal16bit timer0ReloadVal16bit `VEus  1 e 2 0 ]
 "65
@@ -1730,18 +1738,18 @@ resetATMachine 6
 [v _uart1RxTail uart1RxTail `VEuc  1 s 1 uart1RxTail ]
 "79
 [v _uart1RxBuffer uart1RxBuffer `VE[16]uc  1 s 16 uart1RxBuffer ]
-[s S2294 . 1 `uc 1 perr 1 0 :1:0 
+[s S2317 . 1 `uc 1 perr 1 0 :1:0 
 `uc 1 ferr 1 0 :1:1 
 `uc 1 oerr 1 0 :1:2 
 `uc 1 reserved 1 0 :5:3 
 ]
 "80
-[u S2299 . 1 `S2294 1 . 1 0 `uc 1 status 1 0 ]
-[v _uart1RxStatusBuffer uart1RxStatusBuffer `VE[16]S2299  1 s 16 uart1RxStatusBuffer ]
+[u S2322 . 1 `S2317 1 . 1 0 `uc 1 status 1 0 ]
+[v _uart1RxStatusBuffer uart1RxStatusBuffer `VE[16]S2322  1 s 16 uart1RxStatusBuffer ]
 "81
 [v _uart1RxCount uart1RxCount `VEuc  1 e 1 0 ]
 "82
-[v _uart1RxLastError uart1RxLastError `VES2299  1 s 1 uart1RxLastError ]
+[v _uart1RxLastError uart1RxLastError `VES2322  1 s 1 uart1RxLastError ]
 "87
 [v _UART1_FramingErrorHandler UART1_FramingErrorHandler `*.37(v  1 e 2 0 ]
 "88
@@ -1757,14 +1765,14 @@ resetATMachine 6
 {
 "85
 } 0
-"1008 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
+"1006 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
 [v _processATCommand processATCommand `(v  1 e 1 0 ]
 {
-"1077
-[v processATCommand@data_828 data `uc  1 a 1 75 ]
-"1054
-[v processATCommand@data data `uc  1 a 1 76 ]
-"1107
+"1075
+[v processATCommand@data_851 data `uc  1 a 1 80 ]
+"1052
+[v processATCommand@data data `uc  1 a 1 81 ]
+"1105
 } 0
 "96 D:\projects\xTendLoRa\LWmesh/app/app_src/led.c
 [v _queue_serial_led_event queue_serial_led_event `(v  1 e 1 0 ]
@@ -1777,9 +1785,9 @@ resetATMachine 6
 [v _queueLedEvent queueLedEvent `(c  1 e 1 0 ]
 {
 [v queueLedEvent@LEDState LEDState `uc  1 a 1 wreg ]
-[s S1296 ledEvent 3 `uc 1 LEDCondition 1 0 `us 1 eventDuration 2 1 ]
+[s S1319 ledEvent 3 `uc 1 LEDCondition 1 0 `us 1 eventDuration 2 1 ]
 "57
-[v queueLedEvent@temp temp `S1296  1 a 3 30 ]
+[v queueLedEvent@temp temp `S1319  1 a 3 30 ]
 "53
 [v queueLedEvent@LEDState LEDState `uc  1 a 1 wreg ]
 [v queueLedEvent@duration duration `us  1 p 2 27 ]
@@ -1790,15 +1798,15 @@ resetATMachine 6
 "126 D:\projects\xTendLoRa\LWmesh/app/app_src/circular buffer.c
 [v _CircularBufferSpace CircularBufferSpace `(ui  1 e 2 0 ]
 {
-[s S891 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
-[v CircularBufferSpace@ctx ctx `*.39CS891  1 p 2 9 ]
+[s S914 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
+[v CircularBufferSpace@ctx ctx `*.39CS914  1 p 2 9 ]
 "129
 } 0
 "122
 [v _CircularBufferSize CircularBufferSize `(ui  1 e 2 0 ]
 {
-[s S891 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
-[v CircularBufferSize@ctx ctx `*.39CS891  1 p 2 1 ]
+[s S914 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
+[v CircularBufferSize@ctx ctx `*.39CS914  1 p 2 1 ]
 "124
 } 0
 "71
@@ -1806,42 +1814,63 @@ resetATMachine 6
 {
 "72
 [v CircularBufferPushBack@write_pos write_pos `ui  1 a 2 25 ]
-[s S891 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
+[s S914 . 10 `*.39uc 1 buf 2 0 `ui 1 write_pos 2 2 `ui 1 read_pos 2 4 `ui 1 element_size 2 6 `ui 1 max_size 2 8 ]
 "71
-[v CircularBufferPushBack@ctx ctx `*.39S891  1 p 2 18 ]
+[v CircularBufferPushBack@ctx ctx `*.39S914  1 p 2 18 ]
 [v CircularBufferPushBack@val val `*.30v  1 p 1 20 ]
 "85
 } 0
-"831 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
+"829 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
 [v _executeATCommand executeATCommand `(uc  1 s 1 executeATCommand ]
 {
-[v executeATCommand@cmd cmd `*.39uc  1 p 2 68 ]
-"1000
+[v executeATCommand@cmd cmd `*.39uc  1 p 2 74 ]
+"998
 } 0
-"809
+"807
 [v _set_hop_table_ttl set_hop_table_ttl `(v  1 s 1 set_hop_table_ttl ]
 {
-[v set_hop_table_ttl@cmd cmd `*.39uc  1 p 2 22 ]
-"823
+[v set_hop_table_ttl@cmd cmd `*.39uc  1 p 2 87 ]
+"821
 } 0
 "793
 [v _print_hop_table print_hop_table `(v  1 s 1 print_hop_table ]
 {
-[v print_hop_table@atCommand atCommand `*.39uc  1 p 2 22 ]
-"801
+"795
+[v print_hop_table@i i `uc  1 a 1 91 ]
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+`uc 1 multicast 1 0 :1:1 
+`uc 1 reserved 1 0 :2:2 
+`uc 1 score 1 0 :4:4 
+`us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
+"794
+[v print_hop_table@entry entry `*.39S324  1 a 2 89 ]
+"793
+[v print_hop_table@atCommand atCommand `*.39uc  1 p 2 87 ]
+"799
 } 0
-"616
+"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc/nwkRoute.h
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+`uc 1 multicast 1 0 :1:1 
+`uc 1 reserved 1 0 :2:2 
+`uc 1 score 1 0 :4:4 
+`us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
+"157 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
+[v _NWK_RouteTable NWK_RouteTable `(*.39S324  1 e 2 0 ]
+{
+"160
+} 0
+"616 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
 [v _cmdSetTX cmdSetTX `(v  1 s 1 cmdSetTX ]
 {
 "618
-[v cmdSetTX@CHstr CHstr `[3]uc  1 a 3 29 ]
+[v cmdSetTX@CHstr CHstr `[3]uc  1 a 3 37 ]
 "617
-[v cmdSetTX@p1 p1 `*.34uc  1 a 2 26 ]
-[v cmdSetTX@p2 p2 `*.34uc  1 a 2 24 ]
+[v cmdSetTX@p1 p1 `*.34uc  1 a 2 34 ]
+[v cmdSetTX@p2 p2 `*.34uc  1 a 2 32 ]
 "619
-[v cmdSetTX@temp temp `uc  1 a 1 28 ]
+[v cmdSetTX@temp temp `uc  1 a 1 36 ]
 "616
-[v cmdSetTX@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdSetTX@cmd cmd `*.39uc  1 p 2 87 ]
 "637
 } 0
 "514
@@ -1859,46 +1888,46 @@ resetATMachine 6
 [v _cmdSetSF cmdSetSF `(v  1 s 1 cmdSetSF ]
 {
 "759
-[v cmdSetSF@CHstr CHstr `[3]uc  1 a 3 26 ]
+[v cmdSetSF@CHstr CHstr `[3]uc  1 a 3 34 ]
 "758
-[v cmdSetSF@p2 p2 `*.34uc  1 a 2 29 ]
-[v cmdSetSF@p1 p1 `*.34uc  1 a 2 24 ]
+[v cmdSetSF@p2 p2 `*.34uc  1 a 2 37 ]
+[v cmdSetSF@p1 p1 `*.34uc  1 a 2 32 ]
 "760
-[v cmdSetSF@temp temp `c  1 a 1 31 ]
+[v cmdSetSF@temp temp `c  1 a 1 39 ]
 "757
-[v cmdSetSF@atCommand atCommand `*.39uc  1 p 2 22 ]
+[v cmdSetSF@atCommand atCommand `*.39uc  1 p 2 87 ]
 "774
 } 0
 "580
 [v _cmdSetRFCH cmdSetRFCH `(v  1 s 1 cmdSetRFCH ]
 {
 "582
-[v cmdSetRFCH@CHstr CHstr `[3]uc  1 a 3 26 ]
+[v cmdSetRFCH@CHstr CHstr `[3]uc  1 a 3 34 ]
 "581
-[v cmdSetRFCH@p2 p2 `*.34uc  1 a 2 29 ]
-[v cmdSetRFCH@p1 p1 `*.34uc  1 a 2 24 ]
+[v cmdSetRFCH@p2 p2 `*.34uc  1 a 2 37 ]
+[v cmdSetRFCH@p1 p1 `*.34uc  1 a 2 32 ]
 "583
-[v cmdSetRFCH@temp temp `uc  1 a 1 31 ]
+[v cmdSetRFCH@temp temp `uc  1 a 1 39 ]
 "580
-[v cmdSetRFCH@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdSetRFCH@cmd cmd `*.39uc  1 p 2 87 ]
 "597
 } 0
 "692
 [v _cmdSetParity cmdSetParity `(v  1 s 1 cmdSetParity ]
 {
-[v cmdSetParity@atCommand atCommand `*.39uc  1 p 2 22 ]
+[v cmdSetParity@atCommand atCommand `*.39uc  1 p 2 87 ]
 "710
 } 0
 "343
 [v _cmdSetNaddr cmdSetNaddr `(v  1 s 1 cmdSetNaddr ]
 {
 "345
-[v cmdSetNaddr@p1 p1 `*.34uc  1 a 2 26 ]
-[v cmdSetNaddr@p2 p2 `*.2uc  1 a 2 24 ]
+[v cmdSetNaddr@p1 p1 `*.34uc  1 a 2 34 ]
+[v cmdSetNaddr@p2 p2 `*.2uc  1 a 2 32 ]
 "344
-[v cmdSetNaddr@tempaddr tempaddr `uc  1 a 1 28 ]
+[v cmdSetNaddr@tempaddr tempaddr `uc  1 a 1 36 ]
 "343
-[v cmdSetNaddr@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdSetNaddr@cmd cmd `*.39uc  1 p 2 87 ]
 "356
 } 0
 "329 D:\projects\xTendLoRa\LWmesh/phy/sx1216/phy_src/phy.c
@@ -1914,14 +1943,14 @@ resetATMachine 6
 [v _cmdSetCADRSSI cmdSetCADRSSI `(v  1 s 1 cmdSetCADRSSI ]
 {
 "658
-[v cmdSetCADRSSI@CHstr CHstr `[3]uc  1 a 3 26 ]
+[v cmdSetCADRSSI@CHstr CHstr `[3]uc  1 a 3 34 ]
 "657
-[v cmdSetCADRSSI@p2 p2 `*.34uc  1 a 2 29 ]
-[v cmdSetCADRSSI@p1 p1 `*.34uc  1 a 2 24 ]
+[v cmdSetCADRSSI@p2 p2 `*.34uc  1 a 2 37 ]
+[v cmdSetCADRSSI@p1 p1 `*.34uc  1 a 2 32 ]
 "659
-[v cmdSetCADRSSI@temp temp `c  1 a 1 31 ]
+[v cmdSetCADRSSI@temp temp `c  1 a 1 39 ]
 "656
-[v cmdSetCADRSSI@atCommand atCommand `*.39uc  1 p 2 22 ]
+[v cmdSetCADRSSI@atCommand atCommand `*.39uc  1 p 2 87 ]
 "673
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\strtol.c
@@ -1976,33 +2005,33 @@ resetATMachine 6
 [v _cmdSetAddr cmdSetAddr `(v  1 s 1 cmdSetAddr ]
 {
 "309
-[v cmdSetAddr@tempaddr tempaddr `us  1 a 2 28 ]
+[v cmdSetAddr@tempaddr tempaddr `us  1 a 2 36 ]
 "310
-[v cmdSetAddr@p1 p1 `*.34uc  1 a 2 26 ]
-[v cmdSetAddr@p2 p2 `*.2uc  1 a 2 24 ]
+[v cmdSetAddr@p1 p1 `*.34uc  1 a 2 34 ]
+[v cmdSetAddr@p2 p2 `*.2uc  1 a 2 32 ]
 "308
-[v cmdSetAddr@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdSetAddr@cmd cmd `*.39uc  1 p 2 87 ]
 "324
 } 0
 "449
 [v _cmdSetAES cmdSetAES `(v  1 s 1 cmdSetAES ]
 {
 "478
-[v cmdSetAES@temp temp `[3]uc  1 a 3 60 ]
+[v cmdSetAES@temp temp `[3]uc  1 a 3 66 ]
 "479
-[v cmdSetAES@p2 p2 `*.34uc  1 a 2 58 ]
+[v cmdSetAES@p2 p2 `*.34uc  1 a 2 64 ]
 "480
-[v cmdSetAES@byte byte `uc  1 a 1 64 ]
+[v cmdSetAES@byte byte `uc  1 a 1 70 ]
 "477
-[v cmdSetAES@i i `uc  1 a 1 67 ]
+[v cmdSetAES@i i `uc  1 a 1 73 ]
 "451
-[v cmdSetAES@AESstr AESstr `[32]uc  1 a 32 26 ]
+[v cmdSetAES@AESstr AESstr `[32]uc  1 a 32 32 ]
 "450
-[v cmdSetAES@p1 p1 `*.34uc  1 a 2 65 ]
+[v cmdSetAES@p1 p1 `*.34uc  1 a 2 71 ]
 "452
-[v cmdSetAES@key_type key_type `uc  1 a 1 63 ]
+[v cmdSetAES@key_type key_type `uc  1 a 1 69 ]
 "449
-[v cmdSetAES@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdSetAES@cmd cmd `*.39uc  1 p 2 87 ]
 "495
 } 0
 "428
@@ -2015,16 +2044,16 @@ resetATMachine 6
 [v _cmdSend cmdSend `(v  1 s 1 cmdSend ]
 {
 "234
-[v cmdSend@buf_id buf_id `uc  1 a 1 37 ]
+[v cmdSend@buf_id buf_id `uc  1 a 1 43 ]
 "222
-[v cmdSend@destaddr destaddr `[5]uc  1 a 5 26 ]
+[v cmdSend@destaddr destaddr `[5]uc  1 a 5 32 ]
 "221
-[v cmdSend@p1 p1 `*.34uc  1 a 2 35 ]
-[v cmdSend@p2 p2 `*.34uc  1 a 2 33 ]
+[v cmdSend@p1 p1 `*.34uc  1 a 2 41 ]
+[v cmdSend@p2 p2 `*.34uc  1 a 2 39 ]
 "220
-[v cmdSend@tempaddr tempaddr `us  1 a 2 31 ]
+[v cmdSend@tempaddr tempaddr `us  1 a 2 37 ]
 "219
-[v cmdSend@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdSend@cmd cmd `*.39uc  1 p 2 87 ]
 "253
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\strtoul.c
@@ -2090,7 +2119,7 @@ resetATMachine 6
 [v _cmdMac cmdMac `(v  1 s 1 cmdMac ]
 {
 "389
-[v cmdMac@i i `uc  1 a 1 23 ]
+[v cmdMac@i i `uc  1 a 1 88 ]
 "394
 } 0
 "207
@@ -2098,10 +2127,10 @@ resetATMachine 6
 {
 "211
 } 0
-"1146
+"1144
 [v _sendInfo sendInfo `(v  1 e 1 0 ]
 {
-"1158
+"1156
 } 0
 "605
 [v _cmdGetTX cmdGetTX `(v  1 s 1 cmdGetTX ]
@@ -2153,11 +2182,11 @@ resetATMachine 6
 [v _cmdBcast cmdBcast `(v  1 s 1 cmdBcast ]
 {
 "270
-[v cmdBcast@buf_id buf_id `uc  1 a 1 28 ]
+[v cmdBcast@buf_id buf_id `uc  1 a 1 34 ]
 "262
-[v cmdBcast@p1 p1 `*.34uc  1 a 2 26 ]
+[v cmdBcast@p1 p1 `*.34uc  1 a 2 32 ]
 "261
-[v cmdBcast@cmd cmd `*.39uc  1 p 2 22 ]
+[v cmdBcast@cmd cmd `*.39uc  1 p 2 87 ]
 "289
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\strstr.c
@@ -2219,16 +2248,16 @@ resetATMachine 6
 [v UART1_Read@readValue readValue `uc  1 a 1 1 ]
 "208
 } 0
-"1277 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
+"1275 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
 [v _bootLoadApplication bootLoadApplication `(v  1 e 1 0 ]
 {
-"1392
+"1390
 [v bootLoadApplication@buf_id buf_id `uc  1 a 1 49 ]
-"1279
+"1277
 [v bootLoadApplication@temp temp `us  1 a 2 50 ]
-"1280
+"1278
 [v bootLoadApplication@i i `uc  1 a 1 52 ]
-"1406
+"1404
 } 0
 "148
 [v _set_uart_baud set_uart_baud `(uc  1 s 1 set_uart_baud ]
@@ -2248,12 +2277,12 @@ resetATMachine 6
 [v set_parity@parity parity `uc  1 a 1 3 ]
 "140
 } 0
-"1258
+"1256
 [v _loadMACAddr loadMACAddr `(v  1 s 1 loadMACAddr ]
 {
-"1261
+"1259
 [v loadMACAddr@i i `uc  1 a 1 5 ]
-"1269
+"1267
 } 0
 "212 D:\projects\xTendLoRa\LWmesh\PIC18F26K42\mcc_generated_files/memory.c
 [v _DIA_ReadByte DIA_ReadByte `(uc  1 e 1 0 ]
@@ -2390,8 +2419,8 @@ resetATMachine 6
 [v _SYS_TimerTaskHandler SYS_TimerTaskHandler `(v  1 e 1 0 ]
 {
 "130
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v SYS_TimerTaskHandler@timer timer `*.39S4569  1 a 2 33 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v SYS_TimerTaskHandler@timer timer `*.39S4589  1 a 2 33 ]
 "114
 [v SYS_TimerTaskHandler@elapsed elapsed `ul  1 a 4 29 ]
 "115
@@ -2421,8 +2450,8 @@ resetATMachine 6
 "208
 [v nwkTxAckWaitTimerHandler@restart restart `a  1 a 1 21 ]
 "205
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v nwkTxAckWaitTimerHandler@timer timer `*.39S4569  1 p 2 17 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v nwkTxAckWaitTimerHandler@timer timer `*.39S4589  1 p 2 17 ]
 "223
 } 0
 "181 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRx.c
@@ -2433,8 +2462,8 @@ resetATMachine 6
 "183
 [v nwkRxDuplicateRejectionTimerHandler@restart restart `a  1 a 1 19 ]
 "181
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v nwkRxDuplicateRejectionTimerHandler@timer timer `*.39S4569  1 p 2 17 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v nwkRxDuplicateRejectionTimerHandler@timer timer `*.39S4589  1 p 2 17 ]
 "196
 } 0
 "244 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkTx.c
@@ -2460,8 +2489,8 @@ resetATMachine 6
 "247
 [v nwkTxDelayTimerHandler@restart restart `a  1 a 1 21 ]
 "244
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v nwkTxDelayTimerHandler@timer timer `*.39S4569  1 p 2 17 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v nwkTxDelayTimerHandler@timer timer `*.39S4589  1 p 2 17 ]
 "262
 } 0
 "227
@@ -2546,9 +2575,9 @@ resetATMachine 6
 "642 D:\projects\xTendLoRa\LWmesh/phy/sx1216/phy_src/phy.c
 [v _DIO0_Receive_ISR DIO0_Receive_ISR `(v  1 e 1 0 ]
 {
-[s S4601 PHY_DataInd_t 5 `*.39uc 1 data 2 0 `uc 1 size 1 2 `uc 1 lqi 1 3 `c 1 rssi 1 4 ]
+[s S4621 PHY_DataInd_t 5 `*.39uc 1 data 2 0 `uc 1 size 1 2 `uc 1 lqi 1 3 `c 1 rssi 1 4 ]
 "652
-[v DIO0_Receive_ISR@ind ind `S4601  1 a 5 69 ]
+[v DIO0_Receive_ISR@ind ind `S4621  1 a 5 69 ]
 "653
 [v DIO0_Receive_ISR@packetLength packetLength `uc  1 a 1 67 ]
 "644
@@ -2587,17 +2616,17 @@ resetATMachine 6
 "8 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
 {
-[s S7555 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
+[s S7575 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
 "13
-[s S7560 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
-[u S7563 . 4 `l 1 i 4 0 `d 1 f 4 0 `S7555 1 fAsBytes 4 0 `S7560 1 fAsWords 4 0 ]
-[v ___flmul@prod prod `S7563  1 a 4 34 ]
+[s S7580 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
+[u S7583 . 4 `l 1 i 4 0 `d 1 f 4 0 `S7575 1 fAsBytes 4 0 `S7580 1 fAsWords 4 0 ]
+[v ___flmul@prod prod `S7583  1 a 4 34 ]
 "12
 [v ___flmul@grs grs `ul  1 a 4 29 ]
-[s S7631 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
+[s S7651 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
 "14
-[u S7634 . 2 `s 1 i 2 0 `us 1 n 2 0 `S7631 1 nAsBytes 2 0 ]
-[v ___flmul@temp temp `S7634  1 a 2 38 ]
+[u S7654 . 2 `s 1 i 2 0 `us 1 n 2 0 `S7651 1 nAsBytes 2 0 ]
+[v ___flmul@temp temp `S7654  1 a 2 38 ]
 "10
 [v ___flmul@bexp bexp `uc  1 a 1 33 ]
 "11
@@ -2645,9 +2674,9 @@ resetATMachine 6
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
 [v PHY_DataInd@frame frame `*.39S83  1 a 2 22 ]
-[s S4601 PHY_DataInd_t 5 `*.39uc 1 data 2 0 `uc 1 size 1 2 `uc 1 lqi 1 3 `c 1 rssi 1 4 ]
+[s S4621 PHY_DataInd_t 5 `*.39uc 1 data 2 0 `uc 1 size 1 2 `uc 1 lqi 1 3 `c 1 rssi 1 4 ]
 "116
-[v PHY_DataInd@ind ind `*.30S4601  1 p 1 18 ]
+[v PHY_DataInd@ind ind `*.30S4621  1 p 1 18 ]
 "132
 } 0
 "196 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwk.c
@@ -2680,13 +2709,13 @@ resetATMachine 6
 "236 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
 [v _nwkRouteFrameSent nwkRouteFrameSent `(v  1 e 1 0 ]
 {
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "238
-[v nwkRouteFrameSent@entry entry `*.39S3838  1 a 2 11 ]
+[v nwkRouteFrameSent@entry entry `*.39S324  1 a 2 11 ]
 [s S56 . 1 `uc 1 ackRequest 1 0 :1:0 
 `uc 1 security 1 0 :1:1 
 `uc 1 linkLocal 1 0 :1:2 
@@ -2769,19 +2798,19 @@ resetATMachine 6
 [s S84 . 6 `uc 1 status 1 0 `us 1 timeout 2 1 `uc 1 control 1 3 `*.37(v 1 confirm 2 4 ]
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
-[v nwkRxTaskHandler@frame frame `*.39S83  1 a 2 2 ]
+[v nwkRxTaskHandler@frame frame `*.39S83  1 a 2 0 ]
 "521
 } 0
 "292
 [v _nwkRxHandleReceivedFrame nwkRxHandleReceivedFrame `(v  1 s 1 nwkRxHandleReceivedFrame ]
 {
-[s S3027 NwkFrameMulticastHeader_t 2 `uc 1 nonMemberRadius 1 0 :4:0 
+[s S3050 NwkFrameMulticastHeader_t 2 `uc 1 nonMemberRadius 1 0 :4:0 
 `uc 1 maxNonMemberRadius 1 0 :4:4 
 `uc 1 memberRadius 1 1 :4:0 
 `uc 1 maxMemberRadius 1 1 :4:4 
 ]
 "346
-[v nwkRxHandleReceivedFrame@mcHeader mcHeader `*.39QS3027  1 a 2 46 ]
+[v nwkRxHandleReceivedFrame@mcHeader mcHeader `*.39QS3050  1 a 2 46 ]
 "347
 [v nwkRxHandleReceivedFrame@member member `a  1 a 1 45 ]
 "348
@@ -2840,11 +2869,11 @@ resetATMachine 6
 [v nwkRxRejectDuplicate@diff diff `uc  1 a 1 25 ]
 "205
 [v nwkRxRejectDuplicate@i i `uc  1 a 1 24 ]
-[s S4560 NwkDuplicateRejectionEntry_t 5 `us 1 src 2 0 `uc 1 seq 1 2 `uc 1 mask 1 3 `uc 1 ttl 1 4 ]
+[s S4580 NwkDuplicateRejectionEntry_t 5 `us 1 src 2 0 `uc 1 seq 1 2 `uc 1 mask 1 3 `uc 1 ttl 1 4 ]
 "202
-[v nwkRxRejectDuplicate@entry entry `*.39S4560  1 a 2 28 ]
+[v nwkRxRejectDuplicate@entry entry `*.39S4580  1 a 2 28 ]
 "203
-[v nwkRxRejectDuplicate@freeEntry freeEntry `*.39S4560  1 a 2 26 ]
+[v nwkRxRejectDuplicate@freeEntry freeEntry `*.39S4580  1 a 2 26 ]
 [s S56 . 1 `uc 1 ackRequest 1 0 :1:0 
 `uc 1 security 1 0 :1:1 
 `uc 1 linkLocal 1 0 :1:2 
@@ -2862,35 +2891,35 @@ resetATMachine 6
 "70 D:\projects\xTendLoRa\LWmesh/sys/sys_src/sysTimer.c
 [v _SYS_TimerStart SYS_TimerStart `(v  1 e 1 0 ]
 {
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v SYS_TimerStart@timer timer `*.39S4569  1 p 2 15 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v SYS_TimerStart@timer timer `*.39S4589  1 p 2 15 ]
 "74
 } 0
 "146
 [v _placeTimer placeTimer `(v  1 s 1 placeTimer ]
 {
 "153
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v placeTimer@t t `*.39S4569  1 a 2 13 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v placeTimer@t t `*.39S4589  1 a 2 13 ]
 "151
 [v placeTimer@timeout timeout `ul  1 a 4 7 ]
 "150
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v placeTimer@prev prev `*.39S4569  1 a 2 11 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v placeTimer@prev prev `*.39S4589  1 a 2 11 ]
 "146
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v placeTimer@timer timer `*.39S4569  1 p 2 1 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v placeTimer@timer timer `*.39S4589  1 p 2 1 ]
 "185
 } 0
 "102
 [v _SYS_TimerStarted SYS_TimerStarted `(a  1 e 1 0 ]
 {
 "104
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v SYS_TimerStarted@t t `*.39S4569  1 a 2 3 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v SYS_TimerStarted@t t `*.39S4589  1 a 2 3 ]
 "102
-[s S4569 SYS_Timer_t 13 `*.39S4569 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
-[v SYS_TimerStarted@timer timer `*.39S4569  1 p 2 1 ]
+[s S4589 SYS_Timer_t 13 `*.39S4589 1 next 2 0 `ul 1 timeout 4 2 `ul 1 interval 4 6 `E16136 1 mode 1 10 `*.37(v 1 handler 2 11 ]
+[v SYS_TimerStarted@timer timer `*.39S4589  1 p 2 1 ]
 "108
 } 0
 "194 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
@@ -2910,13 +2939,13 @@ resetATMachine 6
 ]
 [s S65 NwkFrameHeader_t 16 `us 1 macFcf 2 0 `uc 1 macSeq 1 2 `us 1 macDstPanId 2 3 `us 1 macDstAddr 2 5 `us 1 macSrcAddr 2 7 `QS56 1 nwkFcf 1 9 `uc 1 nwkSeq 1 10 `us 1 nwkSrcAddr 2 11 `us 1 nwkDstAddr 2 13 `S62 1 . 1 15 ]
 [v nwkRouteFrameReceived@header header `*.39QS65  1 a 2 20 ]
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "198
-[v nwkRouteFrameReceived@entry entry `*.39S3838  1 a 2 18 ]
+[v nwkRouteFrameReceived@entry entry `*.39S324  1 a 2 18 ]
 "194
 [u S76 . 127 `QS65 1 header 16 0 `[127]uc 1 data 127 0 ]
 [s S79 . 2 `uc 1 lqi 1 0 `c 1 rssi 1 1 ]
@@ -2926,28 +2955,28 @@ resetATMachine 6
 [v nwkRouteFrameReceived@frame frame `*.39S83  1 p 2 10 ]
 "232
 } 0
-"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc\nwkRoute.h
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc/nwkRoute.h
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "105 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
-[v _NWK_RouteNewEntry NWK_RouteNewEntry `(*.39S3838  1 e 2 0 ]
+[v _NWK_RouteNewEntry NWK_RouteNewEntry `(*.39S324  1 e 2 0 ]
 {
 "110
 [v NWK_RouteNewEntry@i i `uc  1 a 1 5 ]
 "108
-[v NWK_RouteNewEntry@entry entry `*.39S3838  1 a 2 8 ]
+[v NWK_RouteNewEntry@entry entry `*.39S324  1 a 2 8 ]
 "107
-[v NWK_RouteNewEntry@iter iter `*.39S3838  1 a 2 6 ]
+[v NWK_RouteNewEntry@iter iter `*.39S324  1 a 2 6 ]
 "130
 } 0
 "453 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRx.c
 [v _nwkRxHandleIndication nwkRxHandleIndication `(v  1 s 1 nwkRxHandleIndication ]
 {
 "455
-[v nwkRxHandleIndication@ack ack `a  1 a 1 121 ]
+[v nwkRxHandleIndication@ack ack `a  1 a 1 92 ]
 [s S56 . 1 `uc 1 ackRequest 1 0 :1:0 
 `uc 1 security 1 0 :1:1 
 `uc 1 linkLocal 1 0 :1:2 
@@ -2964,7 +2993,7 @@ resetATMachine 6
 [s S84 . 6 `uc 1 status 1 0 `us 1 timeout 2 1 `uc 1 control 1 3 `*.37(v 1 confirm 2 4 ]
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
-[v nwkRxHandleIndication@frame frame `*.39S83  1 p 2 117 ]
+[v nwkRxHandleIndication@frame frame `*.39S83  1 p 2 126 ]
 "478
 } 0
 "136
@@ -2987,9 +3016,9 @@ resetATMachine 6
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
 [v nwkRxSendAck@ack ack `*.39S83  1 a 2 45 ]
-[s S4614 NwkCommandAck_t 3 `uc 1 id 1 0 `uc 1 seq 1 1 `uc 1 control 1 2 ]
+[s S4634 NwkCommandAck_t 3 `uc 1 id 1 0 `uc 1 seq 1 1 `uc 1 control 1 2 ]
 "139
-[v nwkRxSendAck@command command `*.39QS4614  1 a 2 43 ]
+[v nwkRxSendAck@command command `*.39QS4634  1 a 2 43 ]
 "136
 [v nwkRxSendAck@frame frame `*.39S83  1 p 2 41 ]
 "158
@@ -2999,7 +3028,7 @@ resetATMachine 6
 {
 [s S173 NWK_DataInd_t 12 `us 1 srcAddr 2 0 `us 1 dstAddr 2 2 `uc 1 srcEndpoint 1 4 `uc 1 dstEndpoint 1 5 `uc 1 options 1 6 `*.39uc 1 data 2 7 `uc 1 size 1 9 `uc 1 lqi 1 10 `c 1 rssi 1 11 ]
 "426
-[v nwkRxIndicateFrame@ind ind `S173  1 a 12 105 ]
+[v nwkRxIndicateFrame@ind ind `S173  1 a 12 114 ]
 [s S56 . 1 `uc 1 ackRequest 1 0 :1:0 
 `uc 1 security 1 0 :1:1 
 `uc 1 linkLocal 1 0 :1:2 
@@ -3011,14 +3040,14 @@ resetATMachine 6
 `uc 1 nwkDstEndpoint 1 0 :4:4 
 ]
 [s S65 NwkFrameHeader_t 16 `us 1 macFcf 2 0 `uc 1 macSeq 1 2 `us 1 macDstPanId 2 3 `us 1 macDstAddr 2 5 `us 1 macSrcAddr 2 7 `QS56 1 nwkFcf 1 9 `uc 1 nwkSeq 1 10 `us 1 nwkSrcAddr 2 11 `us 1 nwkDstAddr 2 13 `S62 1 . 1 15 ]
-[v nwkRxIndicateFrame@header header `*.39QS65  1 a 2 103 ]
+[v nwkRxIndicateFrame@header header `*.39QS65  1 a 2 112 ]
 "423
 [u S76 . 127 `QS65 1 header 16 0 `[127]uc 1 data 127 0 ]
 [s S79 . 2 `uc 1 lqi 1 0 `c 1 rssi 1 1 ]
 [s S84 . 6 `uc 1 status 1 0 `us 1 timeout 2 1 `uc 1 control 1 3 `*.37(v 1 confirm 2 4 ]
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
-[v nwkRxIndicateFrame@frame frame `*.39S83  1 p 2 91 ]
+[v nwkRxIndicateFrame@frame frame `*.39S83  1 p 2 100 ]
 "449
 } 0
 "134 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc\nwkFrame.h
@@ -3039,28 +3068,28 @@ resetATMachine 6
 [s S84 . 6 `uc 1 status 1 0 `us 1 timeout 2 1 `uc 1 control 1 3 `*.37(v 1 confirm 2 4 ]
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
-[v nwkFrame@nwkFramePayloadSize@frame_4705 frame `*.39S83  1 p 2 1 ]
+[v nwkFrame@nwkFramePayloadSize@frame_4725 frame `*.39S83  1 p 2 1 ]
 "137
 } 0
 "45 D:\projects\xTendLoRa\LWmesh/app/app_src/application.c
 [v _appDataInd appDataInd `(a  1 s 1 appDataInd ]
 {
 "51
-[v appDataInd@i i `uc  1 a 1 90 ]
+[v appDataInd@i i `uc  1 a 1 99 ]
 "48
-[v appDataInd@data data `[65]uc  1 a 65 23 ]
+[v appDataInd@data data `[65]uc  1 a 65 32 ]
 "49
-[v appDataInd@dataptr dataptr `*.39uc  1 a 2 88 ]
+[v appDataInd@dataptr dataptr `*.39uc  1 a 2 97 ]
 [s S173 NWK_DataInd_t 12 `us 1 srcAddr 2 0 `us 1 dstAddr 2 2 `uc 1 srcEndpoint 1 4 `uc 1 dstEndpoint 1 5 `uc 1 options 1 6 `*.39uc 1 data 2 7 `uc 1 size 1 9 `uc 1 lqi 1 10 `c 1 rssi 1 11 ]
 "45
-[v appDataInd@ind ind `*.30S173  1 p 1 22 ]
+[v appDataInd@ind ind `*.30S173  1 p 1 87 ]
 "56
 } 0
 "257 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRx.c
 [v _nwkRxServiceDataInd nwkRxServiceDataInd `(a  1 s 1 nwkRxServiceDataInd ]
 {
 [s S173 NWK_DataInd_t 12 `us 1 srcAddr 2 0 `us 1 dstAddr 2 2 `uc 1 srcEndpoint 1 4 `uc 1 dstEndpoint 1 5 `uc 1 options 1 6 `*.39uc 1 data 2 7 `uc 1 size 1 9 `uc 1 lqi 1 10 `c 1 rssi 1 11 ]
-[v nwkRxServiceDataInd@ind ind `*.30S173  1 p 1 22 ]
+[v nwkRxServiceDataInd@ind ind `*.30S173  1 p 1 87 ]
 "288
 } 0
 "182 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkTx.c
@@ -3083,9 +3112,9 @@ resetATMachine 6
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
 [v nwkTxAckReceived@frame frame `*.39S83  1 a 2 12 ]
-[s S4614 NwkCommandAck_t 3 `uc 1 id 1 0 `uc 1 seq 1 1 `uc 1 control 1 2 ]
+[s S4634 NwkCommandAck_t 3 `uc 1 id 1 0 `uc 1 seq 1 1 `uc 1 control 1 2 ]
 "184
-[v nwkTxAckReceived@command command `*.39QS4614  1 a 2 10 ]
+[v nwkTxAckReceived@command command `*.39QS4634  1 a 2 10 ]
 [s S173 NWK_DataInd_t 12 `us 1 srcAddr 2 0 `us 1 dstAddr 2 2 `uc 1 srcEndpoint 1 4 `uc 1 dstEndpoint 1 5 `uc 1 options 1 6 `*.39uc 1 data 2 7 `uc 1 size 1 9 `uc 1 lqi 1 10 `c 1 rssi 1 11 ]
 "182
 [v nwkTxAckReceived@ind ind `*.30S173  1 p 1 7 ]
@@ -3126,9 +3155,9 @@ resetATMachine 6
 "344 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
 [v _nwkRouteErrorReceived nwkRouteErrorReceived `(a  1 e 1 0 ]
 {
-[s S3900 NwkCommandRouteError_t 6 `uc 1 id 1 0 `us 1 srcAddr 2 1 `us 1 dstAddr 2 3 `uc 1 multicast 1 5 ]
+[s S3923 NwkCommandRouteError_t 6 `uc 1 id 1 0 `us 1 srcAddr 2 1 `us 1 dstAddr 2 3 `uc 1 multicast 1 5 ]
 "346
-[v nwkRouteErrorReceived@command command `*.39QS3900  1 a 2 14 ]
+[v nwkRouteErrorReceived@command command `*.39QS3923  1 a 2 14 ]
 [s S173 NWK_DataInd_t 12 `us 1 srcAddr 2 0 `us 1 dstAddr 2 2 `uc 1 srcEndpoint 1 4 `uc 1 dstEndpoint 1 5 `uc 1 options 1 6 `*.39uc 1 data 2 7 `uc 1 size 1 9 `uc 1 lqi 1 10 `c 1 rssi 1 11 ]
 "344
 [v nwkRouteErrorReceived@ind ind `*.30S173  1 p 1 12 ]
@@ -3137,13 +3166,13 @@ resetATMachine 6
 "183
 [v _nwkRouteRemove nwkRouteRemove `(v  1 e 1 0 ]
 {
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "185
-[v nwkRouteRemove@entry entry `*.39S3838  1 a 2 10 ]
+[v nwkRouteRemove@entry entry `*.39S324  1 a 2 10 ]
 "183
 [v nwkRouteRemove@dst dst `us  1 p 2 7 ]
 [v nwkRouteRemove@multicast multicast `uc  1 p 1 9 ]
@@ -3152,21 +3181,21 @@ resetATMachine 6
 "134
 [v _NWK_RouteFreeEntry NWK_RouteFreeEntry `(v  1 e 1 0 ]
 {
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
-[v NWK_RouteFreeEntry@entry entry `*.39S3838  1 p 2 1 ]
+[v NWK_RouteFreeEntry@entry entry `*.39S324  1 p 2 1 ]
 "140
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\printf.c
 [v _printf printf `(i  1 e 2 0 ]
 {
 "8
-[v printf@ap ap `[1]*.30v  1 a 1 92 ]
+[v printf@ap ap `[1]*.30v  1 a 1 86 ]
 "5
-[v printf@fmt fmt `*.32Cuc  1 p 2 84 ]
+[v printf@fmt fmt `*.32Cuc  1 p 2 22 ]
 "13
 } 0
 "1368 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\doprnt.c
@@ -3174,9 +3203,9 @@ resetATMachine 6
 {
 "1371
 [v vfprintf@cfmt cfmt `*.32uc  1 a 2 82 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "1368
-[v vfprintf@fp fp `*.2S7131  1 p 2 77 ]
+[v vfprintf@fp fp `*.2S7151  1 p 2 77 ]
 [v vfprintf@fmt fmt `*.32Cuc  1 p 2 79 ]
 [v vfprintf@ap ap `*.30*.30v  1 p 1 81 ]
 "1382
@@ -3193,9 +3222,9 @@ resetATMachine 6
 "672
 [v vfpfcnvrt@cp cp `*.30uc  1 a 1 9 ]
 [v vfpfcnvrt@c c `uc  1 a 1 8 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "670
-[v vfpfcnvrt@fp fp `*.2S7131  1 p 2 69 ]
+[v vfpfcnvrt@fp fp `*.2S7151  1 p 2 69 ]
 [v vfpfcnvrt@fmt fmt `*.30*.32uc  1 p 1 71 ]
 [v vfpfcnvrt@ap ap `*.30*.30v  1 p 1 72 ]
 "1365
@@ -3210,9 +3239,9 @@ resetATMachine 6
 [v xtoa@i i `i  1 a 2 65 ]
 [v xtoa@w w `i  1 a 2 55 ]
 [v xtoa@p p `i  1 a 2 53 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "623
-[v xtoa@fp fp `*.2S7131  1 p 2 30 ]
+[v xtoa@fp fp `*.2S7151  1 p 2 30 ]
 [v xtoa@d d `uo  1 p 8 32 ]
 [v xtoa@x x `uc  1 p 1 40 ]
 "665
@@ -3250,9 +3279,9 @@ resetATMachine 6
 [v utoa@i i `i  1 a 2 60 ]
 [v utoa@w w `i  1 a 2 50 ]
 [v utoa@p p `i  1 a 2 48 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "593
-[v utoa@fp fp `*.2S7131  1 p 2 30 ]
+[v utoa@fp fp `*.2S7151  1 p 2 30 ]
 [v utoa@d d `uo  1 p 8 32 ]
 "619
 } 0
@@ -3290,9 +3319,9 @@ resetATMachine 6
 [v stoa@i i `i  1 a 2 23 ]
 "548
 [v stoa@cp cp `*.30uc  1 a 1 27 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "546
-[v stoa@fp fp `*.2S7131  1 p 2 12 ]
+[v stoa@fp fp `*.2S7151  1 p 2 12 ]
 [v stoa@s s `*.30uc  1 p 1 14 ]
 "548
 [v stoa@F1139 F1139 `[7]uc  1 s 7 F1139 ]
@@ -3308,9 +3337,9 @@ resetATMachine 6
 [v dtoa@s s `i  1 a 2 54 ]
 [v dtoa@w w `i  1 a 2 52 ]
 [v dtoa@p p `i  1 a 2 50 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "274
-[v dtoa@fp fp `*.2S7131  1 p 2 30 ]
+[v dtoa@fp fp `*.2S7151  1 p 2 30 ]
 [v dtoa@d d `o  1 p 8 32 ]
 "315
 } 0
@@ -3320,9 +3349,9 @@ resetATMachine 6
 "74
 [v pad@w w `i  1 a 2 28 ]
 [v pad@i i `i  1 a 2 26 ]
-[s S7131 _IO_FILE 0 ]
+[s S7151 _IO_FILE 0 ]
 "72
-[v pad@fp fp `*.2S7131  1 p 2 19 ]
+[v pad@fp fp `*.2S7151  1 p 2 19 ]
 [v pad@buf buf `*.39uc  1 p 2 21 ]
 [v pad@p p `i  1 p 2 23 ]
 "95
@@ -3345,16 +3374,16 @@ resetATMachine 6
 [v fputs@c c `uc  1 a 1 16 ]
 "8
 [v fputs@s s `*.39Cuc  1 p 2 12 ]
-[s S7756 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
-[v fputs@fp fp `*.2S7756  1 p 2 14 ]
+[s S7776 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputs@fp fp `*.2S7776  1 p 2 14 ]
 "19
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\nf_fputc.c
 [v _fputc fputc `(i  1 e 2 0 ]
 {
 [v fputc@c c `i  1 p 2 3 ]
-[s S7756 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
-[v fputc@fp fp `*.2S7756  1 p 2 5 ]
+[s S7776 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputc@fp fp `*.2S7776  1 p 2 5 ]
 "21
 } 0
 "242 D:\projects\xTendLoRa\LWmesh\PIC18F26K42\mcc_generated_files/uart1.c
@@ -3480,9 +3509,9 @@ resetATMachine 6
 [u S93 . 6 `S79 1 rx 2 0 `S84 1 tx 6 0 ]
 [s S83 NwkFrame_t 137 `uc 1 state 1 0 `uc 1 size 1 1 `S76 1 . 127 2 `*.39uc 1 payload 2 129 `S93 1 . 6 131 ]
 [v nwkRouteSendRouteError@frame frame `*.39S83  1 a 2 48 ]
-[s S3900 NwkCommandRouteError_t 6 `uc 1 id 1 0 `us 1 srcAddr 2 1 `us 1 dstAddr 2 3 `uc 1 multicast 1 5 ]
+[s S3923 NwkCommandRouteError_t 6 `uc 1 id 1 0 `us 1 srcAddr 2 1 `us 1 dstAddr 2 3 `uc 1 multicast 1 5 ]
 "321
-[v nwkRouteSendRouteError@command command `*.39QS3900  1 a 2 46 ]
+[v nwkRouteSendRouteError@command command `*.39QS3923  1 a 2 46 ]
 "318
 [v nwkRouteSendRouteError@src src `us  1 p 2 41 ]
 [v nwkRouteSendRouteError@dst dst `us  1 p 2 43 ]
@@ -3542,13 +3571,13 @@ resetATMachine 6
 "111
 [v _nwkDataReqSendFrame nwkDataReqSendFrame `(v  1 s 1 nwkDataReqSendFrame ]
 {
-[s S3027 NwkFrameMulticastHeader_t 2 `uc 1 nonMemberRadius 1 0 :4:0 
+[s S3050 NwkFrameMulticastHeader_t 2 `uc 1 nonMemberRadius 1 0 :4:0 
 `uc 1 maxNonMemberRadius 1 0 :4:4 
 `uc 1 memberRadius 1 1 :4:0 
 `uc 1 maxMemberRadius 1 1 :4:4 
 ]
 "140
-[v nwkDataReqSendFrame@mcHeader mcHeader `*.39QS3027  1 a 2 44 ]
+[v nwkDataReqSendFrame@mcHeader mcHeader `*.39QS3050  1 a 2 44 ]
 [s S56 . 1 `uc 1 ackRequest 1 0 :1:0 
 `uc 1 security 1 0 :1:1 
 `uc 1 linkLocal 1 0 :1:2 
@@ -3637,26 +3666,26 @@ resetATMachine 6
 "144
 [v _NWK_RouteNextHop NWK_RouteNextHop `(us  1 e 2 0 ]
 {
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "146
-[v NWK_RouteNextHop@entry entry `*.39S3838  1 a 2 10 ]
+[v NWK_RouteNextHop@entry entry `*.39S324  1 a 2 10 ]
 "144
 [v NWK_RouteNextHop@dst dst `us  1 p 2 7 ]
 [v NWK_RouteNextHop@multicast multicast `uc  1 p 1 9 ]
 "153
 } 0
-"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc\nwkRoute.h
-[s S3838 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
+"64 D:\projects\xTendLoRa\LWmesh/nwk/nwk_inc/nwkRoute.h
+[s S324 NWK_RouteTableEntry_t 7 `uc 1 fixed 1 0 :1:0 
 `uc 1 multicast 1 0 :1:1 
 `uc 1 reserved 1 0 :2:2 
 `uc 1 score 1 0 :4:4 
 `us 1 dstAddr 2 1 `us 1 nextHopAddr 2 3 `uc 1 rank 1 5 `uc 1 lqi 1 6 ]
 "91 D:\projects\xTendLoRa\LWmesh/nwk/nwk_src/nwkRoute.c
-[v _NWK_RouteFindEntry NWK_RouteFindEntry `(*.39S3838  1 e 2 0 ]
+[v _NWK_RouteFindEntry NWK_RouteFindEntry `(*.39S324  1 e 2 0 ]
 {
 "93
 [v NWK_RouteFindEntry@i i `uc  1 a 1 6 ]

@@ -791,13 +791,11 @@ static void cmdGetRxCnt(char* atCommand){
  * \param [IN] None.
  */
 static void print_hop_table(char* atCommand){
-    printf("Hop table\r\n");
-//    for(uint8_t i = 0; i < HOP_TABLE_SIZE; i++){
-//        if(hop_table[i].TTL){
-//            printf("Dest = %04X  Hops = %u  TTL = %us\r\n", 
-//                  hop_table[i].target_node,hop_table[i].hops, hop_table[i].TTL);
-//        }       
-//    }
+    NWK_RouteTableEntry_t *entry = NWK_RouteTable();
+    for(uint8_t i = 0; i < NWK_ROUTE_TABLE_SIZE; i++){
+        printf("DST:%04X NXT:%04X SCO:%u LQI:%u\r\n", (entry+i)->dstAddr, 
+            (entry+i)->nextHopAddr, (entry+i)->score, (entry+i)->lqi);
+    }
 }
 
 /*!
