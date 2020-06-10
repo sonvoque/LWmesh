@@ -30,6 +30,7 @@ extern "C" {
         MESSAGE_IN_CACHE,
         MESSAGE_NOT_IN_CACHE,
         NO_RX_MESSAGES,
+        NO_FREE_BUF,
         E_UNKNOWN        
     };
 

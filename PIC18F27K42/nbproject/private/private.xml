@@ -3,11 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/projects/xTendLoRa/LWmesh/PIC18F26K42/main.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/hal/hal_src/Timers.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/hal/hal_inc/Timers.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_src/sysTimer.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_inc/sysTimer.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkFrame.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwk.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/application.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwkRx.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwkDataReq.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/PIC18F27K42/mcc_generated_files/uart1.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwkFrame.h</file>
         </group>
     </open-files>
 </project-private>

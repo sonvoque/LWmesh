@@ -15,6 +15,7 @@
 #include "mcc.h"
 #include "EEPROM.h"
 #include "errors.h"
+#include "nwk.h"
 
 
 #ifdef	__cplusplus
@@ -77,6 +78,43 @@ volatile bool tx_done = 0;
 uint8_t commandByteCounter = 0;
 volatile uint16_t ATTimeoutTimer = 1000;
 extern uint8_t currentAddr0,currentAddr1;
+
+/*******************************************************************************
+ * End point organization.
+ ******************************************************************************/
+enum endpoint_t{
+    NETWORK_EP = 0,
+    ASCII_EP,
+    BIN_EP,
+    MANAGEMENT_EP,
+    OTA_EP,
+    RESV1,
+    RESV2,
+    RESV3,
+    RESV4,
+    RESV5,
+    RESV6,
+    RESV7,
+    RESV8,
+    RESV9,
+    RESV10,
+    RESV11
+};
+
+/*******************************************************************************
+ * Buffer management structures for data send operation
+ ******************************************************************************/
+#define APP_TX_BUFFER_DEPTH 4
+struct tx_buffer_t{
+    unsigned retires:2; // Number of retires left for this message
+    unsigned free:1;    // Descriptor un used
+    unsigned active:1;  // Messages with stack do not request operation till 0
+    uint8_t backoff_timer; //Time between reties
+    uint8_t msgid;
+    NWK_DataReq_t nwkDataReq; //Stack request
+    uint8_t payload[NWK_MAX_PAYLOAD_SIZE];//message payload
+};
+struct tx_buffer_t tx_buffer[APP_TX_BUFFER_DEPTH];
 
 #ifdef MBRTU
 #define MB_RTU_ADDR_MAX         247

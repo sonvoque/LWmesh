@@ -25,7 +25,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 //SX1276 Output power limits
 #define sx1276LowerPower 2
-#define sx1276UpperPower 5
+#define sx1276UpperPower 13
 #define sx1276SFMAX      12
 #define sx1276SFMIN      7
 #define SX1276RSSIMAX    -30
@@ -249,13 +249,6 @@ void enableCrc(void);
  */
 void disableCrc(void);
 
-/*!
- * \brief Set up the SX1276 to accept new packet for transmission
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-void beginPacket(uint8_t implicitHeader);
 
 
 /*!
@@ -273,15 +266,6 @@ void implicitHeaderMode(void);
  * \param [IN] None.
  */
 void explicitHeaderMode(void);
-
-/*!
- * \brief Set the sx1276 in TX mode, wait for tx and then return on completion
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-void endPacket(void);
-
 
 /*!
  * \brief Set the sx1276 in TX mode, wait for tx and then return on completion
