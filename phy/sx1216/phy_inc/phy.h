@@ -249,13 +249,6 @@ void enableCrc(void);
  */
 void disableCrc(void);
 
-/*!
- * \brief Set up the SX1276 to accept new packet for transmission
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-void beginPacket(uint8_t implicitHeader);
 
 
 /*!
@@ -273,15 +266,6 @@ void implicitHeaderMode(void);
  * \param [IN] None.
  */
 void explicitHeaderMode(void);
-
-/*!
- * \brief Set the sx1276 in TX mode, wait for tx and then return on completion
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-void endPacket(void);
-
 
 /*!
  * \brief Set the sx1276 in TX mode, wait for tx and then return on completion

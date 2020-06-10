@@ -365,29 +365,6 @@ void disableCrc(void)
     SX1276Write(REG_LR_MODEMCONFIG2, SX1276Read(REG_LR_MODEMCONFIG2) & 0xFB);
 }
 
-
-/*!
- * \brief Set up the SX1276 to accept new packet for transmission
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-void beginPacket(uint8_t implicitHeader)
-{
-  // put in standby mode
-  idle();
-//  POW_SetHigh();
-  if (implicitHeader) {
-    implicitHeaderMode();
-  } else {
-    explicitHeaderMode();
-  }
-
-  // reset FIFO address and payload length
-  SX1276Write(REG_LR_FIFOADDRPTR, 0x80);
-  SX1276Write(REG_LR_PAYLOADLENGTH, 5);
-}
-
 /*!
  * \brief Set up the SX1276 in explicite header mode
  *
@@ -415,30 +392,6 @@ void implicitHeaderMode(void)
   SX1276Write(REG_LR_MODEMCONFIG1, SX1276Read(REG_LR_MODEMCONFIG1) | 0x01);
 }
 
-
-/*!
- * \brief Set the sx1276 in TX mode, wait for tx and then return on completion
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-void endPacket(void)
-{
-    //Enable the power amp
-//    POW_SetHigh();
-    // put in TX mode
-    SX1276Write(REG_LR_OPMODE, RFLR_OPMODE_LONGRANGEMODE_ON | RFLR_OPMODE_TRANSMITTER);
-
-    // wait for TX done
-    while ((SX1276Read(REG_LR_IRQFLAGS) & RFLR_IRQFLAGS_TXDONE) == 0) {
-      //TODO Implement a timeout feature
-    }
-
-//    POW_SetLow();
-    // clear IRQ's
-    SX1276Write(REG_LR_IRQFLAGS, 0xFF);
-
-}
 
 /*!
  * \brief Enable the recieve mode
@@ -654,6 +607,33 @@ void rx_timeout_isr(void)
 }
 
 /*!
+ * \brief Calculate packet RSSI
+ *
+ * \param [OUT] RSSI
+ * \param [IN] RSSI reg value from radio
+ */
+int8_t get_rssi(uint8_t rssi_reg){
+    int16_t temp_rssi = -157 + rssi_reg; 
+    if(temp_rssi < -127){
+        temp_rssi = -127;
+    }
+    return (temp_rssi);
+}
+
+/*!
+ * \brief Calculate packet LQI from packet RSSI
+ *
+ * \param [OUT] LQI
+ * \param [IN] RSSI
+ */
+static uint8_t get_lqi(int8_t rssi){
+    if(rssi > -10){
+        return 255;
+    }
+    return ((2.18*(int16_t)rssi) + 10795);
+}
+
+/*!
  * \brief Read the received message from the radio
  *
  * \param [OUT] Packet in the last received buffer.
@@ -683,8 +663,8 @@ void DIO0_Receive_ISR(void)
         packetRSSI = SX1276Read(REG_LR_PKTRSSIVALUE);
         ind.data = phyRxBuffer;
         ind.size = packetLength;
-        ind.lqi  = phyRxBuffer[packetLength];
-        ind.rssi = packetRSSI + PHY_RSSI_BASE_VAL;
+        ind.rssi = get_rssi(packetRSSI);
+        ind.lqi  = get_lqi(ind.rssi);        
         PHY_DataInd(&ind);
     }
 rx_error:    

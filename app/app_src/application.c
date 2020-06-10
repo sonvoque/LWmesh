@@ -1393,8 +1393,8 @@ void bootLoadApplication(void)
         tx_buffer[buf_id].free = 1;
     }
     temp = (currentAddr0 << 8) | currentAddr1;
-    if(temp < 0x8000){
-        temp += 0x8000;
+    if(temp > 0x8000){
+        temp -= 0x8000;
         currentAddr0 = (temp >> 8) & 0xFF;
         currentAddr1 = temp & 0xFF;
     }
