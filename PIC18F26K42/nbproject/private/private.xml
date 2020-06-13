@@ -16,6 +16,9 @@
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRx.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRouteDiscovery.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/phy/sx1216/phy_inc/phy.h</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/circular%20buffer.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkFrame.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/PIC18F26K42/mcc_generated_files/mcc.h</file>
         </group>
     </open-files>
 </project-private>
