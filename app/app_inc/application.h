@@ -51,6 +51,7 @@ uint24_t current_baud_rate; //Used for the MB stack
 enum UART_BAUD_ENUM uart_baud_rate; // Used for MB map
 enum UART_PARITY_ENUM uart_parity;
 uint8_t curent_parity;
+uint16_t pan_id;
 
 /*******************************************************************************
  * Network related variables used at application level
@@ -147,10 +148,10 @@ uint8_t mb_rtu_addr = MB_RTU_ADDR_MAX;
 const uint8_t ATVersionMajor = 1; 
 const uint8_t ATVersionMinor = 0;    
 #ifdef ATCOMM
-const uint8_t FirmwareVersionMajor = 2;
+const uint8_t FirmwareVersionMajor = 1;
 #endif
 #ifdef MBRTU
-const uint8_t FirmwareVersionMajor = 3;
+const uint8_t FirmwareVersionMajor = 1;
 #endif
 const uint8_t FirmwareVersionMinor = 1;
 

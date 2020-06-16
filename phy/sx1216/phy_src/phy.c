@@ -18,10 +18,11 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 #include "Timers.h"
 #include <stdlib.h>
 
+static uint8_t phyRxBuffer[128];
+extern uint16_t pan_id;
+
 static void SX1276ReadBuffer( uint8_t addr, uint8_t *buffer, uint8_t size );
 static void SX1276WriteBuffer( uint8_t addr, uint8_t *buffer, uint8_t size );
-
-static uint8_t phyRxBuffer[128];
 
 /*!
  * \brief Reads the radio register at the specified address
@@ -450,7 +451,6 @@ void initRadio(void)
     RADRST_SetLow();
     __delay_ms(100);
     RADRST_SetHigh();
-    computeFRF();
     __delay_ms(500);
     //Read the radio version
     version = SX1276Read(REG_LR_VERSION);
@@ -458,14 +458,15 @@ void initRadio(void)
     SX1276Write(REG_LR_OPMODE,0x00);  //Sleep mode and high frequency register
     SX1276Write(REG_LR_OPMODE,RFLR_OPMODE_LONGRANGEMODE_ON);  //LoRa mode    
     
-    setFrequency(fhssList[0]);
-    setSpreadingFactor(7);
-    setTxPower(2);
+    PHY_SetChannel(channel);
+    setSpreadingFactor(sx1276SFMIN);
+    setTxPower(TXPower);
     setSignalBandwidth(500E3);
     explicitHeaderMode();
     setCodingRate4(4);
-    setPreambleLength(12);
+    setPreambleLength(PREAMBLE);
     enableCrc();
+    setSyncWord(pan_id & 0xFF);
     SX1276Write(REG_LR_FIFOTXBASEADDR, 0x0);
     SX1276Write(REG_LR_FIFORXBASEADDR, 0);
     
@@ -694,43 +695,6 @@ void DIO2_FHSS_ISR(void)
 //        //Clear the FHSS IRQ flag
 //        
 //    }    
-}
-
-/*!
- * \brief Pre compute frequency reg values for FHSS
- *
- * \param [OUT] None
- * \param [IN] None
- */
-void computeFRF(void)
-{
-    for(uint8_t i = 0; i < (sizeof(fhssList)/4);i++)
-    {
-        uint32_t num, num_mod, frequency;
-        frequency = fhssList[i];
-        // Frf = (Fxosc * num) / 2^19
-        // We take advantage of the fact that 32MHz = 15625Hz * 2^11
-        // This simplifies our formula to Frf = (15625Hz * num) / 2^8
-        // Thus, num = (Frf * 2^8) / 15625Hz
-
-        // First, do the division, since Frf * 2^8 does not fit in 32 bits
-        num = frequency / 15625;
-        num_mod = frequency % 15625;
-
-        // Now do multiplication as well, both for the quotient as well as for
-        // the remainder
-        num <<= 8;
-        num_mod <<= 8;
-
-        // Try to correct for the remainder. After the multiplication we can still
-        // recover some accuracy
-        num_mod = num_mod / 15625;
-        num += num_mod;
-        
-        fhssReg[i][0] = (num >> 16);
-        fhssReg[i][1] = (num >> 8);
-        fhssReg[i][2] = (num);
-    }
 }
 
 /*!

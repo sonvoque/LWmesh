@@ -221,8 +221,7 @@ static uint8_t set_uart_baud(uint8_t i)
  */
 static void cmdI()
 {
-    sendInfo();
-    //Display the information message
+    sendInfo(); //Display the information message
 }
 
 /*!
@@ -331,6 +330,7 @@ static void cmdSetAddr(char* cmd){
 	if((tempaddr != 0x0000) && (tempaddr != 0xFFFF)){
 		currentAddr0 = (uint8_t)(tempaddr >> 8);
 		currentAddr1 = (uint8_t)(tempaddr & 0xFF);
+        NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
 		printf("OK\r\n");
 	}
 	else{
@@ -346,7 +346,7 @@ static void cmdSetAddr(char* cmd){
  * \param [IN] At command.
  */
 static void cmdNaddr(){
-	printf("NADDR=%02X\r\n",currentNetID);
+	printf("NADDR=%04X\r\n",pan_id);
 	return;
 }
 
@@ -357,15 +357,15 @@ static void cmdNaddr(){
  * \param [IN] At command.
  */
 static void cmdSetNaddr(char* cmd){
-	uint8_t tempaddr;
+	uint16_t tempaddr;
 	char *p1,*p2;
 	p1 = strstr(atCommand,"=") + 1;
 	//Now convert the string number to an int
 	tempaddr = strtoul(p1,p2,16);
-	currentNetID = tempaddr;
-	setSyncWord(currentNetID);
+	pan_id = tempaddr;
 	//Now copy to memory location in EEPROM
-	DATAEE_WriteByte_Platform(networkID,currentNetID);
+	DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
+    DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
     initRadio();
 	printf("OK\r\n");
 	return;
@@ -516,33 +516,6 @@ static void cmdSetAES(char* cmd){
 	}
     NWK_SetSecurityKey(net_key);
 	printf("OK\r\n");
-	return;
-}
-
-/*!
- * \brief Get the time to live
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-static void cmdGetTTL(){
-//	printf("HOPS=0x%02X\r\n", currentHopCount);
-	return;
-}
-
-/*!
- * \brief Set TTL
- *
- * \param [OUT] None.
- * \param [IN] AT cmmand.
- */
-static void cmdSetTTL(char* cmd){
-//	char *p1,*p2;
-//	char HOPSstr[3];
-//	p1 = strstr(atCommand,"=") + 1;
-//	memcpy(HOPSstr,p1,2);
-//	currentHopCount = (uint8_t)strtoul(HOPSstr,&p2,16);
-//	printf("OK\r\n");
 	return;
 }
 
@@ -930,13 +903,7 @@ static uint8_t executeATCommand(char* cmd){
             }
             break;
         case 'H':
-            if(strstr(atCommand,"+HOPS?")){
-                cmdGetTTL();
-            }
-            else if(strstr(atCommand,"+HOPS=")){
-                cmdSetTTL(atCommand);
-            }
-            else if(strstr(atCommand,"+HOPTTL=")){
+            if(strstr(atCommand,"+HOPTTL=")){
                 set_hop_table_ttl(atCommand);
             }
             else{
@@ -1001,13 +968,7 @@ static uint8_t executeATCommand(char* cmd){
             }
             break;
         case 'T':
-        	if(strstr(atCommand,"+TTL?")){
-        		cmdGetTTL();
-        	}
-        	else if(strstr(atCommand,"+TTL=")){
-        		cmdSetTTL(atCommand);
-        	}
-        	else if(strstr(atCommand,"+TXPOWER?")){
+        	if(strstr(atCommand,"+TXPOWER?")){
         		cmdGetTX();
         	}
         	else if(strstr(atCommand,"+TXPOWER=")){
@@ -1317,7 +1278,8 @@ void bootLoadApplication(void)
     currentAddr1 = (temp) & 0xFF;
     
     //Set the network address from EEPROM
-    currentNetID = DATAEE_ReadByte_Platform(networkID);
+    pan_id = (DATAEE_ReadByte_Platform(networkID) << 8) |
+              DATAEE_ReadByte_Platform(networkID_LSB);
     
     //Load AES128 key from EEPROM
     for(i = 0; i < 16; i++){
@@ -1425,12 +1387,10 @@ void bootLoadApplication(void)
     }
     CircularBufferInit(&rx_buffer_queue_context,&rx_buffer_queue,
             sizeof(rx_buffer_queue),sizeof(uint8_t));
-    temp = (currentAddr0 << 8) | currentAddr1;
-    NWK_SetAddr(temp);
-    NWK_SetPanId(0x1234);
+    NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
+    NWK_SetPanId(pan_id);
     NWK_SetSecurityKey(net_key);
     NWK_OpenEndpoint(ASCII_EP, appDataInd);
-    PHY_SetChannel(0x00);
     PHY_SetRxState(true);
 }
 

@@ -12,11 +12,11 @@
             <file>file:/D:/projects/xTendLoRa/LWmesh/PIC18F26K42/main.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/app/app_src/application.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwk.c</file>
-            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRoute.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_inc/nwkRoute.h</file>
-            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRouteDiscovery.c</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/PIC18F26K42/mcc_generated_files/pin_manager.h</file>
             <file>file:/D:/projects/xTendLoRa/LWmesh/phy/sx1216/phy_src/phy.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/sys/sys_src/sysTimer.c</file>
+            <file>file:/D:/projects/xTendLoRa/LWmesh/nwk/nwk_src/nwkRoute.c</file>
         </group>
     </open-files>
 </project-private>

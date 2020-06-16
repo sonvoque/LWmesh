@@ -25,11 +25,12 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 //SX1276 Output power limits
 #define sx1276LowerPower 2
-#define sx1276UpperPower 13
+#define sx1276UpperPower 17
 #define sx1276SFMAX      12
 #define sx1276SFMIN      7
 #define SX1276RSSIMAX    -30
 #define SX1276RSSIMIN    -120
+#define PREAMBLE         12
 
 #define PHY_RSSI_BASE_VAL                     (-157)
 /*- Types ------------------------------------------------------------------*/
