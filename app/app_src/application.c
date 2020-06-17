@@ -34,8 +34,8 @@ static uint8_t rx_ctl_mb_regs_upadte     = 0;
 void appDataConf(NWK_DataReq_t *req)
 {
  if (NWK_SUCCESS_STATUS == req->status){
-    // frame was sent successfully
-     asm("nop");
+    // frame was sent successfully     
+     printf("ACK:%04X\r\n", req->dstAddr);
  } 
  else{
      asm("nop"); // some error happened
@@ -514,7 +514,7 @@ static void cmdSetAES(char* cmd){
             DATAEE_WriteByte_Platform((NETkey0 + i),byte);
         }
 	}
-    NWK_SetSecurityKey(net_key);
+//    NWK_SetSecurityKey(net_key);
 	printf("OK\r\n");
 	return;
 }
@@ -1280,6 +1280,9 @@ void bootLoadApplication(void)
     //Set the network address from EEPROM
     pan_id = (DATAEE_ReadByte_Platform(networkID) << 8) |
               DATAEE_ReadByte_Platform(networkID_LSB);
+    if(0xFFFF == pan_id){
+        pan_id = 0xAAAA;
+    }
     
     //Load AES128 key from EEPROM
     for(i = 0; i < 16; i++){
@@ -1389,7 +1392,7 @@ void bootLoadApplication(void)
             sizeof(rx_buffer_queue),sizeof(uint8_t));
     NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
     NWK_SetPanId(pan_id);
-    NWK_SetSecurityKey(net_key);
+//    NWK_SetSecurityKey(net_key);
     NWK_OpenEndpoint(ASCII_EP, appDataInd);
     PHY_SetRxState(true);
 }

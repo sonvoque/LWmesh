@@ -271,7 +271,9 @@ bool nwkRouteDiscoveryRequestReceived(NWK_DataInd_t *ind)
   if (command->srcAddr == nwkIb.addr)
     return true;
 
-  if (false == reply && nwkIb.addr & NWK_ROUTE_NON_ROUTING)
+//  if (false == reply && nwkIb.addr & NWK_ROUTE_NON_ROUTING)
+//    return true;
+    if (false == reply)
     return true;
 
   linkQuality = nwkRouteDiscoveryUpdateLq(command->linkQuality, ind->lqi);
