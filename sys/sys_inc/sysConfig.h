@@ -50,7 +50,12 @@
 
 /*- Definitions ------------------------------------------------------------*/
 #ifndef NWK_BUFFERS_AMOUNT
+#if _18F26K42
 #define NWK_BUFFERS_AMOUNT                       5
+#endif
+#if _18F27K42
+#define NWK_BUFFERS_AMOUNT                       16
+#endif
 #endif
 
 #ifndef NWK_DUPLICATE_REJECTION_TABLE_SIZE
@@ -58,11 +63,11 @@
 #endif
 
 #ifndef NWK_DUPLICATE_REJECTION_TTL
-#define NWK_DUPLICATE_REJECTION_TTL              1000 // ms
+#define NWK_DUPLICATE_REJECTION_TTL              10000 // ms
 #endif
 
 #ifndef NWK_ROUTE_TABLE_SIZE
-#define NWK_ROUTE_TABLE_SIZE                     64
+#define NWK_ROUTE_TABLE_SIZE                     32
 #endif
 
 #ifndef NWK_ROUTE_DEFAULT_SCORE
@@ -70,7 +75,7 @@
 #endif
 
 #ifndef NWK_ACK_WAIT_TIME
-#define NWK_ACK_WAIT_TIME                        1000 // ms
+#define NWK_ACK_WAIT_TIME                        3000 // ms
 #endif
 
 #ifndef NWK_GROUPS_AMOUNT
@@ -82,14 +87,14 @@
 #endif
 
 #ifndef NWK_ROUTE_DISCOVERY_TIMEOUT
-#define NWK_ROUTE_DISCOVERY_TIMEOUT              1000 // ms
+#define NWK_ROUTE_DISCOVERY_TIMEOUT              3000 // ms
 #endif
 
 #define NWK_ENABLE_ROUTING
-#define NWK_ENABLE_SECURITY
+//#define NWK_ENABLE_SECURITY
 #define NWK_ENABLE_MULTICAST
 //#define NWK_ENABLE_ROUTE_DISCOVERY
-#define NWK_ENABLE_SECURE_COMMANDS
+//#define NWK_ENABLE_SECURE_COMMANDS
 
 #ifndef SYS_SECURITY_MODE
 #define SYS_SECURITY_MODE                        1

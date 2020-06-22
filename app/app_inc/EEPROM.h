@@ -49,8 +49,9 @@ extern "C" {
      
     
 #define networkID     AESkey15   + 1
+#define networkID_LSB networkID    + 1
     
-#define sinkAddrEE0   networkID    + 1
+#define sinkAddrEE0   networkID_LSB + 1
 #define sinkAddrEE1   sinkAddrEE0  + 1 
     
 #define radioChannel  sinkAddrEE1 + 1

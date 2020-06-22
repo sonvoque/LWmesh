@@ -34,11 +34,11 @@ static uint8_t rx_ctl_mb_regs_upadte     = 0;
 void appDataConf(NWK_DataReq_t *req)
 {
  if (NWK_SUCCESS_STATUS == req->status){
-    // frame was sent successfully
-     asm("nop");
+    // frame was sent successfully     
+     printf("ACK:%04X\r\n", req->dstAddr);
  } 
  else{
-     asm("nop"); // some error happened
+     printf("NACK:%04X\r\n", req->dstAddr);
  }
  //Free the app tx buffer any way
  free_tx_buffer(req);
@@ -221,8 +221,7 @@ static uint8_t set_uart_baud(uint8_t i)
  */
 static void cmdI()
 {
-    sendInfo();
-    //Display the information message
+    sendInfo(); //Display the information message
 }
 
 /*!
@@ -256,8 +255,7 @@ static void cmdSend(char* cmd){
 		tx_buffer[buf_id].nwkDataReq.dstAddr = tempaddr;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = ASCII_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = ASCII_EP;
-        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST | 
-                                               NWK_OPT_ENABLE_SECURITY;
+        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
         tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
@@ -293,7 +291,7 @@ static void cmdBcast(char* cmd){
 		tx_buffer[buf_id].nwkDataReq.dstAddr = NWK_BROADCAST_ADDR;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = ASCII_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = ASCII_EP;
-        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ENABLE_SECURITY;
+        tx_buffer[buf_id].nwkDataReq.options = 0;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
         tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
         tx_buffer[buf_id].nwkDataReq.confirm = (void*)&appDataConf;
@@ -331,6 +329,7 @@ static void cmdSetAddr(char* cmd){
 	if((tempaddr != 0x0000) && (tempaddr != 0xFFFF)){
 		currentAddr0 = (uint8_t)(tempaddr >> 8);
 		currentAddr1 = (uint8_t)(tempaddr & 0xFF);
+        NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
 		printf("OK\r\n");
 	}
 	else{
@@ -346,7 +345,7 @@ static void cmdSetAddr(char* cmd){
  * \param [IN] At command.
  */
 static void cmdNaddr(){
-	printf("NADDR=%02X\r\n",currentNetID);
+	printf("NADDR=%04X\r\n",pan_id);
 	return;
 }
 
@@ -357,15 +356,15 @@ static void cmdNaddr(){
  * \param [IN] At command.
  */
 static void cmdSetNaddr(char* cmd){
-	uint8_t tempaddr;
+	uint16_t tempaddr;
 	char *p1,*p2;
 	p1 = strstr(atCommand,"=") + 1;
 	//Now convert the string number to an int
 	tempaddr = strtoul(p1,p2,16);
-	currentNetID = tempaddr;
-	setSyncWord(currentNetID);
+	pan_id = tempaddr;
 	//Now copy to memory location in EEPROM
-	DATAEE_WriteByte_Platform(networkID,currentNetID);
+	DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
+    DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
     initRadio();
 	printf("OK\r\n");
 	return;
@@ -514,35 +513,8 @@ static void cmdSetAES(char* cmd){
             DATAEE_WriteByte_Platform((NETkey0 + i),byte);
         }
 	}
-    NWK_SetSecurityKey(net_key);
+//    NWK_SetSecurityKey(net_key);
 	printf("OK\r\n");
-	return;
-}
-
-/*!
- * \brief Get the time to live
- *
- * \param [OUT] None.
- * \param [IN] None.
- */
-static void cmdGetTTL(){
-//	printf("HOPS=0x%02X\r\n", currentHopCount);
-	return;
-}
-
-/*!
- * \brief Set TTL
- *
- * \param [OUT] None.
- * \param [IN] AT cmmand.
- */
-static void cmdSetTTL(char* cmd){
-//	char *p1,*p2;
-//	char HOPSstr[3];
-//	p1 = strstr(atCommand,"=") + 1;
-//	memcpy(HOPSstr,p1,2);
-//	currentHopCount = (uint8_t)strtoul(HOPSstr,&p2,16);
-//	printf("OK\r\n");
 	return;
 }
 
@@ -822,9 +794,12 @@ static void cmdGetRxCnt(char* atCommand){
  */
 static void print_hop_table(char* atCommand){
     NWK_RouteTableEntry_t *entry = NWK_RouteTable();
+    printf("Routing Table\r\n");
     for(uint8_t i = 0; i < NWK_ROUTE_TABLE_SIZE; i++){
-        printf("DST:%04X NXT:%04X SCO:%u LQI:%u\r\n", (entry+i)->dstAddr, 
+        if(NWK_ROUTE_UNKNOWN != (entry+i)->dstAddr){
+            printf("DST:%04X NXT:%04X SCO:%u LQI:%u\r\n", (entry+i)->dstAddr, 
             (entry+i)->nextHopAddr, (entry+i)->score, (entry+i)->lqi);
+        }        
     }
 }
 
@@ -930,13 +905,7 @@ static uint8_t executeATCommand(char* cmd){
             }
             break;
         case 'H':
-            if(strstr(atCommand,"+HOPS?")){
-                cmdGetTTL();
-            }
-            else if(strstr(atCommand,"+HOPS=")){
-                cmdSetTTL(atCommand);
-            }
-            else if(strstr(atCommand,"+HOPTTL=")){
+            if(strstr(atCommand,"+HOPTTL=")){
                 set_hop_table_ttl(atCommand);
             }
             else{
@@ -1001,13 +970,7 @@ static uint8_t executeATCommand(char* cmd){
             }
             break;
         case 'T':
-        	if(strstr(atCommand,"+TTL?")){
-        		cmdGetTTL();
-        	}
-        	else if(strstr(atCommand,"+TTL=")){
-        		cmdSetTTL(atCommand);
-        	}
-        	else if(strstr(atCommand,"+TXPOWER?")){
+        	if(strstr(atCommand,"+TXPOWER?")){
         		cmdGetTX();
         	}
         	else if(strstr(atCommand,"+TXPOWER=")){
@@ -1317,7 +1280,11 @@ void bootLoadApplication(void)
     currentAddr1 = (temp) & 0xFF;
     
     //Set the network address from EEPROM
-    currentNetID = DATAEE_ReadByte_Platform(networkID);
+    pan_id = (DATAEE_ReadByte_Platform(networkID) << 8) |
+              DATAEE_ReadByte_Platform(networkID_LSB);
+    if(0xFFFF == pan_id){
+        pan_id = 0xAAAA;
+    }
     
     //Load AES128 key from EEPROM
     for(i = 0; i < 16; i++){
@@ -1345,7 +1312,7 @@ void bootLoadApplication(void)
     //Load the TX power from EEPROM
     TXPower = DATAEE_ReadByte_Platform(txPowerSetting);
     if((TXPower < sx1276LowerPower) || (TXPower > sx1276UpperPower)){
-        TXPower = sx1276UpperPower;
+        TXPower = sx1276LowerPower;
         DATAEE_WriteByte_Platform(txPowerSetting,TXPower);
     }
     
@@ -1425,12 +1392,10 @@ void bootLoadApplication(void)
     }
     CircularBufferInit(&rx_buffer_queue_context,&rx_buffer_queue,
             sizeof(rx_buffer_queue),sizeof(uint8_t));
-    temp = (currentAddr0 << 8) | currentAddr1;
-    NWK_SetAddr(temp);
-    NWK_SetPanId(0x1234);
-    NWK_SetSecurityKey(net_key);
+    NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
+    NWK_SetPanId(pan_id);
+//    NWK_SetSecurityKey(net_key);
     NWK_OpenEndpoint(ASCII_EP, appDataInd);
-    PHY_SetChannel(0x00);
     PHY_SetRxState(true);
 }
 
