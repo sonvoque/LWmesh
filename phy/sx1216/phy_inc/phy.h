@@ -22,6 +22,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 #define cadTimeOutms    2000
 #define TxTimeOutms     1000
+#define RANOM_TX_WAIT_MAX   200
 
 //SX1276 Output power limits
 #define sx1276LowerPower 2
@@ -127,6 +128,7 @@ enum radio_state_enum
     START_RX,
     WAIT_FOR_RX,
     RX_MESSAGE,
+    WAIT_RANDOM_TX,
     START_CAD,
     WAIT_FOR_CAD,
     START_TX,

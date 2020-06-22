@@ -38,7 +38,7 @@ void appDataConf(NWK_DataReq_t *req)
      printf("ACK:%04X\r\n", req->dstAddr);
  } 
  else{
-     asm("nop"); // some error happened
+     printf("NACK:%04X\r\n", req->dstAddr);
  }
  //Free the app tx buffer any way
  free_tx_buffer(req);
@@ -255,8 +255,7 @@ static void cmdSend(char* cmd){
 		tx_buffer[buf_id].nwkDataReq.dstAddr = tempaddr;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = ASCII_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = ASCII_EP;
-        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST | 
-                                               NWK_OPT_ENABLE_SECURITY;
+        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
         tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
@@ -292,7 +291,7 @@ static void cmdBcast(char* cmd){
 		tx_buffer[buf_id].nwkDataReq.dstAddr = NWK_BROADCAST_ADDR;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = ASCII_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = ASCII_EP;
-        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ENABLE_SECURITY;
+        tx_buffer[buf_id].nwkDataReq.options = 0;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
         tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
         tx_buffer[buf_id].nwkDataReq.confirm = (void*)&appDataConf;
@@ -795,9 +794,12 @@ static void cmdGetRxCnt(char* atCommand){
  */
 static void print_hop_table(char* atCommand){
     NWK_RouteTableEntry_t *entry = NWK_RouteTable();
+    printf("Routing Table\r\n");
     for(uint8_t i = 0; i < NWK_ROUTE_TABLE_SIZE; i++){
-        printf("DST:%04X NXT:%04X SCO:%u LQI:%u\r\n", (entry+i)->dstAddr, 
+        if(NWK_ROUTE_UNKNOWN != (entry+i)->dstAddr){
+            printf("DST:%04X NXT:%04X SCO:%u LQI:%u\r\n", (entry+i)->dstAddr, 
             (entry+i)->nextHopAddr, (entry+i)->score, (entry+i)->lqi);
+        }        
     }
 }
 
@@ -1310,7 +1312,7 @@ void bootLoadApplication(void)
     //Load the TX power from EEPROM
     TXPower = DATAEE_ReadByte_Platform(txPowerSetting);
     if((TXPower < sx1276LowerPower) || (TXPower > sx1276UpperPower)){
-        TXPower = sx1276UpperPower;
+        TXPower = sx1276LowerPower;
         DATAEE_WriteByte_Platform(txPowerSetting,TXPower);
     }
     

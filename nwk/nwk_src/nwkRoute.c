@@ -198,15 +198,17 @@ void nwkRouteFrameReceived(NwkFrame_t *frame)
   NwkFrameHeader_t *header = &frame->header;
   NWK_RouteTableEntry_t *entry;
   
-  if ((header->macSrcAddr & NWK_ROUTE_NON_ROUTING) &&
-      (header->macSrcAddr != header->nwkSrcAddr))
-      return;   
+//  if ((header->macSrcAddr & NWK_ROUTE_NON_ROUTING) &&
+//      (header->macSrcAddr != header->nwkSrcAddr))
+//      return;   
   
 //  if(!header->nwkFcf.repeater) //Transmitting node is not a repeater
 //      return;
   
-  if (header->macSrcAddr != header->nwkSrcAddr)
-    return;  
+//  if (header->macSrcAddr != header->nwkSrcAddr){
+//      asm("nop");
+//      return;
+//  } 
 
   if (NWK_BROADCAST_PANID == header->macDstPanId)
     return;

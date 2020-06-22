@@ -18,7 +18,10 @@ Maintainer: Miguel Luis, Gregory Cristian and Wael Guibene
 #include "Timers.h"
 #include <stdlib.h>
 
+static int8_t rssi_debug = -65;
 static uint8_t phyRxBuffer[128];
+static uint8_t phyTxBuffer[128];
+static uint8_t phyTxSize;
 extern uint16_t pan_id;
 
 static void SX1276ReadBuffer( uint8_t addr, uint8_t *buffer, uint8_t size );
@@ -507,15 +510,15 @@ void initRadio(void)
  * \param [OUT] 1 if the channel is active else 0
  * \param [IN] Node
  */
-uint8_t cad(void)
-{
+uint8_t cad(void){
     uint8_t temp;
+    int16_t RSSI_loc;
     //Read the modem status and check if radio is not busy
     temp = SX1276Read(REG_LR_MODEMSTAT);
-    if((temp & 0x01) | (temp & 0x02))
-    {
+    RSSI_loc = -157 + SX1276Read(REG_LR_RSSIVALUE);
+    if((temp & 0x01) | (temp & 0x02) | (RSSI_loc > RSSITarget)){
         return 1; //Report that channel is active
-    }
+    }    
     start_radio_cad();
     cadDone = 0;
     set_timer0base(&cadTimeOut, cadTimeOutms);
@@ -532,18 +535,8 @@ uint8_t cad(void)
                 return 1;
             }
             else
-            {
-                int16_t RSSI;
-                RSSI = -157 + SX1276Read(REG_LR_RSSIVALUE);
-                //Check if the RSSI is favourable for TX
-                if(RSSI < RSSITarget)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return 1;
-                }
+            {                
+                return 0;
             }
         }
     }
@@ -665,13 +658,30 @@ void DIO0_Receive_ISR(void)
         ind.data = phyRxBuffer;
         ind.size = packetLength;
         ind.rssi = get_rssi(packetRSSI);
-        ind.lqi  = get_lqi(ind.rssi);        
-        PHY_DataInd(&ind);
+        ind.lqi  = get_lqi(ind.rssi); 
+        if(ind.rssi > rssi_debug){
+            PHY_DataInd(&ind);
+        }        
     }
 rx_error:    
     receive(0);
 }
 
+static void sx1276_send(){
+    idle();
+    explicitHeaderMode();
+
+    SX1276Write(REG_LR_FIFOTXBASEADDR, 0x0);
+    SX1276Write(REG_LR_FIFOADDRPTR, 0x00);
+    SX1276Write(REG_LR_PAYLOADLENGTH, phyTxSize);
+
+    NSS_SetLow();
+    SPI1_ExchangeByte(REG_LR_FIFO | SPI_WRITE_MASK);
+    SPI1_WriteBlock(phyTxBuffer,phyTxSize);
+    NSS_SetHigh();
+    SX1276Write(REG_LR_OPMODE, 
+            RFLR_OPMODE_LONGRANGEMODE_ON | RFLR_OPMODE_TRANSMITTER);
+}
 
 /*!
  * \brief Manage FHSS interrupt from the radio
@@ -722,10 +732,27 @@ static void radio_engine(void){
             if(DIO0_GetValue()){
                 radio_state_var = RX_MESSAGE;                
             }
+            if(phyTxSize){
+                //Set random backoff timer
+                uint16_t temp_time = rand();
+                while(temp_time > RANOM_TX_WAIT_MAX){
+                   temp_time -= RANOM_TX_WAIT_MAX;
+                }
+                set_timer0base(&_cadBackoffTimer, temp_time);
+                radio_state_var = WAIT_RANDOM_TX;
+            }
             break;    
         case RX_MESSAGE:
             DIO0_Receive_ISR();
             radio_state_var = START_RX;
+            break;
+        case WAIT_RANDOM_TX:
+            if(!get_timer0base(&_cadBackoffTimer)){
+                radio_state_var = START_CAD;
+            }
+            if(DIO0_GetValue()){
+                DIO0_Receive_ISR(); // Do not change state
+            }
             break;
         case START_CAD:
             if(!get_timer0base(&_cadBackoffTimer)){
@@ -734,8 +761,7 @@ static void radio_engine(void){
                     set_timer0base(&_cadBackoffTimer, cadTimeOutms);
                     //Backing off from the channel for now
                     radio_state_var = START_RX;
-                    if(cadCounter < 10)
-                    {
+                    if(cadCounter < 10){
                         cadCounter++;
                     }
                 }
@@ -746,15 +772,17 @@ static void radio_engine(void){
             }
             else{
                 //Backing off from the cannel for now
-                radio_state_var = START_RX;
+                radio_state_var = WAIT_FOR_RX;
             }
             break;
         case START_TX:
+            sx1276_send();
             set_timer0base(&txTimeOut, TxTimeOutms);
             radio_state_var = WAIT_FOR_TX;            
             break;
         case WAIT_FOR_TX:
             if((!get_timer0base(&txTimeOut)) || ((SX1276Read(REG_LR_IRQFLAGS) & RFLR_IRQFLAGS_TXDONE))){
+                phyTxSize = 0;
                 radio_state_var = START_RX;
                 if(get_timer0base(&txTimeOut)){
                     PHY_DataConf(PHY_STATUS_SUCCESS);
@@ -804,20 +832,11 @@ void PHY_Wakeup(void){
 }
 
 void PHY_DataReq(uint8_t *data, uint8_t size){
-    idle();
-    explicitHeaderMode();
-
-    SX1276Write(REG_LR_FIFOTXBASEADDR, 0x0);
-    SX1276Write(REG_LR_FIFOADDRPTR, 0x00);
-    SX1276Write(REG_LR_PAYLOADLENGTH, size);
-
-    NSS_SetLow();
-    SPI1_ExchangeByte(REG_LR_FIFO | SPI_WRITE_MASK);
-    SPI1_WriteBlock(data,size);
-    NSS_SetHigh();
-    SX1276Write(REG_LR_OPMODE, 
-            RFLR_OPMODE_LONGRANGEMODE_ON | RFLR_OPMODE_TRANSMITTER);
-    radio_state_var = START_TX;
+    
+    if(size < sizeof(phyTxBuffer)){
+        memcpy(phyTxBuffer, data, size);
+    }
+    phyTxSize = size;
 }
 
 void PHY_TaskHandler(void){
