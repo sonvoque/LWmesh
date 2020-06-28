@@ -86,8 +86,7 @@ extern uint8_t currentAddr0,currentAddr1;
  ******************************************************************************/
 enum endpoint_t{
     NETWORK_EP = 0,
-    ASCII_EP,
-    BIN_EP,
+    DATA_EP,
     MANAGEMENT_EP,
     OTA_EP,
     RESV1,
@@ -100,7 +99,8 @@ enum endpoint_t{
     RESV8,
     RESV9,
     RESV10,
-    RESV11
+    RESV11,
+    RESV12
 };
 
 /*******************************************************************************
@@ -134,9 +134,6 @@ __pack struct rx_buffer_t{
 __pack struct rx_buffer_t rx_buffer[APP_RX_BUFFER_DEPTH];
 uint8_t rx_buffer_queue[APP_RX_BUFFER_DEPTH];
 CircularBufferContext rx_buffer_queue_context;
-
-
-
 
 #ifdef MBRTU
 #define MB_RTU_ADDR_MAX         247
@@ -241,7 +238,7 @@ enum{
 #define TX_REG_NUM     35
 #define TX_REG_BASE    2000
 #define TX_REG_START   2001
-#define TX_REG_END     2034
+#define TX_REG_END     (TX_REG_START + TX_REG_NUM)
 
 enum{
     TX_CONTROL = 1,
@@ -252,7 +249,7 @@ enum{
 #define RX_REG_NUM     35
 #define RX_REG_BASE    3000
 #define RX_REG_START   3001
-#define RX_REG_END     3034
+#define RX_REG_END     (RX_REG_START + RX_REG_NUM)
 
 enum{
     RX_CONTROL = 1,
@@ -337,7 +334,7 @@ void MBRTUStack(void);
  * \param [OUT] None.
  * \param [IN] None.
  */
-void application(void);
+inline void application(void);
 
 #ifdef	__cplusplus
 }

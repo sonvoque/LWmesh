@@ -59,9 +59,15 @@ void  INTERRUPT_Initialize (void)
     IVTLOCK = 0xAA;
     IVTLOCKbits.IVTLOCKED = 0x00; // unlock IVT
 
-    IVTBASEU = 0;
-    IVTBASEH = 0;
-    IVTBASEL = 8;
+    IVTADU = 0;
+#if debugvector
+    IVTADH = 0;
+#elif bootable
+    IVTADH = 0x20;
+#else
+    IVTADH = 0;
+#endif
+    IVTADL = 8;
 
     IVTLOCK = 0x55;
     IVTLOCK = 0xAA;
@@ -72,6 +78,8 @@ void  INTERRUPT_Initialize (void)
     IPR3bits.U1TXIP = 1;
     IPR3bits.U1RXIP = 1;
     IPR3bits.TMR0IP = 0;
+    IPR6bits.TMR3IP = 1;
+    IPR4bits.TMR1IP = 1;
 }
 
 void __interrupt(irq(default),base(8)) Default_ISR()
