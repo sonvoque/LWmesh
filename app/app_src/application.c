@@ -6,11 +6,13 @@
 #include <stdlib.h>
 #include "sys.h"
 #include <stdbool.h>
+#include "led.h"
+#include "uart_default_control.h"
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 extern void queue_serial_led_event(void);
 extern uint16_t crc16_app(void* dptr, uint16_t len, uint16_t seed);
-static void free_tx_buffer(NWK_DataReq_t *req);
+static void free_tx_buffer(NWK_DataReq_t *req, bool ack);
 static bool get_free_rx_buffer(uint8_t *buf_id);
 static void exract_sink_addr(uint8_t* dataptr);
 
@@ -34,19 +36,22 @@ static uint8_t rx_ctl_mb_regs_upadte     = 0;
 
 void appDataConf(NWK_DataReq_t *req)
 {
- if (NWK_SUCCESS_STATUS == req->status){
+    bool ack = 0;
+    if (NWK_SUCCESS_STATUS == req->status){
     // frame was sent successfully  
-#ifdef ATCOMM
-     printf("ACK:%04X\r\n", req->dstAddr);
-#endif
- } 
- else{
-#ifdef ATCOMM
-     printf("NACK:%04X\r\n", req->dstAddr);
-#endif
- }
- //Free the app tx buffer any way
- free_tx_buffer(req);
+    #ifdef ATCOMM
+        //printf("ACK:%04X\r\n", req->dstAddr);
+        ack = true;
+    #endif
+    } 
+    else{
+    #ifdef ATCOMM
+        //printf("NACK:%04X\r\n", req->dstAddr);
+        ack = false;
+    #endif
+    }
+    //Free the app tx buffer any way
+    free_tx_buffer(req, ack);
 }
 
 static bool appDataInd(NWK_DataInd_t *ind)
@@ -85,13 +90,18 @@ static bool get_free_tx_buffer(uint8_t *buf_id){
     return false;
 }
 
-static void free_tx_buffer(NWK_DataReq_t *req){
+static void free_tx_buffer(NWK_DataReq_t *req, bool ack){
     uint8_t buf_id = 0;
     //Find which NWK_DataReq_t matches with the one passed as argument
     while(buf_id < APP_TX_BUFFER_DEPTH){
         if(req == &tx_buffer[buf_id].nwkDataReq){
+            struct msg_ack_t msg_ack_obj; 
             //Found the tx buffer we need to free
             tx_buffer[buf_id].free = 1;
+            msg_ack_obj.dest_addr = req->dstAddr;
+            msg_ack_obj.msgid = tx_buffer[buf_id].msgid;
+            msg_ack_obj.status = ack;
+            CircularBufferPushBack(&msg_ack_queue_context, &msg_ack_obj);
             return;
         }
         buf_id++;
@@ -131,7 +141,7 @@ static void UART_error_handler(){
  * \param [OUT] None.
  * \param [IN] Parity mode.
  */
-static uint8_t set_parity(uint8_t parity)
+uint8_t set_parity(uint8_t parity)
 {
     if((parity >= UART_PARITY_SENTINAL) || (UART_7BIT_MODE == parity)){
         return ILLEGALPARAMETER; //illegal value
@@ -175,7 +185,7 @@ static uint8_t set_parity(uint8_t parity)
  * \param [OUT] None.
  * \param [IN] Baud rate.
  */
-static uint8_t set_uart_baud(uint8_t i)
+uint8_t set_uart_baud(uint8_t i)
 {
     U1CON1 &= ~(1<<7); //Disable the UART    
     switch(i)
@@ -720,6 +730,8 @@ static void cmdSetCADRSSI(char* atCommand){
  * \param [IN] None.
  */
 static void cmdReset(){
+    printf("OK\r\n");
+    __delay_ms(500);
 	RESET();
 	while(1);
 }
@@ -731,22 +743,24 @@ static void cmdReset(){
  * \param [IN] AT command.
  */
 static void cmdSetParity(char* atCommand){
+    enum UART_PARITY_ENUM new_parity = UART_9BIT_EVEN_PARITY;
     if(strstr(atCommand,"=ODD"))
     {
-        set_parity(UART_9BIT_ODD_PARITY);
+        new_parity = UART_9BIT_ODD_PARITY;
     }
     else if(strstr(atCommand,"=NONE"))
     {
-        set_parity(UART_8BIT_NO_PARITY);
+        new_parity = UART_8BIT_NO_PARITY;
     }
     else if(strstr(atCommand,"=EVEN"))
     {
-        set_parity(UART_9BIT_EVEN_PARITY);
+        new_parity = UART_9BIT_EVEN_PARITY;
     }
     else
     {
         printf("NOT OK:%u\r\n",ILLEGALPARAMETER);
     }
+    DATAEE_WriteByte_Platform(UARTParity, new_parity);
     return;
 }
 
@@ -776,7 +790,13 @@ static void cmdSetBaud(char* atCommand)
     ptr = strtok(atCommand,"=");
     ptr = strtok(NULL,"\r");
     tempbaud = (uint8_t)strtoul(ptr,NULL,10);
-    tempbaud++;
+    if(tempbaud < UART_BAUD_SENTINAL){
+        DATAEE_WriteByte_Platform(UARTBaud,tempbaud);
+        printf("OK\r\n");
+    }
+    else{
+        printf("NOT OK:%u\r\n", (uint16_t)ILLEGALPARAMETER);
+    }
 }
 
 /*!
@@ -881,6 +901,23 @@ static void cmdSetPacketRssi(char* cmd){
     printf("OK\r\n");
 }
 
+/*!
+ * \brief Get top of queue for message acks
+ *
+ * \param [OUT] None.
+ * \param [IN] AT command.
+ */
+static void cmdGetMsgAck(char* cmd){
+    if(!CircularBufferEmpty(&msg_ack_queue_context)){
+        struct msg_ack_t msg_ack_obj;
+        CircularBufferPopFront(&msg_ack_queue_context, &msg_ack_obj);
+        printf("%04X:%u:%s\r\n", msg_ack_obj.dest_addr, msg_ack_obj.msgid,
+                (msg_ack_obj.status?"ACK":"NACK"));
+    }
+    else{
+        printf("NOT OK:%u\r\n", (uint16_t) NO_ACK_STATUS);
+    }
+}
 /*!
  * \brief Set the hop table entry time to live
  *
@@ -993,6 +1030,9 @@ static uint8_t executeATCommand(char* cmd){
         	else if(strstr(cmd,"+MODE?")){
         		cmdGetMode();
         	}
+            else if(strstr(cmd,"+MSGACK?")){
+        		cmdGetMsgAck(cmd);
+        	}
             else{
                 goto undefcmd;
             }
@@ -1060,11 +1100,13 @@ static uint8_t executeATCommand(char* cmd){
         default:
             //reached end of this case means command was not found.
             //Return Error UNDEFCMD 5
-undefcmd:
-            printf("NOT OK:%u\r\n", (uint16_t)UNDEFCMD);
-            break;
+            goto undefcmd;
     }
+    queue_serial_led_event();
     return (retcode);
+    undefcmd:
+    printf("NOT OK:%u\r\n", (uint16_t)UNDEFCMD);
+    return(0);
 }
 
 /*!
@@ -1257,8 +1299,8 @@ void bootLoadApplication(void)
     uint16_t temp;
     uint8_t i;
     int8_t rssimax,rssimin, temp1;
-    //Initialize the message buffer
-//    init_message_buffers();
+    //Initialize the led queue
+    ledInit();
     //Load the EUID of the node
     loadMACAddr();
     //Load the serial number and compute short id
@@ -1328,7 +1370,7 @@ void bootLoadApplication(void)
     
     //Load the saved baud  rate
     i = DATAEE_ReadByte_Platform(UARTBaud);
-    if(i > UART_BAUD_19200){
+    if(i > UART_PARITY_SENTINAL){
         i = UART_BAUD_19200;
         DATAEE_WriteByte_Platform(UARTBaud,UART_BAUD_19200);
     }
@@ -1388,6 +1430,8 @@ void bootLoadApplication(void)
     }
     CircularBufferInit(&rx_buffer_queue_context,&rx_buffer_queue,
             sizeof(rx_buffer_queue),sizeof(uint8_t));
+    CircularBufferInit(&msg_ack_queue_context,&msg_ack_queue,
+            sizeof(msg_ack_queue),sizeof(struct msg_ack_t));
     NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
     NWK_SetPanId(pan_id);
     NWK_SetSecurityKey(net_key);
@@ -1838,4 +1882,6 @@ inline void application(void){
 #endif
     nwkEnableRouting((MODE_GetValue()? false:true));
     sync_eeprom();
+    handle_led_events();
+    uart_default_engine();
 }
