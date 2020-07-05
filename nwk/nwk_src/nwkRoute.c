@@ -63,6 +63,7 @@
 /*- Definitions ------------------------------------------------------------*/
 #define NWK_ROUTE_MAX_RANK         255
 #define NWK_ROUTE_DEFAULT_RANK     128
+#define NWK_RX_STATE_FINISH        0x24
 
 /*- Prototypes -------------------------------------------------------------*/
 static void nwkRouteSendRouteError(uint16_t src, uint16_t dst, uint8_t multicast);
@@ -209,7 +210,7 @@ void nwkRouteFrameReceived(NwkFrame_t *frame)
 //      asm("nop");
 //      return;
 //  } 
-
+  
   if (NWK_BROADCAST_PANID == header->macDstPanId)
     return;
 
@@ -308,7 +309,10 @@ void nwkRoutePrepareTx(NwkFrame_t *frame)
 void nwkRouteFrame(NwkFrame_t *frame)
 {
   NwkFrameHeader_t *header = &frame->header;
-
+  if(!nwkIsRouter()){
+      frame->state = NWK_RX_STATE_FINISH;
+      return;
+  }
   if (NWK_ROUTE_UNKNOWN != NWK_RouteNextHop(header->nwkDstAddr, header->nwkFcf.multicast))
   {
     frame->tx.confirm = NULL;
