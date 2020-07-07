@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include "led.h"
 #include "uart_default_control.h"
+#include "AES.h"
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 #ifndef MODULE
@@ -35,6 +36,46 @@ static uint8_t read_write_mb_regs_update = 0;
 static uint8_t tx_ctl_mb_regs_upadte     = 0;
 static uint8_t rx_ctl_mb_regs_upadte     = 0;
 #endif
+
+/*!
+ * \brief Application level encryption
+ *
+ * \param [OUT] None.
+ * \param [IN] None.
+ */
+static void app_aes_encrypt(uint8_t* data, uint8_t size){
+    struct AES_ctx ctx;
+    /*Fill the IV*/
+    for(uint8_t i = 0; i < 8; i++){
+        uint16_t random = rand();
+        memcpy((data + (i<<1)), &random, sizeof(random));
+    }
+    AES_init_ctx_iv(&ctx, &aes_key, data);
+    AES_CBC_encrypt_buffer(&ctx, (data + AES_BLOCKLEN), size);
+}
+
+/*!
+ * \brief Application level decryption
+ *
+ * \param [OUT] None.
+ * \param [IN] None.
+ */
+static void app_aes_decrypt(uint8_t* data, uint8_t size){
+    struct AES_ctx ctx;
+    AES_init_ctx_iv(&ctx, &aes_key, data);
+    AES_CBC_decrypt_buffer(&ctx, (data + AES_BLOCKLEN), size);
+}
+
+/*!
+ * \brief Decided packet length
+ *
+ * \param [OUT] Required packet length.
+ * \param [IN] Data length.
+ */
+static uint8_t needed_packet_length(uint8_t data_len){
+    return (AES_BLOCKLEN + data_len + 
+            (AES_BLOCKLEN - (data_len % AES_BLOCKLEN)));
+}
 
 void appDataConf(NWK_DataReq_t *req)
 {
@@ -64,7 +105,10 @@ static bool appDataInd(NWK_DataInd_t *ind)
        uint8_t* dataptr = ind->data;
        memset(rx_buffer[buf_id].payload, 0 , sizeof(NWK_MAX_PAYLOAD_SIZE)); 
        rx_buffer[buf_id].rx_ind = *ind;
-       memcpy(rx_buffer[buf_id].payload,dataptr, ind->size);
+       ind->size -= AES_BLOCKLEN;
+       app_aes_decrypt(dataptr, ind->size);
+       memcpy(rx_buffer[buf_id].payload,dataptr + AES_BLOCKLEN, 
+                                          ind->size);
        CircularBufferPushBack(&rx_buffer_queue_context, &buf_id);
     }
     return true;
@@ -259,6 +303,7 @@ static void cmdI()
  */
 static void cmdSend(char* cmd){
 	uint16_t tempaddr;
+    uint8_t needed_size;
 	char *p1,*p2;
 	char destaddr[5];
         destaddr[4] = 0;
@@ -268,7 +313,8 @@ static void cmdSend(char* cmd){
 	tempaddr = strtoul(destaddr,&p2,16);
 	//Now find the message and queue it
 	p1 = strstr(cmd,"=") + 1;
-	if(strlen(p1) > NWK_MAX_PAYLOAD_SIZE){
+    needed_size = needed_packet_length(strlen(p1));
+	if(needed_size > (NWK_MAX_PAYLOAD_SIZE - AES_BLOCKLEN)){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -278,13 +324,14 @@ static void cmdSend(char* cmd){
             return;
         }
         memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
-		memcpy(&tx_buffer[buf_id].payload,p1,strlen(p1));
+		memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,p1,strlen(p1));
+        app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
 		tx_buffer[buf_id].nwkDataReq.dstAddr = tempaddr;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
-        tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
+        tx_buffer[buf_id].nwkDataReq.size = needed_size;
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
         tx_buffer[buf_id].msgid = msgIDCounter++;
         NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
@@ -412,7 +459,8 @@ static void cmdRecv(){
             uint8_t i = 0;
             //Found first RX message to be sent to the user
             printf("%04X:", rx_buffer[buf_id].rx_ind.srcAddr);
-            while(rx_buffer[buf_id].rx_ind.size--){
+            while((rx_buffer[buf_id].rx_ind.size--) && 
+                    rx_buffer[buf_id].payload[i]){
                 putch(rx_buffer[buf_id].payload[i++]);
             }
             rx_buffer[buf_id].free = 1;
@@ -569,7 +617,6 @@ static void cmdSetAES(char* cmd){
             DATAEE_WriteByte_Platform((NETkey0 + i),byte);
         }
 	}
-//    NWK_SetSecurityKey(net_key);
 	printf("OK\r\n");
 	return;
 }
@@ -1442,7 +1489,6 @@ void bootLoadApplication(void)
             sizeof(msg_ack_queue),sizeof(struct msg_ack_t));
     NWK_SetAddr((currentAddr0 << 8) | currentAddr1);
     NWK_SetPanId(pan_id);
-    NWK_SetSecurityKey(net_key);
     NWK_OpenEndpoint(DATA_EP, appDataInd);
     NWK_OpenEndpoint(MANAGEMENT_EP, appManagementEp);
     PHY_SetRxState(true);
