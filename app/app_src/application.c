@@ -35,6 +35,35 @@ static uint8_t write_only_mb_regs_update = 0;
 static uint8_t read_write_mb_regs_update = 0;
 static uint8_t tx_ctl_mb_regs_upadte     = 0;
 static uint8_t rx_ctl_mb_regs_upadte     = 0;
+static uint8_t need_reset                = 0;
+
+enum rst_state{
+    WAIT_FOR_RESET,
+    WAIT_FOR_TIMEOUT,
+    RESET_DEVICE
+};
+
+static void reset_handler(void){
+    static enum rst_state reset_state_var =  WAIT_FOR_RESET;
+    switch(reset_state_var){
+        case WAIT_FOR_RESET:
+            if(need_reset){
+                reset_state_var = WAIT_FOR_TIMEOUT;
+                reset_timer = RESET_TIMER;
+            }
+            break;
+        case WAIT_FOR_TIMEOUT:
+            if(!reset_timer){
+                reset_state_var = RESET_DEVICE;
+            }
+            break;
+        case RESET_DEVICE:
+        default:
+            //@TODO reset watchdog once
+            RESET();
+            while(1);
+    }
+}
 #endif
 
 /*!
@@ -110,6 +139,10 @@ static bool appDataInd(NWK_DataInd_t *ind)
        memcpy(rx_buffer[buf_id].payload,dataptr + AES_BLOCKLEN, 
                                           ind->size);
        CircularBufferPushBack(&rx_buffer_queue_context, &buf_id);
+#ifdef MBRTU
+       read_write_mb_regs[RX_NO_MSG] = 
+                               CircularBufferSize(&rx_buffer_queue_context);
+#endif
     }
     return true;
 }
@@ -314,7 +347,7 @@ static void cmdSend(char* cmd){
 	//Now find the message and queue it
 	p1 = strstr(cmd,"=") + 1;
     needed_size = needed_packet_length(strlen(p1));
-	if(needed_size > (NWK_MAX_PAYLOAD_SIZE - AES_BLOCKLEN)){
+	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -348,10 +381,12 @@ static void cmdSend(char* cmd){
  */
 static void cmdBcast(char* cmd){
 	char *p1,*p2;
+    uint8_t needed_size;
 	//Now find the message and queue it
 	p1 = strstr(cmd,"=") + 1;
+    needed_size = needed_packet_length(strlen(p1));
 	//Report error and reset state machine if length if bigger than payload max
-	if((!p1) || (strlen(p1) > NWK_MAX_PAYLOAD_SIZE)){
+	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -361,13 +396,14 @@ static void cmdBcast(char* cmd){
             return;
         }
         memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
-		memcpy(&tx_buffer[buf_id].payload,p1,strlen(p1));
+		memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,p1,strlen(p1));
+        app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
 		tx_buffer[buf_id].nwkDataReq.dstAddr = NWK_BROADCAST_ADDR;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.options = 0;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
-        tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
+        tx_buffer[buf_id].nwkDataReq.size = needed_size;
         tx_buffer[buf_id].nwkDataReq.confirm = (void*)&appDataConf;
         tx_buffer[buf_id].msgid = msgIDCounter++;
         NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
@@ -500,7 +536,7 @@ static void cmdMac(){
  */
 static void cmdSetSink(*cmd){
 	char msgstr[16];
-	uint8_t buf_id;    
+	uint8_t buf_id, needed_size;    
     memset(msgstr, 0, sizeof(msgstr));
 	//Set this node as sink
 	sinkAddr0 = currentAddr0;
@@ -510,6 +546,7 @@ static void cmdSetSink(*cmd){
 	DATAEE_WriteByte(sinkAddrEE1,currentAddr1);
 	//Send a message on network end point to all the node as BCAST
 	sprintf(msgstr,"SINK=%02X%02X",currentAddr0,currentAddr1);
+    needed_size = needed_packet_length(strlen(msgstr));
     if(!get_free_tx_buffer(&buf_id)){
 #ifdef ATCOMM
         printf("NOT OK:%u\r\n", NO_FREE_BUF);
@@ -517,13 +554,14 @@ static void cmdSetSink(*cmd){
         return;
     }
     memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
-    memcpy(&tx_buffer[buf_id].payload,msgstr,strlen(msgstr));
+    memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,msgstr,strlen(msgstr));
+    app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
     tx_buffer[buf_id].nwkDataReq.dstAddr = NWK_BROADCAST_ADDR;
     tx_buffer[buf_id].nwkDataReq.dstEndpoint = MANAGEMENT_EP;
     tx_buffer[buf_id].nwkDataReq.srcEndpoint = MANAGEMENT_EP;
     tx_buffer[buf_id].nwkDataReq.options = 0;
     tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
-    tx_buffer[buf_id].nwkDataReq.size = strlen(msgstr);
+    tx_buffer[buf_id].nwkDataReq.size = needed_size;
     tx_buffer[buf_id].nwkDataReq.confirm = (void*)&appDataConf;
     tx_buffer[buf_id].msgid = msgIDCounter++;
     NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
@@ -541,9 +579,10 @@ static void cmdSetSink(*cmd){
  */
 static void cmdSendSink(char* cmd){
 	char *p1;
-    uint8_t buf_id;
+    uint8_t buf_id, needed_size;
 	p1 = strstr(atCommand,"=") + 1;
-	if(strlen(p1) > NWK_MAX_PAYLOAD_SIZE){
+    needed_size = needed_packet_length(strlen(p1));
+	if((!p1) || (strlen(p1) > NWK_MAX_PAYLOAD_SIZE)){
 		printf("NOT OK:%u\r\n",MESSAGE_TOO_LONG);
 	}
 	else{
@@ -553,13 +592,14 @@ static void cmdSendSink(char* cmd){
             return;
         }
         memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
-		memcpy(&tx_buffer[buf_id].payload,p1,strlen(p1));
+		memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,p1,strlen(p1));
+        app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
 		tx_buffer[buf_id].nwkDataReq.dstAddr = (sinkAddr0 << 8) | sinkAddr1;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
-        tx_buffer[buf_id].nwkDataReq.size = strlen(p1);
+        tx_buffer[buf_id].nwkDataReq.size = needed_size;
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
         tx_buffer[buf_id].msgid = msgIDCounter++;
         NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
@@ -628,7 +668,7 @@ static void cmdSetAES(char* cmd){
  * \param [IN] None.
  */
 static void cmdGetCAD(){
-	printf("CAD COUNTER = %02X\r\n",cadCounter);
+	printf("CAD COUNTER = %02X\r\n", PHYGetCadCounter());
 	return;
 }
 
@@ -639,7 +679,7 @@ static void cmdGetCAD(){
  * \param [IN] None.
  */
 static void cmdRstCAD(){
-	cadCounter = 0;
+	PHYReSetCadCounter();
 	printf("OK\r\n");
 	return;
 }
@@ -1656,6 +1696,11 @@ static void handle_rw_regs(){
         PHY_Set_Packet_Rssi_Threshold(read_write_mb_regs[RW_MB_RSSI_ACCEPT]);
         set_eeprom_sync(EEPROM_GOOD_RSSI);
     }
+    /*Check if radio reset is requested*/
+    if(read_write_mb_regs[RW_MB_SOFT_RESET]){
+        read_write_mb_regs[RW_MB_SOFT_RESET] = 0;
+        need_reset = 1;
+    }
     read_write_mb_regs[RW_MB_ADDR_KEY1] = 0;
     read_write_mb_regs[RW_MB_ADDR_KEY2] = 0;
     read_write_mb_regs[RW_MB_UART_KEY1] = 0;
@@ -1670,17 +1715,19 @@ static void handle_rw_regs(){
  */
 static void handle_tx_regs(){
     uint8_t msg[payloadSizeMax], i = 0, src_ptr = TX_WORD1;
+    uint8_t buf_id, needed_size;
     if(!tx_ctl_mb_regs[TX_CONTROL]){
         return; //Nothing to do
     }
     while(i < payloadSizeMax){
         msg[i++] = tx_ctl_mb_regs[src_ptr] >> 8;
         msg[i++] = tx_ctl_mb_regs[src_ptr++];
-    }
-    uint8_t buf_id;
+    }    
+    needed_size = needed_packet_length(payloadSizeMax);
     if(get_free_tx_buffer(&buf_id)){  
         memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
-        memcpy(&tx_buffer[buf_id].payload,msg,sizeof(msg));
+		memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,msg,payloadSizeMax);
+        app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
         tx_buffer[buf_id].nwkDataReq.dstAddr = tx_ctl_mb_regs[TX_DEST];
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
@@ -1688,7 +1735,7 @@ static void handle_tx_regs(){
                 (tx_ctl_mb_regs[TX_DEST] == NWK_BROADCAST_ADDR)?
                     0:NWK_OPT_ACK_REQUEST;
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
-        tx_buffer[buf_id].nwkDataReq.size = sizeof(msg);
+        tx_buffer[buf_id].nwkDataReq.size = needed_size;
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
         tx_buffer[buf_id].msgid = msgIDCounter++;
         NWK_DataReq(&tx_buffer[buf_id].nwkDataReq);
@@ -1710,7 +1757,8 @@ static void handle_rx_regs(){
             count++;
         }
     }
-    read_only_mb_regs[RO_RX_MSG_COUNT] = count;
+    read_only_mb_regs[RO_RX_MSG_COUNT] = 
+                               CircularBufferSize(&rx_buffer_queue_context);
 }
 
 /*!
@@ -1933,6 +1981,7 @@ inline void application(void){
 #endif
 #ifdef MBRTU
     MBRTUStack();
+    reset_handler();
 #endif
 #ifndef MODULE
     nwkEnableRouting((MODE_GetValue()? false:true));

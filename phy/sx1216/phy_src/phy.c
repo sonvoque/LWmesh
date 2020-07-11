@@ -455,7 +455,7 @@ void initRadio(void)
     RADRST_SetLow();
     __delay_ms(100);
     RADRST_SetHigh();
-    __delay_ms(500);
+    __delay_ms(700);
     //Read the radio version
     version = SX1276Read(REG_LR_VERSION);
     version++;
@@ -861,6 +861,13 @@ inline int8_t PHY_Get_Packet_Rssi_Threshold(void){
 inline void PHY_Get_Packet_Rssi_Threshold_Limits(int8_t* max, int8_t* min){
     *max = RSSIGOODMAX;
     *min = RSSIGOODMIN;
+}
+
+inline uint8_t PHYGetCadCounter(void){
+    return cadCounter;
+}
+inline void PHYReSetCadCounter(void){
+    cadCounter = 0;
 }
 /******************************************************************************/
 void readAllReg(void)
