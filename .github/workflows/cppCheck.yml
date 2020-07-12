@@ -3,20 +3,11 @@ on: [push]
 
 jobs:
   build:
-    name: analyzer
+    name: cppcheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: cppcheck
-        uses: xTendLoRa/LWmesh@master
+        uses: xTendLoRa/LWmesh@cppcheckWorkFlow
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
-          check_library: enable
-          skip_preprocessor: enable
-          enable: all
-          inconclusive: enable
-          inline_suppression: enable
-          force_language: c
-          max_ctu_depth: 2
-          platform: native
-          output_file: ./cppcheck_report.txt
