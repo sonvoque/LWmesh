@@ -11,3 +11,12 @@ jobs:
         uses: deep5050/cppcheck-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
+          check_library: enable
+          skip_preprocessor: enable
+          enable: all
+          inconclusive: enable
+          inline_suppression: enable
+          force_language: c
+          max_ctu_depth: 2
+          platform: native
+          output_file: ./cppcheck_report.txt
