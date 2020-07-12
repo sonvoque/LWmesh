@@ -6,11 +6,11 @@ jobs:
     name: cppcheck
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: cppcheck
         uses: xTendLoRa/LWmesh@master
         with:
-          github_token: 0447b4479d5f9f14fdef0bd07ada655e543af883
+          github_token: ${{ secrets.GITHUB_TOKEN}}
           check_library: enable
           skip_preprocessor: enable
           enable: all
@@ -20,3 +20,8 @@ jobs:
           max_ctu_depth: 2
           platform: native
           output_file: ./cppcheck_report.txt
+          
+          
+          - uses: actions/checkout@v1
+     - name: My first step
+       uses: ./.github/actions/my-action:  
