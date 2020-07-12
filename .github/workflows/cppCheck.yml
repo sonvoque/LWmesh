@@ -8,9 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: cppcheck
-        uses: deep5050/cppcheck-action@master
+        uses: xTendLoRa/LWmesh@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
+          github_token: 0447b4479d5f9f14fdef0bd07ada655e543af883
           check_library: enable
           skip_preprocessor: enable
           enable: all
