@@ -1834,6 +1834,19 @@ static void fill_rx_regs(){
 }
 
 /*!
+ * \brief Loads the MB register just before being read out of reg map
+ *
+ * \param [OUT] None.
+ * \param [IN] None.
+ */
+static void load_on_demand_mb_regs(void){
+    uint16_t min, max;
+    get_loop_time(&min, &max);
+    read_write_mb_regs[RW_MB_MIN_LOOP_TIME] = min;
+    read_write_mb_regs[RW_MB_MAX_LOOP_TIME] = max;
+}
+
+/*!
  * \brief Call the MBRTU protocol stack functions
  *
  * \param [OUT] None.
@@ -1938,6 +1951,7 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs,
         if(MB_REG_READ == eMode){
             uint16_t* tempptr = (uint16_t*)&read_write_mb_regs[usAddress - 
                                                     RW_REG_BASE];
+            load_on_demand_mb_regs();
             rw_mb_regs(eMode, tempptr, pucRegBuffer, usNRegs);
             return MB_ENOERR;
         }
