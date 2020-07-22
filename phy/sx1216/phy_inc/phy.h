@@ -126,7 +126,11 @@ extern uint8_t EUIDbyte[12];
 
 enum radio_state_enum
 {
-    INIT_RADIO = 0,
+    RAD_RESET_LOW = 0,
+    RAD_RESET_LOW_WAIT,
+    RAD_RESET_HIGH,
+    RAD_RESET_HIGH_WAIT,
+    INIT_RADIO,
     START_RX,
     WAIT_FOR_RX,
     RX_MESSAGE,

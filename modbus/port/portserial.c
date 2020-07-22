@@ -40,7 +40,7 @@ vMBPortSerialEnable( BOOL xRxEnable, BOOL xTxEnable )
      * transmitter empty interrupts.
      */
     if(xRxEnable){
-        __delay_ms(250);
+//        __delay_ms(250);
 //        TXEN_SetLow();
         uartmode = 0;
     }

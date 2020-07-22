@@ -9,6 +9,7 @@
 #include "led.h"
 #include "uart_default_control.h"
 #include "AES.h"
+#include "wdt.h"
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 
@@ -480,7 +481,7 @@ static void cmdSetNaddr(char* cmd){
 	//Now copy to memory location in EEPROM
 	DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
     DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
-    initRadio();
+    PHY_Init();
 	printf("OK\r\n");
 	return;
 }
@@ -750,7 +751,7 @@ static void cmdSetRFCH(char* cmd){
 	else{
 		channel = temp;
 		DATAEE_WriteByte_Platform(radioChannel,channel);
-		initRadio();
+		PHY_Init();
         printf("OK\r\n");
 	}
 	return;
@@ -790,7 +791,7 @@ static void cmdSetTX(char* cmd){
 	else{
 		TXPower = temp;
 		DATAEE_WriteByte_Platform(txPowerSetting,TXPower);
-		initRadio();
+		PHY_Init();
 		printf("OK\r\n");
 	}
 	return;
@@ -826,7 +827,7 @@ static void cmdSetCADRSSI(char* atCommand){
 	else{
 		RSSITarget = temp;
 		DATAEE_WriteByte_Platform(RSSITargetSetting,RSSITarget);
-		initRadio();
+		PHY_Init();
 		printf("OK\r\n");
 	}
 	return;
@@ -882,7 +883,7 @@ static void cmdSetParity(char* atCommand){
 static void cmdBootLoad(){
     DATAEE_WriteByte_Platform(REQBootLoad,0x00);
     printf("OK\r\n");
-    __delay_ms(1000);
+    __delay_ms(500);
     RESET();
 }
 
@@ -937,7 +938,7 @@ static void cmdSetSF(char* atCommand){
 	else{
 		current_sf = temp;
 		DATAEE_WriteByte_Platform(SF,temp);
-		initRadio();
+		PHY_Init();
 		printf("OK\r\n");
 	}
 	return;
@@ -1027,6 +1028,7 @@ static void cmdGetMsgAck(char* cmd){
         printf("NOT OK:%u\r\n", (uint16_t) NO_ACK_STATUS);
     }
 }
+
 /*!
  * \brief Set the hop table entry time to live
  *
@@ -1035,6 +1037,18 @@ static void cmdGetMsgAck(char* cmd){
  */
 static void set_hop_table_ttl(char* cmd){
     printf("OK\r\n");
+}
+
+/*!
+ * \brief Get min and max loop times
+ *
+ * \param [OUT] None.
+ * \param [IN] AT command.
+ */
+cmdLoopTime(cmd){
+  uint16_t mintime, maxtime;
+  get_loop_time(&mintime, &maxtime);
+  printf("Min = %u, Max = %u\r\n", mintime, maxtime);
 }
 
 /*!
@@ -1201,6 +1215,14 @@ static uint8_t executeATCommand(char* cmd){
             }
             else if(strstr(cmd,"+GOODRSSI?")){
                 cmdGetPacketRssi(cmd);
+            }
+            else{
+                goto undefcmd;
+            }
+            break;
+        case 'L':
+            if(strstr(cmd,"+LOOPTIME?")){
+                cmdLoopTime(cmd);
             }
             else{
                 goto undefcmd;
@@ -1996,6 +2018,7 @@ static void exract_sink_addr(uint8_t* dataptr){
 }
 
 inline void application(void){
+    start_loop_timer();
 #ifdef ATCOMM
     processATCommand();
 #endif
@@ -2009,4 +2032,5 @@ inline void application(void){
 #endif
     sync_eeprom();
     uart_default_engine();
+    stop_loop_timer();
 }
