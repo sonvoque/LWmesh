@@ -1045,10 +1045,32 @@ static void set_hop_table_ttl(char* cmd){
  * \param [OUT] None.
  * \param [IN] AT command.
  */
-cmdLoopTime(cmd){
+static void cmdLoopTime(char* cmd){
   uint16_t mintime, maxtime;
   get_loop_time(&mintime, &maxtime);
   printf("Min = %u, Max = %u\r\n", mintime, maxtime);
+}
+
+/*!
+ * \brief Get min and max loop times
+ *
+ * \param [OUT] None.
+ * \param [IN] AT command.
+ */
+static void cmdTest(char* cmd){
+    char *p1,*p2;
+	char CHstr[3];
+	uint8_t testcase;
+	p1 = strstr(atCommand,"=") + 1;
+	memcpy(CHstr,p1,2);
+	testcase = (uint8_t)strtol(CHstr,&p2,16);
+    switch(testcase){
+        case WDTTEST:
+            while(1);
+            break;
+        default:
+            printf("NOT OK %u\r\n", ILLEGALPARAMETER);
+    }
 }
 
 /*!
@@ -1205,6 +1227,9 @@ static uint8_t executeATCommand(char* cmd){
         	else if(strstr(cmd,"+TXPOWER=")){
         		cmdSetTX(cmd);
         	}
+            else if(strstr(cmd,"+TEST=")){
+                cmdTest(cmd); /*Undocumented test functions for internal use*/
+            }
             else{
                 goto undefcmd;
             }
@@ -1434,6 +1459,10 @@ void bootLoadApplication(void)
     uint16_t temp;
     uint8_t i;
     int8_t rssimax,rssimin, temp1;
+#ifdef BOOTABLE
+    /*Enable watchdog in bootable version of firmware*/
+    WDTCON0bits.SEN = 1;
+#endif
 #ifndef MODULE    
     //Initialize the led queue
     ledInit();
@@ -2047,4 +2076,7 @@ inline void application(void){
     sync_eeprom();
     uart_default_engine();
     stop_loop_timer();
+#ifdef BOOTABLE
+    CLRWDT();
+#endif
 }

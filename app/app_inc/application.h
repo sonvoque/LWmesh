@@ -53,6 +53,11 @@ enum UART_PARITY_ENUM uart_parity;
 uint8_t curent_parity;
 uint16_t pan_id;
 
+#ifdef ATCOMM
+enum ATTESTCASES{
+    WDTTEST = 1,
+};
+#endif
 /*******************************************************************************
  * Network related variables used at application level
 *******************************************************************************/
