@@ -9,6 +9,7 @@
 #include "led.h"
 #include "uart_default_control.h"
 #include "AES.h"
+#include "wdt.h"
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 
@@ -480,7 +481,7 @@ static void cmdSetNaddr(char* cmd){
 	//Now copy to memory location in EEPROM
 	DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
     DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
-    initRadio();
+    PHY_Init();
 	printf("OK\r\n");
 	return;
 }
@@ -750,7 +751,7 @@ static void cmdSetRFCH(char* cmd){
 	else{
 		channel = temp;
 		DATAEE_WriteByte_Platform(radioChannel,channel);
-		initRadio();
+		PHY_Init();
         printf("OK\r\n");
 	}
 	return;
@@ -790,7 +791,7 @@ static void cmdSetTX(char* cmd){
 	else{
 		TXPower = temp;
 		DATAEE_WriteByte_Platform(txPowerSetting,TXPower);
-		initRadio();
+		PHY_Init();
 		printf("OK\r\n");
 	}
 	return;
@@ -826,7 +827,7 @@ static void cmdSetCADRSSI(char* atCommand){
 	else{
 		RSSITarget = temp;
 		DATAEE_WriteByte_Platform(RSSITargetSetting,RSSITarget);
-		initRadio();
+		PHY_Init();
 		printf("OK\r\n");
 	}
 	return;
@@ -882,7 +883,7 @@ static void cmdSetParity(char* atCommand){
 static void cmdBootLoad(){
     DATAEE_WriteByte_Platform(REQBootLoad,0x00);
     printf("OK\r\n");
-    __delay_ms(1000);
+    __delay_ms(500);
     RESET();
 }
 
@@ -937,7 +938,7 @@ static void cmdSetSF(char* atCommand){
 	else{
 		current_sf = temp;
 		DATAEE_WriteByte_Platform(SF,temp);
-		initRadio();
+		PHY_Init();
 		printf("OK\r\n");
 	}
 	return;
@@ -1027,6 +1028,7 @@ static void cmdGetMsgAck(char* cmd){
         printf("NOT OK:%u\r\n", (uint16_t) NO_ACK_STATUS);
     }
 }
+
 /*!
  * \brief Set the hop table entry time to live
  *
@@ -1035,6 +1037,40 @@ static void cmdGetMsgAck(char* cmd){
  */
 static void set_hop_table_ttl(char* cmd){
     printf("OK\r\n");
+}
+
+/*!
+ * \brief Get min and max loop times
+ *
+ * \param [OUT] None.
+ * \param [IN] AT command.
+ */
+static void cmdLoopTime(char* cmd){
+  uint16_t mintime, maxtime;
+  get_loop_time(&mintime, &maxtime);
+  printf("Min = %u, Max = %u\r\n", mintime, maxtime);
+}
+
+/*!
+ * \brief Get min and max loop times
+ *
+ * \param [OUT] None.
+ * \param [IN] AT command.
+ */
+static void cmdTest(char* cmd){
+    char *p1,*p2;
+	char CHstr[3];
+	uint8_t testcase;
+	p1 = strstr(atCommand,"=") + 1;
+	memcpy(CHstr,p1,2);
+	testcase = (uint8_t)strtol(CHstr,&p2,16);
+    switch(testcase){
+        case WDTTEST:
+            while(1);
+            break;
+        default:
+            printf("NOT OK %u\r\n", ILLEGALPARAMETER);
+    }
 }
 
 /*!
@@ -1191,6 +1227,9 @@ static uint8_t executeATCommand(char* cmd){
         	else if(strstr(cmd,"+TXPOWER=")){
         		cmdSetTX(cmd);
         	}
+            else if(strstr(cmd,"+TEST=")){
+                cmdTest(cmd); /*Undocumented test functions for internal use*/
+            }
             else{
                 goto undefcmd;
             }
@@ -1201,6 +1240,14 @@ static uint8_t executeATCommand(char* cmd){
             }
             else if(strstr(cmd,"+GOODRSSI?")){
                 cmdGetPacketRssi(cmd);
+            }
+            else{
+                goto undefcmd;
+            }
+            break;
+        case 'L':
+            if(strstr(cmd,"+LOOPTIME?")){
+                cmdLoopTime(cmd);
             }
             else{
                 goto undefcmd;
@@ -1412,6 +1459,10 @@ void bootLoadApplication(void)
     uint16_t temp;
     uint8_t i;
     int8_t rssimax,rssimin, temp1;
+#ifdef BOOTABLE
+    /*Enable watchdog in bootable version of firmware*/
+    WDTCON0bits.SEN = 1;
+#endif
 #ifndef MODULE    
     //Initialize the led queue
     ledInit();
@@ -1812,6 +1863,19 @@ static void fill_rx_regs(){
 }
 
 /*!
+ * \brief Loads the MB register just before being read out of reg map
+ *
+ * \param [OUT] None.
+ * \param [IN] None.
+ */
+static void load_on_demand_mb_regs(void){
+    uint16_t min, max;
+    get_loop_time(&min, &max);
+    read_write_mb_regs[RW_MB_MIN_LOOP_TIME] = min;
+    read_write_mb_regs[RW_MB_MAX_LOOP_TIME] = max;
+}
+
+/*!
  * \brief Call the MBRTU protocol stack functions
  *
  * \param [OUT] None.
@@ -1916,6 +1980,7 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs,
         if(MB_REG_READ == eMode){
             uint16_t* tempptr = (uint16_t*)&read_write_mb_regs[usAddress - 
                                                     RW_REG_BASE];
+            load_on_demand_mb_regs();
             rw_mb_regs(eMode, tempptr, pucRegBuffer, usNRegs);
             return MB_ENOERR;
         }
@@ -1996,6 +2061,7 @@ static void exract_sink_addr(uint8_t* dataptr){
 }
 
 inline void application(void){
+    start_loop_timer();
 #ifdef ATCOMM
     processATCommand();
 #endif
@@ -2009,4 +2075,8 @@ inline void application(void){
 #endif
     sync_eeprom();
     uart_default_engine();
+    stop_loop_timer();
+#ifdef BOOTABLE
+    CLRWDT();
+#endif
 }

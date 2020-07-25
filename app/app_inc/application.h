@@ -53,6 +53,11 @@ enum UART_PARITY_ENUM uart_parity;
 uint8_t curent_parity;
 uint16_t pan_id;
 
+#ifdef ATCOMM
+enum ATTESTCASES{
+    WDTTEST = 1,
+};
+#endif
 /*******************************************************************************
  * Network related variables used at application level
 *******************************************************************************/
@@ -221,7 +226,7 @@ enum{
     WO_SET_SINK
 }MB_WO_REGS;
 
-#define RW_REG_NUM     17
+#define RW_REG_NUM     19
 #define RW_REG_BASE    1000
 #define RW_REG_START   1001
 #define RW_REG_END     (RW_REG_START + RW_REG_NUM)
@@ -243,7 +248,9 @@ enum{
     RW_MB_UART_KEY1,
     RW_MB_UART_KEY2,
     RW_MB_RSSI_ACCEPT,
-    RW_MB_SOFT_RESET
+    RW_MB_SOFT_RESET,
+    RW_MB_MIN_LOOP_TIME,
+    RW_MB_MAX_LOOP_TIME
 }MB_RW_REGS;
 
 #define TX_REG_NUM     35

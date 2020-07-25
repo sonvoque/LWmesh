@@ -451,11 +451,6 @@ void initRadio(void)
     uint8_t version;
     uint32_t BWset;
     uint16_t wideRSSI;
-    //Reset the radio
-    RADRST_SetLow();
-    __delay_ms(100);
-    RADRST_SetHigh();
-    __delay_ms(700);
     //Read the radio version
     version = SX1276Read(REG_LR_VERSION);
     version++;
@@ -497,8 +492,7 @@ void initRadio(void)
     SX1276Write(REG_LR_SYMBTIMEOUTLSB,255);
     //enable reception
     receive(0);
-        
-    __delay_ms(100);
+    __delay_ms(10);
     //Seed the random number generator for UUID
     wideRSSI = (SX1276Read(REG_LR_RSSIWIDEBAND)<<8) + SX1276Read(REG_LR_RSSIWIDEBAND);
     
@@ -719,6 +713,23 @@ void DIO2_FHSS_ISR(void)
  */
 static void radio_engine(void){
     switch(radio_state_var){
+        case RAD_RESET_LOW:
+            RADRST_SetLow();
+            set_timer0base(&txTimeOut, 100); //Reuse the timer
+            radio_state_var = RAD_RESET_LOW_WAIT;
+            break;
+        case RAD_RESET_LOW_WAIT:
+            if(!get_timer0base(&txTimeOut)){
+                RADRST_SetHigh();
+                set_timer0base(&txTimeOut, 700); //Reuse the timer
+                radio_state_var = RAD_RESET_HIGH_WAIT;
+            }
+            break;
+        case RAD_RESET_HIGH_WAIT:
+            if(!get_timer0base(&txTimeOut)){
+                radio_state_var = INIT_RADIO;
+            }
+            break;
         case INIT_RADIO:
             initRadio();
             radio_state_var = START_RX;   
@@ -800,14 +811,14 @@ static void radio_engine(void){
             }
             break;
         default:
-            radio_state_var = INIT_RADIO;
+            radio_state_var = RAD_RESET_LOW;
     }
 }
 
 /******************************************************************************/
 //LWmesh phy interface
 void PHY_Init(void){
-    initRadio();
+    radio_state_var = RAD_RESET_LOW;
 }
 
 void PHY_SetRxState(bool rx){
