@@ -1,0 +1,142 @@
+[PIC18F26K42/mcc_generated_files/crc.c:161]: (style) The scope of the variable 'mask' can be reduced.
+[PIC18F26K42/mcc_generated_files/crc.c:62]: (style) struct member 'CRC_OBJ::seedDirection' is never used.
+[PIC18F26K42/test.c:16] -> [PIC18F26K42/test.c:12]: (style, inconclusive) Found duplicate branches for 'if' and 'else'.
+[PIC18F27K42/mcc_generated_files/crc.c:161]: (style) The scope of the variable 'mask' can be reduced.
+[PIC18F27K42/mcc_generated_files/crc.c:62]: (style) struct member 'CRC_OBJ::seedDirection' is never used.
+[PIC18F27K42/test.c:16] -> [PIC18F27K42/test.c:12]: (style, inconclusive) Found duplicate branches for 'if' and 'else'.
+[PIC18F47K42/mcc_generated_files/crc.c:161]: (style) The scope of the variable 'mask' can be reduced.
+[PIC18F47K42/mcc_generated_files/crc.c:62]: (style) struct member 'CRC_OBJ::seedDirection' is never used.
+[aes/aes_src/AES.c:153]: (style) The scope of the variable 'k' can be reduced.
+[aes/aes_src/AES.c:308]: (style) The scope of the variable 'Tmp' can be reduced.
+[aes/aes_src/AES.c:308]: (style) The scope of the variable 'Tm' can be reduced.
+[aes/aes_src/AES.c:308]: (style) The scope of the variable 't' can be reduced.
+[aes/aes_src/AES.c:350]: (style) The scope of the variable 'a' can be reduced.
+[aes/aes_src/AES.c:350]: (style) The scope of the variable 'b' can be reduced.
+[aes/aes_src/AES.c:350]: (style) The scope of the variable 'c' can be reduced.
+[aes/aes_src/AES.c:350]: (style) The scope of the variable 'd' can be reduced.
+[app/app_src/application.c:356] -> [app/app_src/application.c:355]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
+[app/app_src/application.c:395] -> [app/app_src/application.c:393]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
+[app/app_src/application.c:606] -> [app/app_src/application.c:605]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
+[app/app_src/application.c:900] -> [app/app_src/application.c:901]: (style) Variable 'ptr' is reassigned a value before the old one has been used.
+[app/app_src/application.c:603] -> [app/app_src/application.c:610]: (style) Local variable buf_id shadows outer variable
+[app/app_src/application.c:389]: (style) Unused variable: p2
+[app/app_src/application.c:603]: (style) Unused variable: buf_id
+[app/app_src/application.c:669]: (error) Null pointer dereference
+[app/app_src/application.c:1842] -> [app/app_src/application.c:1850]: (style) Local variable i shadows outer variable
+[app/app_src/application.c:1828]: (style) Variable 'count' is modified but its new value is never used.
+[app/app_src/application.c:1842]: (style) Variable 'i' is assigned a value that is never used.
+[modbus/mb.c:228]: (style) The scope of the variable 'i' can be reduced.
+[modbus/mb.c:340]: (style) The scope of the variable 'i' can be reduced.
+[modbus/rtu/mbcrc.c:89]: (style) The scope of the variable 'iIndex' can be reduced.
+[modbus/rtu/mbrtu.h:37] -> [modbus/rtu/mbrtu.c:81]: (style, inconclusive) Function 'eMBRTUInit' argument 1 names different: declaration 'slaveAddress' definition 'ucSlaveAddress'.
+[modbus/rtu/mbrtu.h:42] -> [modbus/rtu/mbrtu.c:187]: (style, inconclusive) Function 'eMBRTUSend' argument 1 names different: declaration 'slaveAddress' definition 'ucSlaveAddress'.
+[modbus/rtu/mbrtu.c:175]: (style) Variable 'xFrameReceived' is assigned a value that is never used.
+[nwk/nwk_src/nwkDataReq.c:126]: (style) Clarify calculation precedence for '&' and '?'.
+[nwk/nwk_src/nwkDataReq.c:128]: (style) Clarify calculation precedence for '&' and '?'.
+[nwk/nwk_src/nwkDataReq.c:129]: (style) Clarify calculation precedence for '&' and '?'.
+[nwk/nwk_src/nwkDataReq.c:136]: (style) Clarify calculation precedence for '&' and '?'.
+[nwk/nwk_src/nwkDataReq.c:132]: (style) Clarify calculation precedence for '&' and '?'.
+[nwk/nwk_src/nwkRouteDiscovery.c:196]: (style) The scope of the variable 'entry' can be reduced.
+[nwk/nwk_src/nwkTx.c:117] -> [nwk/nwk_src/nwkTx.c:113]: (style, inconclusive) Found duplicate branches for 'if' and 'else'.
+[phy/sx1216/phy_src/phy.c:664]: (style) Label 'rx_error' is not used.
+[phy/sx1216/phy_src/phy.c:64]: (style) Unused variable: i
+[phy/sx1216/phy_src/phy.c:82]: (style) Unused variable: i
+[phy/sx1216/phy_src/phy.c:456]: (style) Variable 'version' is modified but its new value is never used.
+[phy/sx1216/phy_src/phy.c:452]: (style) Unused variable: BWset
+[aes/aes_src/AES.c:536]: (style) The function 'AES_CTR_xcrypt_buffer' is never used.
+[aes/aes_src/AES.c:473]: (style) The function 'AES_ECB_decrypt' is never used.
+[aes/aes_src/AES.c:467]: (style) The function 'AES_ECB_encrypt' is never used.
+[aes/aes_src/AES.c:234]: (style) The function 'AES_ctx_set_iv' is never used.
+[aes/aes_src/AES.c:224]: (style) The function 'AES_init_ctx' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:201]: (style) The function 'CRC_IsBusy' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:245]: (style) The function 'CRC_SCAN_HasScanCompleted' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:239]: (style) The function 'CRC_SCAN_IsScannerBusy' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:225]: (style) The function 'CRC_SCAN_SetAddressLimit' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:207]: (style) The function 'CRC_SCAN_StartScanner' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:216]: (style) The function 'CRC_SCAN_StopScanner' is never used.
+[PIC18F26K42/mcc_generated_files/crc.c:119]: (style) The function 'CRC_Start' is never used.
+[app/app_src/circular buffer.c:66]: (style) The function 'CircularBufferClear' is never used.
+[app/app_src/circular buffer.c:101]: (style) The function 'CircularBufferPeek' is never used.
+[phy/sx1216/phy_src/phy.c:690]: (style) The function 'DIO2_FHSS_ISR' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:125]: (style) The function 'DMA1_GetDestinationPointer' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:120]: (style) The function 'DMA1_GetSourcePointer' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:59]: (style) The function 'DMA1_Initialize' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:95]: (style) The function 'DMA1_SelectSourceRegion' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:135]: (style) The function 'DMA1_SetAbortTrigger' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:156]: (style) The function 'DMA1_SetDMAPriority' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:105]: (style) The function 'DMA1_SetDestinationAddress' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:115]: (style) The function 'DMA1_SetDestinationSize' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:100]: (style) The function 'DMA1_SetSourceAddress' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:110]: (style) The function 'DMA1_SetSourceSize' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:130]: (style) The function 'DMA1_SetStartTrigger' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:140]: (style) The function 'DMA1_StartTransfer' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:145]: (style) The function 'DMA1_StartTransferWithTrigger' is never used.
+[PIC18F26K42/mcc_generated_files/dma1.c:150]: (style) The function 'DMA1_StopTransfer' is never used.
+[PIC18F26K42/mcc_generated_files/memory.c:71]: (style) The function 'FLASH_ReadWord' is never used.
+[PIC18F26K42/mcc_generated_files/memory.c:76]: (style) The function 'FLASH_WriteByte' is never used.
+[PIC18F26K42/mcc_generated_files/memory.c:206]: (style) The function 'MEMORY_Tasks' is never used.
+[nwk/nwk_src/nwk.c:136]: (style) The function 'NWK_Busy' is never used.
+[nwk/nwk_src/nwkGroup.c:81]: (style) The function 'NWK_GroupAdd' is never used.
+[nwk/nwk_src/nwkGroup.c:91]: (style) The function 'NWK_GroupRemove' is never used.
+[nwk/nwk_src/nwk.c:178]: (style) The function 'NWK_LinearizeLqi' is never used.
+[nwk/nwk_src/nwk.c:144]: (style) The function 'NWK_Lock' is never used.
+[nwk/nwk_src/nwkRx.c:162]: (style) The function 'NWK_SetAckControl' is never used.
+[nwk/nwk_src/nwkSecurity.c:92]: (style) The function 'NWK_SetSecurityKey' is never used.
+[nwk/nwk_src/nwk.c:160]: (style) The function 'NWK_SleepReq' is never used.
+[nwk/nwk_src/nwk.c:152]: (style) The function 'NWK_Unlock' is never used.
+[nwk/nwk_src/nwk.c:168]: (style) The function 'NWK_WakeupReq' is never used.
+[phy/sx1216/phy_src/phy.c:840]: (style) The function 'PHY_SetTxPower' is never used.
+[PIC18F26K42/mcc_generated_files/pin_manager.c:134]: (style) The function 'PIN_MANAGER_IOC' is never used.
+[PIC18F26K42/mcc_generated_files/spi1.c:95]: (style) The function 'SPI1_Close' is never used.
+[PIC18F26K42/mcc_generated_files/spi1.c:108]: (style) The function 'SPI1_ExchangeBlock' is never used.
+[PIC18F26K42/mcc_generated_files/spi1.c:79]: (style) The function 'SPI1_Open' is never used.
+[PIC18F26K42/mcc_generated_files/spi1.c:144]: (style) The function 'SPI1_ReadByte' is never used.
+[PIC18F26K42/mcc_generated_files/spi1.c:139]: (style) The function 'SPI1_WriteByte' is never used.
+[phy/sx1216/phy_src/phy.c:110]: (style) The function 'SX1276ReadFifo' is never used.
+[phy/sx1216/phy_src/phy.c:98]: (style) The function 'SX1276WriteFifo' is never used.
+[sys/sys_src/sysTimer.c:78]: (style) The function 'SYS_TimerStop' is never used.
+[PIC18F26K42/mcc_generated_files/tmr0.c:108]: (style) The function 'TMR0_ReadTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr0.c:128]: (style) The function 'TMR0_Reload' is never used.
+[PIC18F26K42/mcc_generated_files/tmr0.c:96]: (style) The function 'TMR0_StartTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr0.c:102]: (style) The function 'TMR0_StopTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr0.c:121]: (style) The function 'TMR0_WriteTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:160]: (style) The function 'TMR1_CheckGateValueStatus' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:65]: (style) The function 'TMR1_Initialize' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:112]: (style) The function 'TMR1_ReadTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:150]: (style) The function 'TMR1_Reload' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:155]: (style) The function 'TMR1_StartSinglePulseAcquisition' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:100]: (style) The function 'TMR1_StartTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr1.c:106]: (style) The function 'TMR1_StopTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr3.c:160]: (style) The function 'TMR3_CheckGateValueStatus' is never used.
+[PIC18F26K42/mcc_generated_files/tmr3.c:112]: (style) The function 'TMR3_ReadTimer' is never used.
+[PIC18F26K42/mcc_generated_files/tmr3.c:150]: (style) The function 'TMR3_Reload' is never used.
+[PIC18F26K42/mcc_generated_files/tmr3.c:155]: (style) The function 'TMR3_StartSinglePulseAcquisition' is never used.
+[PIC18F27K42/mcc_generated_files/tmr5.c:152]: (style) The function 'TMR5_CheckGateValueStatus' is never used.
+[PIC18F27K42/mcc_generated_files/tmr5.c:157]: (style) The function 'TMR5_HasOverflowOccured' is never used.
+[PIC18F27K42/mcc_generated_files/tmr5.c:142]: (style) The function 'TMR5_Reload' is never used.
+[PIC18F27K42/mcc_generated_files/tmr5.c:147]: (style) The function 'TMR5_StartSinglePulseAcquisition' is never used.
+[app/app_src/application.c:1615]: (style) The function 'UART1_framing_error_handler' is never used.
+[PIC18F26K42/mcc_generated_files/uart1.c:184]: (style) The function 'UART1_get_last_status' is never used.
+[PIC18F26K42/mcc_generated_files/uart1.c:179]: (style) The function 'UART1_is_tx_done' is never used.
+[phy/sx1216/phy_src/phy.c:429]: (style) The function 'available' is never used.
+[phy/sx1216/phy_src/phy.c:577]: (style) The function 'cad_detected_isr' is never used.
+[phy/sx1216/phy_src/phy.c:563]: (style) The function 'cad_done_isr' is never used.
+[phy/sx1216/phy_src/phy.c:368]: (style) The function 'disableCrc' is never used.
+[modbus/mb.c:273]: (style) The function 'eMBClose' is never used.
+[app/app_src/application.c:1948]: (style) The function 'eMBRegHoldingCB' is never used.
+[modbus/mb.c:226]: (style) The function 'eMBRegisterCB' is never used.
+[modbus/mb.c:197]: (style) The function 'eMBTCPInit' is never used.
+[phy/sx1216/phy_src/phy.c:345]: (style) The function 'getSyncWord' is never used.
+[PIC18F26K42/mcc_generated_files/uart1.c:237]: (style) The function 'getch' is never used.
+[modbus/functions/mbutils.c:117]: (style) The function 'prveMBError2Exception' is never used.
+[phy/sx1216/phy_src/phy.c:434]: (style) The function 'read' is never used.
+[phy/sx1216/phy_src/phy.c:884]: (style) The function 'readAllReg' is never used.
+[phy/sx1216/phy_src/phy.c:590]: (style) The function 'rx_timeout_isr' is never used.
+[app/app_src/application.c:1385]: (style) The function 'sendOKMessage' is never used.
+[app/app_src/application.c:1400]: (style) The function 'sendUARTMessage' is never used.
+[phy/sx1216/phy_src/phy.c:133]: (style) The function 'sleep' is never used.
+[PIC18F26K42/test.c:29]: (style) The function 'test_init' is never used.
+[PIC18F26K42/test.c:37]: (style) The function 'test_send' is never used.
+[modbus/functions/mbutils.c:86]: (style) The function 'xMBUtilGetBits' is never used.
+[modbus/functions/mbutils.c:47]: (style) The function 'xMBUtilSetBits' is never used.
+(information) Cppcheck cannot find all the include files (use --check-config for details)
