@@ -11,3 +11,5 @@ jobs:
         uses: deep5050/cppcheck-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
+          force_language: c
+          max_ctu_depth: 2
