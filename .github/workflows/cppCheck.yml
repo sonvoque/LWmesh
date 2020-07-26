@@ -19,4 +19,4 @@ jobs:
           force_language: c
           max_ctu_depth: 2
           platform: native
-          output_file: ./cppcheck_report.txt
+          output_file: cppcheck_report.txt
