@@ -13,8 +13,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           force_language: c
           enable: all
-          inconclusive: enable
           inline_suppression: enable
-          check_library: enable
-          skip_preprocessor: enable
           platform: avr8
