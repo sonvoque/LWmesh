@@ -14,4 +14,4 @@ jobs:
           force_language: c
           enable: all
           inline_suppression: enable
-          platform: avr8
+          platform: native
