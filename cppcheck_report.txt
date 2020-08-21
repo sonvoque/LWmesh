@@ -14,17 +14,17 @@
 [aes/aes_src/AES.c:350]: (style) The scope of the variable 'b' can be reduced.
 [aes/aes_src/AES.c:350]: (style) The scope of the variable 'c' can be reduced.
 [aes/aes_src/AES.c:350]: (style) The scope of the variable 'd' can be reduced.
-[app/app_src/application.c:356] -> [app/app_src/application.c:355]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
-[app/app_src/application.c:395] -> [app/app_src/application.c:393]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
-[app/app_src/application.c:606] -> [app/app_src/application.c:605]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
-[app/app_src/application.c:900] -> [app/app_src/application.c:901]: (style) Variable 'ptr' is reassigned a value before the old one has been used.
-[app/app_src/application.c:603] -> [app/app_src/application.c:610]: (style) Local variable buf_id shadows outer variable
-[app/app_src/application.c:389]: (style) Unused variable: p2
-[app/app_src/application.c:603]: (style) Unused variable: buf_id
-[app/app_src/application.c:669]: (error) Null pointer dereference
-[app/app_src/application.c:1842] -> [app/app_src/application.c:1850]: (style) Local variable i shadows outer variable
-[app/app_src/application.c:1828]: (style) Variable 'count' is modified but its new value is never used.
-[app/app_src/application.c:1842]: (style) Variable 'i' is assigned a value that is never used.
+[app/app_src/application.c:359] -> [app/app_src/application.c:358]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
+[app/app_src/application.c:398] -> [app/app_src/application.c:396]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
+[app/app_src/application.c:609] -> [app/app_src/application.c:608]: (warning) Either the condition '!p1' is redundant or there is possible null pointer dereference: p1.
+[app/app_src/application.c:903] -> [app/app_src/application.c:904]: (style) Variable 'ptr' is reassigned a value before the old one has been used.
+[app/app_src/application.c:606] -> [app/app_src/application.c:613]: (style) Local variable buf_id shadows outer variable
+[app/app_src/application.c:392]: (style) Unused variable: p2
+[app/app_src/application.c:606]: (style) Unused variable: buf_id
+[app/app_src/application.c:672]: (error) Null pointer dereference
+[app/app_src/application.c:1852] -> [app/app_src/application.c:1860]: (style) Local variable i shadows outer variable
+[app/app_src/application.c:1838]: (style) Variable 'count' is modified but its new value is never used.
+[app/app_src/application.c:1852]: (style) Variable 'i' is assigned a value that is never used.
 [modbus/mb.c:228]: (style) The scope of the variable 'i' can be reduced.
 [modbus/mb.c:340]: (style) The scope of the variable 'i' can be reduced.
 [modbus/rtu/mbcrc.c:89]: (style) The scope of the variable 'iIndex' can be reduced.
@@ -115,7 +115,7 @@
 [PIC18F27K42/mcc_generated_files/tmr5.c:157]: (style) The function 'TMR5_HasOverflowOccured' is never used.
 [PIC18F27K42/mcc_generated_files/tmr5.c:142]: (style) The function 'TMR5_Reload' is never used.
 [PIC18F27K42/mcc_generated_files/tmr5.c:147]: (style) The function 'TMR5_StartSinglePulseAcquisition' is never used.
-[app/app_src/application.c:1615]: (style) The function 'UART1_framing_error_handler' is never used.
+[app/app_src/application.c:1625]: (style) The function 'UART1_framing_error_handler' is never used.
 [PIC18F26K42/mcc_generated_files/uart1.c:184]: (style) The function 'UART1_get_last_status' is never used.
 [PIC18F26K42/mcc_generated_files/uart1.c:179]: (style) The function 'UART1_is_tx_done' is never used.
 [phy/sx1216/phy_src/phy.c:429]: (style) The function 'available' is never used.
@@ -123,17 +123,19 @@
 [phy/sx1216/phy_src/phy.c:563]: (style) The function 'cad_done_isr' is never used.
 [phy/sx1216/phy_src/phy.c:368]: (style) The function 'disableCrc' is never used.
 [modbus/mb.c:273]: (style) The function 'eMBClose' is never used.
-[app/app_src/application.c:1948]: (style) The function 'eMBRegHoldingCB' is never used.
+[app/app_src/application.c:1958]: (style) The function 'eMBRegHoldingCB' is never used.
 [modbus/mb.c:226]: (style) The function 'eMBRegisterCB' is never used.
 [modbus/mb.c:197]: (style) The function 'eMBTCPInit' is never used.
+[memory/eeprom/eeprom_src/I2C_EEPROM.c:185]: (style) The function 'eeprom_rd_page' is never used.
+[memory/eeprom/eeprom_src/I2C_EEPROM.c:94]: (style) The function 'eeprom_wr_page' is never used.
 [phy/sx1216/phy_src/phy.c:345]: (style) The function 'getSyncWord' is never used.
 [PIC18F26K42/mcc_generated_files/uart1.c:237]: (style) The function 'getch' is never used.
 [modbus/functions/mbutils.c:117]: (style) The function 'prveMBError2Exception' is never used.
 [phy/sx1216/phy_src/phy.c:434]: (style) The function 'read' is never used.
 [phy/sx1216/phy_src/phy.c:884]: (style) The function 'readAllReg' is never used.
 [phy/sx1216/phy_src/phy.c:590]: (style) The function 'rx_timeout_isr' is never used.
-[app/app_src/application.c:1385]: (style) The function 'sendOKMessage' is never used.
-[app/app_src/application.c:1400]: (style) The function 'sendUARTMessage' is never used.
+[app/app_src/application.c:1395]: (style) The function 'sendOKMessage' is never used.
+[app/app_src/application.c:1410]: (style) The function 'sendUARTMessage' is never used.
 [phy/sx1216/phy_src/phy.c:133]: (style) The function 'sleep' is never used.
 [PIC18F26K42/test.c:29]: (style) The function 'test_init' is never used.
 [PIC18F26K42/test.c:37]: (style) The function 'test_send' is never used.
