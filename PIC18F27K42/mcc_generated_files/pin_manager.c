@@ -13,7 +13,7 @@
   Description:
     This header file provides implementations for pin APIs for all pins selected in the GUI.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.3
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.4
         Device            :  PIC18F27K42
         Driver Version    :  2.11
     The generated drivers are tested against the following:
@@ -57,14 +57,14 @@ void PIN_MANAGER_Initialize(void)
     /**
     LATx registers
     */
-    LATA = 0x08;
+    LATA = 0xC8;
     LATB = 0x00;
     LATC = 0x40;
 
     /**
     TRISx registers
     */
-    TRISA = 0xF7;
+    TRISA = 0x37;
     TRISB = 0xFE;
     TRISC = 0x1C;
 
@@ -73,7 +73,7 @@ void PIN_MANAGER_Initialize(void)
     */
     ANSELC = 0x21;
     ANSELB = 0xCD;
-    ANSELA = 0xF0;
+    ANSELA = 0x30;
 
     /**
     WPUx registers
@@ -94,9 +94,9 @@ void PIN_MANAGER_Initialize(void)
     /**
     ODx registers
     */
-    ODCONA = 0x00;
-    ODCONB = 0x04;
-    ODCONC = 0x00;
+    ODCONA = 0xC0;
+    ODCONB = 0x06;
+    ODCONC = 0x18;
 
     /**
     SLRCONx registers
@@ -122,7 +122,6 @@ void PIN_MANAGER_Initialize(void)
 	
     RC0PPS = 0x13;   //RC0->UART1:TX1;    
     SPI1SCKPPS = 0x17;   //RC7->SPI1:SCK1;    
-    SPI1SSPPS = 0x13;   //RC3->SPI1:SS1;    
     RB0PPS = 0x1F;   //RB0->SPI1:SDO1;    
     RC1PPS = 0x14;   //RC1->UART1:TXDE1;    
     U1RXPPS = 0x12;   //RC2->UART1:RX1; 
