@@ -32,6 +32,7 @@ extern "C" {
         NO_RX_MESSAGES,
         NO_FREE_BUF,
         NO_ACK_STATUS,
+        BAD_COMMAND_FORMAT,
         E_UNKNOWN        
     };
 

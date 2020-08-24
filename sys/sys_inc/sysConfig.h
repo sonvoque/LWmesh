@@ -75,7 +75,7 @@
 #endif
 
 #ifndef NWK_ACK_WAIT_TIME
-#define NWK_ACK_WAIT_TIME                        3000 // ms
+#define NWK_ACK_WAIT_TIME                        4500 // ms
 #endif
 
 #ifndef NWK_GROUPS_AMOUNT
