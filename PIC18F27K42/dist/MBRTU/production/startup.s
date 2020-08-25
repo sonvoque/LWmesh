@@ -14,8 +14,9 @@
 	; -I../app/app_inc -I../hal/hal_inc -I../nwk/nwk_inc \
 	; -I../phy/sx1216/phy_inc -I../sys/sys_inc -Imcc_generated_files \
 	; -I../modbus/mb_inc -I../modbus/port -I../modbus/rtu \
-	; -I../modbus/functions -I../aes/aes_inc -I../wdt/wdt_inc --warn=-3 \
-	; --asmlist --summary=-psect,-class,+mem,-hex,-file --output=+inhx032 \
+	; -I../modbus/functions -I../aes/aes_inc -I../wdt/wdt_inc \
+	; -I../memory/eeprom/eeprom_inc --warn=-3 --asmlist \
+	; --summary=-psect,-class,+mem,-hex,-file --output=+inhx032 \
 	; --runtime=+clear --runtime=+init --runtime=+keep --runtime=-download \
 	; --runtime=+config --std=c99 --output=+elf:multilocs \
 	; --stack=hybrid:auto:auto:auto --summary=+xml \
@@ -42,6 +43,8 @@
 	; build/MBRTU/production/_ext/423217399/led.p1 \
 	; build/MBRTU/production/_ext/984464531/mb.p1 \
 	; build/MBRTU/production/_ext/423217399/uart_default_control.p1 \
+	; build/MBRTU/production/_ext/179975797/I2C_EEPROM.p1 \
+	; build/MBRTU/production/_ext/179975797/PIC16_I2C_BITBANG.p1 \
 	; build/MBRTU/production/_ext/1339929363/Timers.p1 \
 	; build/MBRTU/production/mcc_generated_files/spi1.p1 \
 	; build/MBRTU/production/mcc_generated_files/tmr0.p1 \
@@ -145,7 +148,7 @@ __accesstop EQU 96
 
 ;Initialize the stack pointer (FSR1)
 	global stacklo, stackhi
-	stacklo	equ	01A3Dh
+	stacklo	equ	01923h
 	stackhi	equ	01FFFh
 
 
@@ -153,21 +156,21 @@ __accesstop EQU 96
 	global ___sp,___inthi_sp,___intlo_sp
 ___sp:
 
-ds 493
+ds 587
 
 ___inthi_sp:
 
-ds 491
+ds 585
 
 ___intlo_sp:
 
-ds 491
+ds 585
 
 
 
 	psect	init
 start:
-	lfsr	1,6717
+	lfsr	1,6435
 	global start_initialization
 	goto start_initialization	;jump to C runtime clear & initialization
 
