@@ -10,9 +10,6 @@
 #include "uart_default_control.h"
 #include "AES.h"
 #include "wdt.h"
-#ifdef FULLFEATURE
-#include "I2C_EEPROM.h"
-#endif
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 
@@ -1063,7 +1060,7 @@ static void cmdLoopTime(char* cmd){
 static void cmdTest(char* cmd){
     char *p1,*p2;
 	char CHstr[3];
-	volatile uint8_t testcase;
+	uint8_t testcase;
 	p1 = strstr(atCommand,"=") + 1;
 	memcpy(CHstr,p1,2);
 	testcase = (uint8_t)strtol(CHstr,&p2,16);
@@ -1071,13 +1068,6 @@ static void cmdTest(char* cmd){
         case WDTTEST:
             while(1);
             break;
-#ifdef FULLFEATURE
-        case EETEST:
-            eeprom_wr_byte(0xAAAA, 0xAA);
-            __delay_ms(15);
-            testcase = eeprom_rd_byte(0xAAAA);
-            break;
-#endif
         default:
             printf("NOT OK %u\r\n", ILLEGALPARAMETER);
     }

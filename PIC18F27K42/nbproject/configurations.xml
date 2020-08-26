@@ -17,10 +17,6 @@
         <itemPath>../app/app_inc/led.h</itemPath>
         <itemPath>../app/app_inc/uart_default_control.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="eeprom_inc" displayName="eeprom_inc" projectFiles="true">
-        <itemPath>../memory/eeprom/eeprom_inc/I2C_EEPROM.h</itemPath>
-        <itemPath>../memory/eeprom/eeprom_inc/PIC16_I2C_BITBANG.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="hal_inc" displayName="hal_inc" projectFiles="true">
         <itemPath>../hal/hal_inc/Timers.h</itemPath>
       </logicalFolder>
@@ -112,10 +108,6 @@
         <itemPath>../modbus/mb.c</itemPath>
         <itemPath>../app/app_src/uart_default_control.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="eeprom_src" displayName="eeprom_src" projectFiles="true">
-        <itemPath>../memory/eeprom/eeprom_src/I2C_EEPROM.c</itemPath>
-        <itemPath>../memory/eeprom/eeprom_src/PIC16_I2C_BITBANG.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="hal_src" displayName="hal_src" projectFiles="true">
         <itemPath>../hal/hal_src/Timers.c</itemPath>
       </logicalFolder>
@@ -182,9 +174,6 @@
     <Elem>../aes/aes_src</Elem>
     <Elem>../wdt/wdt_inc</Elem>
     <Elem>../wdt/wdt_src</Elem>
-    <Elem>../memory/eeprom/inc</Elem>
-    <Elem>../memory/eeprom/eeprom_inc</Elem>
-    <Elem>../memory/eeprom/eeprom_src</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -231,10 +220,10 @@
         <property key="asmlist" value="true"/>
         <property key="default-bitfield-type" value="true"/>
         <property key="default-char-type" value="true"/>
-        <property key="define-macros" value="ATCOMM;DEBUGVECTOR;FULLFEATURE"/>
+        <property key="define-macros" value="ATCOMM;DEBUGVECTOR"/>
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
-                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc;..\memory\eeprom\eeprom_inc"/>
+                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
         <property key="garbage-collect-functions" value="true"/>
@@ -297,7 +286,7 @@
         <property key="input-libraries" value="libm"/>
         <property key="keep-generated-startup.as" value="false"/>
         <property key="link-in-c-library" value="true"/>
-        <property key="link-in-c-library-gcc" value="-mc90lib"/>
+        <property key="link-in-c-library-gcc" value=""/>
         <property key="link-in-peripheral-library" value="false"/>
         <property key="managed-stack" value="false"/>
         <property key="opt-xc8-linker-file" value="false"/>
@@ -412,7 +401,7 @@
         <property key="define-macros" value="ATCOMM;BOOTABLE"/>
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
-                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc;..\memory\eeprom\eeprom_inc"/>
+                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
         <property key="garbage-collect-functions" value="true"/>
@@ -476,7 +465,7 @@
         <property key="input-libraries" value="libm"/>
         <property key="keep-generated-startup.as" value="false"/>
         <property key="link-in-c-library" value="true"/>
-        <property key="link-in-c-library-gcc" value="-mc90lib"/>
+        <property key="link-in-c-library-gcc" value=""/>
         <property key="link-in-peripheral-library" value="false"/>
         <property key="managed-stack" value="false"/>
         <property key="opt-xc8-linker-file" value="false"/>
@@ -590,7 +579,7 @@
         <property key="define-macros" value="MBRTU;DEBUGVECTOR"/>
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
-                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc;..\memory\eeprom\eeprom_inc"/>
+                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
         <property key="garbage-collect-functions" value="true"/>
@@ -767,7 +756,7 @@
         <property key="define-macros" value="MBRTU;BOOTABLE"/>
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
-                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc;..\memory\eeprom\eeprom_inc"/>
+                  value="..\app\app_inc;..\hal\hal_inc;..\nwk\nwk_inc;..\phy\sx1216\phy_inc;..\sys\sys_inc;mcc_generated_files;..\modbus\mb_inc;..\modbus\port;..\modbus\rtu;..\modbus\functions;..\aes\aes_inc;..\wdt\wdt_inc"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
         <property key="garbage-collect-functions" value="true"/>
@@ -831,7 +820,7 @@
         <property key="input-libraries" value="libm"/>
         <property key="keep-generated-startup.as" value="false"/>
         <property key="link-in-c-library" value="true"/>
-        <property key="link-in-c-library-gcc" value="-mc90lib"/>
+        <property key="link-in-c-library-gcc" value=""/>
         <property key="link-in-peripheral-library" value="false"/>
         <property key="managed-stack" value="false"/>
         <property key="opt-xc8-linker-file" value="false"/>
