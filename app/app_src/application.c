@@ -132,14 +132,14 @@ void appDataConf(NWK_DataReq_t *req)
     // frame was sent successfully  
     #ifdef ATCOMM
         //printf("ACK:%04X\r\n", req->dstAddr);
-        ack = true;
     #endif
+        ack = true;    
     } 
     else{
     #ifdef ATCOMM
         //printf("NACK:%04X\r\n", req->dstAddr);
-        ack = false;
     #endif
+        ack = false;
     }
     //Free the app tx buffer any way
     free_tx_buffer(req, ack);
@@ -174,7 +174,13 @@ static bool appManagementEp(NWK_DataInd_t *ind){
     uint8_t *ptr = (uint8_t*)strstr(dataptr + AES_BLOCKLEN,"SINK");
     if(ptr){
         exract_sink_addr(ptr);
+        goto func_exit;
     }
+    ptr = (uint8_t*)strstr(dataptr + AES_BLOCKLEN,"PING");
+    if(ptr){
+        asm("NOP"); //On ping command stack will send ack, this is place holder
+    }
+func_exit:
     return true;
 }
 
@@ -361,7 +367,11 @@ static void cmdSend(char* cmd){
 	char *p1,*p2;
 	char destaddr[5];
         destaddr[4] = 0;
-	p1 = strstr(cmd,":") + 1;
+	p1 = strstr(cmd,":");
+    if(!p1){
+        printf("NOT OK:%u\r\n", E_UNKNOWN);
+    }
+    p1++;
 	memcpy(destaddr,p1,4);
 	//Now convert the string number to a int
 	tempaddr = strtoul(destaddr,&p2,16);
@@ -496,6 +506,7 @@ static void cmdSetNaddr(char* cmd){
 	//Now copy to memory location in EEPROM
 	DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
     DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
+    NWK_SetPanId(pan_id);
     PHY_Init();
 	printf("OK\r\n");
 	return;
@@ -520,8 +531,8 @@ static void cmdRecv(){
                     rx_buffer[buf_id].payload[i]){
                 putch(rx_buffer[buf_id].payload[i++]);
             }
+            printf("\r\nRSSI:%i\r\n", rx_buffer[buf_id].rx_ind.rssi);
             rx_buffer[buf_id].free = 1;
-            printf("\r\n");
         }
         else{
             printf("NOT OK:%u\r\n", (uint16_t)NO_RX_MESSAGES);
@@ -652,7 +663,7 @@ static void cmdSendSink(char* cmd){
 static void cmdSetAES(char* cmd){
 	char *p1;
 	char AESstr[32];
-    uint8_t key_type = 0; // 0 is network 1 is app
+    uint8_t key_type = 0;
 	p1 = strstr(atCommand,":") + 1;
     if(!p1){
         printf("NOT OK:%u\r\n", UNDEFCMD);
@@ -681,7 +692,7 @@ static void cmdSetAES(char* cmd){
 		char temp[3];
 		char *p2;
 		uint8_t byte;
-		memcpy(temp,0,sizeof(temp));
+		memset(temp,0,sizeof(temp));
 		memcpy(temp,(AESstr + i*2),2);
 		byte = (uint8_t)strtoul(temp,&p2,16);
         if('A' == key_type){
@@ -728,10 +739,10 @@ static void cmdRstCAD(){
  */
 static void cmdGetMode(){
 	if(nwkIsRouter()){
-		printf("MODE = ROUTER\r\n");
+		printf("MODE=ROUTER\r\n");
 	}
 	else{
-		printf("MODE = END NODE\r\n");
+		printf("MODE=END NODE\r\n");
 	}
 	return;
 }
@@ -758,6 +769,9 @@ static void cmdSetRFCH(char* cmd){
 	char CHstr[3];
 	uint8_t temp;
 	p1 = strstr(atCommand,"=") + 1;
+    if(!p1){        
+        printf("NOT OK:%u\r\n",BAD_COMMAND_FORMAT);
+    }
 	memcpy(CHstr,p1,2);
 	temp = (uint8_t)strtoul(CHstr,&p2,16) - 1;
 	if(temp > sizeof(fhssList)){
@@ -837,7 +851,7 @@ static void cmdSetCADRSSI(char* atCommand){
 	memcpy(CHstr,p1,3);
 	temp = (uint8_t)strtol(CHstr,&p2,10);
 	if((temp > 0) || (temp < -120)){
-		printf("NOT OK:%u\r\n",TXOUTOFBOUNDS);
+		printf("NOT OK:%u\r\n",(uint16_t)ILLEGALPARAMETER);
 	}
 	else{
 		RSSITarget = temp;
@@ -967,7 +981,7 @@ static void cmdSetSF(char* atCommand){
  */
 static void cmdGetRxCnt(char* cmd){
     uint8_t count = 0, buf_id = 0;
-    while(buf_id++ < APP_RX_BUFFER_DEPTH){
+    for(;buf_id < APP_RX_BUFFER_DEPTH; buf_id++){
         if(!rx_buffer[buf_id].free){
             count++;
         }
@@ -999,7 +1013,7 @@ static void print_hop_table(char* cmd){
  * \param [IN] AT command.
  */
 static void cmdGetPacketRssi(char* cmd){
-    printf("%d\r\n", PHY_Get_Packet_Rssi_Threshold());
+    printf("GOODRSSI=%d\r\n", PHY_Get_Packet_Rssi_Threshold());
 }
 
 /*!
@@ -1009,13 +1023,10 @@ static void cmdGetPacketRssi(char* cmd){
  * \param [IN] AT command.
  */
 static void cmdSetPacketRssi(char* cmd){
-    char *p1,*p2;
-	char CHstr[4];
+    char *p1;
 	int8_t temp, min, max;
 	p1 = strstr(cmd,"=") + 1;
-    memset(CHstr, 0, sizeof(CHstr));
-	memcpy(CHstr,p1,3);
-	temp = (uint8_t)strtol(CHstr,&p2,10);
+	temp = (uint8_t)strtol(p1,NULL,10);
     PHY_Get_Packet_Rssi_Threshold_Limits(&max, &min);
     if((temp < min) || (temp > max)){
         temp = min;
@@ -1044,15 +1055,6 @@ static void cmdGetMsgAck(char* cmd){
     }
 }
 
-/*!
- * \brief Set the hop table entry time to live
- *
- * \param [OUT] None.
- * \param [IN] AT command.
- */
-static void set_hop_table_ttl(char* cmd){
-    printf("OK\r\n");
-}
 
 /*!
  * \brief Get min and max loop times
@@ -1086,6 +1088,52 @@ static void cmdTest(char* cmd){
         default:
             printf("NOT OK %u\r\n", ILLEGALPARAMETER);
     }
+}
+
+/*!
+ * \brief Send ping command on network interface
+ *
+ * \param [OUT] None.
+ * \param [IN] AT command.
+ */
+static void cmdSendPing(char *cmd){
+    uint8_t buf_id;
+    uint16_t tempaddr;
+    uint8_t needed_size;
+    const char ping_str[5] = "PING";
+	char *p1,*p2;
+	char destaddr[5];
+    destaddr[4] = 0;
+	p1 = strstr(cmd,":");
+    if(!p1){
+        printf("NOT OK:%u\r\n", E_UNKNOWN);
+    }
+    p1++;
+	memcpy(destaddr,p1,4);
+	//Now convert the string number to a int
+	tempaddr = strtoul(destaddr,&p2,16);
+	//Now find the message and queue it
+    needed_size = needed_packet_length(strlen(ping_str));
+	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
+		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
+	}
+    if(!get_free_tx_buffer(&buf_id)){
+        printf("NOT OK:%u\r\n", NO_FREE_BUF);
+        return;
+    }
+    memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
+    memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,ping_str,strlen(ping_str));
+    app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
+    tx_buffer[buf_id].nwkDataReq.dstAddr = tempaddr;
+    tx_buffer[buf_id].nwkDataReq.dstEndpoint = MANAGEMENT_EP;
+    tx_buffer[buf_id].nwkDataReq.srcEndpoint = MANAGEMENT_EP;
+    tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
+    tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
+    tx_buffer[buf_id].nwkDataReq.size = needed_size;
+    tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
+    tx_buffer[buf_id].msgid = msgIDCounter++;
+    NWK_DataReq(&tx_buffer[buf_id].nwkDataReq); 
+    printf("OK:%u\r\n", tx_buffer[buf_id].msgid);
 }
 
 /*!
@@ -1167,14 +1215,6 @@ static uint8_t executeATCommand(char* cmd){
                 goto undefcmd;
             }
             break;
-        case 'H':
-            if(strstr(cmd,"+HOPTTL=")){
-                set_hop_table_ttl(cmd);
-            }
-            else{
-                goto undefcmd;
-            }
-            break;
         case 'I':            
             if(strstr(cmd,"+I")){
                 cmdI();
@@ -1212,11 +1252,14 @@ static uint8_t executeATCommand(char* cmd){
             if(strstr(cmd,"+PARITY=")){
                 cmdSetParity(cmd);
             }
+            if(strstr(cmd,"+PING")){
+                cmdSendPing(cmd);
+            }
             else{
                 goto undefcmd;
             }
         case 'R':
-        	if(strstr(cmd,"+RECV")){
+        	if(strstr(cmd,"+RECV?")){
         		cmdRecv();
         	}
         	else if(strstr(cmd,"+RFCH?")){
@@ -1515,7 +1558,7 @@ void bootLoadApplication(void)
     //Load the RF channel setting from EEPROM
     channel = DATAEE_ReadByte_Platform(radioChannel);
     if(channel > sizeof(fhssList)){
-        channel = 0;
+        channel = 4;
         DATAEE_WriteByte_Platform(radioChannel,channel);
     }
     

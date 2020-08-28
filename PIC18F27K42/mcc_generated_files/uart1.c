@@ -62,7 +62,7 @@ extern volatile bool tx_done;
 #endif
 #ifdef MBRTU
 #define UART1_TX_BUFFER_SIZE 64
-#define UART1_RX_BUFFER_SIZE 64
+#define UART1_RX_BUFFER_SIZE 16
 #endif
 
 /**
