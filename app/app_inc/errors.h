@@ -48,6 +48,8 @@ extern "C" {
         NO_FREE_BUF,
         NO_ACK_STATUS,
         BAD_COMMAND_FORMAT,
+        CRC_OK,
+        CRC_BAD,
         E_UNKNOWN        
     };
 

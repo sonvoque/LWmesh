@@ -93,12 +93,16 @@ static void reset_handler(void){
  */
 static void app_aes_encrypt(uint8_t* data, uint8_t size){
     struct AES_ctx ctx;
+    struct app_header_t *apphdr = (struct app_header_t*)data;
+    uint16_t iv[16];
+    apphdr->iv_seed = rand();
+    apphdr->crc16 = crc16_app((data + AES_BLOCKLEN), size, 0); //Compute CRC before encryption
     /*Fill the IV*/
     for(uint8_t i = 0; i < 8; i++){
-        uint16_t random = rand();
-        memcpy((data + (i<<1)), &random, sizeof(random));
+        uint16_t random = apphdr->iv_seed >> i;
+        memcpy((iv + (i<<1)), &random, sizeof(random));
     }
-    AES_init_ctx_iv(&ctx, &aes_key, data);
+    AES_init_ctx_iv(&ctx, &aes_key, &iv);
     AES_CBC_encrypt_buffer(&ctx, (data + AES_BLOCKLEN), size);
 }
 
@@ -108,10 +112,21 @@ static void app_aes_encrypt(uint8_t* data, uint8_t size){
  * \param [OUT] None.
  * \param [IN] None.
  */
-static void app_aes_decrypt(uint8_t* data, uint8_t size){
+static uint8_t app_aes_decrypt(uint8_t* data, uint8_t size){
     struct AES_ctx ctx;
-    AES_init_ctx_iv(&ctx, &aes_key, data);
+    struct app_header_t *apphdr = (struct app_header_t*)data;
+    uint16_t iv[16];
+    uint16_t crc16_cal;
+    /*Fill the IV*/
+    for(uint8_t i = 0; i < 8; i++){
+        uint16_t random = apphdr->iv_seed >> i;
+        memcpy((iv + (i<<1)), &random, sizeof(random));
+    }
+    AES_init_ctx_iv(&ctx, &aes_key, &iv);
     AES_CBC_decrypt_buffer(&ctx, (data + AES_BLOCKLEN), size);
+    //Now compute and check CRC16
+    crc16_cal = crc16_app((data + AES_BLOCKLEN), size, 0);
+    return((crc16_cal == apphdr->crc16)?CRC_OK:CRC_BAD);
 }
 
 /*!
@@ -154,7 +169,9 @@ static bool appDataInd(NWK_DataInd_t *ind)
        memset(rx_buffer[buf_id].payload, 0 , sizeof(NWK_MAX_PAYLOAD_SIZE)); 
        rx_buffer[buf_id].rx_ind = *ind;
        ind->size -= AES_BLOCKLEN;
-       app_aes_decrypt(dataptr, ind->size);
+       if(CRC_OK != app_aes_decrypt(dataptr, ind->size)){
+            goto func_exit_bad;
+        }
        memcpy(rx_buffer[buf_id].payload,dataptr + AES_BLOCKLEN, 
                                           ind->size);
        CircularBufferPushBack(&rx_buffer_queue_context, &buf_id);
@@ -164,13 +181,17 @@ static bool appDataInd(NWK_DataInd_t *ind)
 #endif
     }
     return true;
+func_exit_bad:
+    return false;
 }
 
 static bool appManagementEp(NWK_DataInd_t *ind){
     //Check if there is Sink node command
     uint8_t* dataptr = ind->data;
     ind->size -= AES_BLOCKLEN;
-    app_aes_decrypt(dataptr, ind->size);
+    if(CRC_OK != app_aes_decrypt(dataptr, ind->size)){
+        goto func_exit_bad;
+    }
     uint8_t *ptr = (uint8_t*)strstr(dataptr + AES_BLOCKLEN,"SINK");
     if(ptr){
         exract_sink_addr(ptr);
@@ -182,6 +203,8 @@ static bool appManagementEp(NWK_DataInd_t *ind){
     }
 func_exit:
     return true;
+func_exit_bad:
+    return false;
 }
 
 static bool get_free_tx_buffer(uint8_t *buf_id){
