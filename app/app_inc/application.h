@@ -192,6 +192,15 @@ enum atState
     resetATMachine
 }atStateVar = initMessage;
 
+/*******************************************************************************
+ * Application header
+ ******************************************************************************/
+__pack struct app_header_t{
+    uint16_t iv_seed;
+    uint16_t crc16;
+    uint8_t resv[12];
+};
+
 #ifdef MBRTU
 #define READ_ONLY_REG_NUM     16
 #define READ_ONLY_REG_BASE    0
