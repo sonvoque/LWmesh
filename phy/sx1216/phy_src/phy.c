@@ -61,7 +61,6 @@ static void SX1276Write( uint8_t addr, uint8_t data )
  */
 static void SX1276ReadBuffer( uint8_t addr, uint8_t *buffer, uint8_t size )
 {
-    uint8_t i;
     //NSS = 0;
     NSS_SetLow();
     SPI1_ExchangeByte(addr & SPI_READ_MASK);
@@ -79,7 +78,6 @@ static void SX1276ReadBuffer( uint8_t addr, uint8_t *buffer, uint8_t size )
  */
 static void SX1276WriteBuffer( uint8_t addr, uint8_t *buffer, uint8_t size )
 {    
-    uint8_t i;
     //NSS = 0;
     NSS_SetLow();
     SPI1_ExchangeByte(addr | SPI_WRITE_MASK);
@@ -449,11 +447,11 @@ uint8_t read()
 void initRadio(void)
 {
     uint8_t version;
-    uint32_t BWset;
     uint16_t wideRSSI;
     //Read the radio version
     version = SX1276Read(REG_LR_VERSION);
     version++;
+	(void) version; //Suppress static analysis warning
     SX1276Write(REG_LR_OPMODE,0x00);  //Sleep mode and high frequency register
     SX1276Write(REG_LR_OPMODE,RFLR_OPMODE_LONGRANGEMODE_ON);  //LoRa mode    
     
@@ -511,7 +509,7 @@ uint8_t cad(void){
     //Read the modem status and check if radio is not busy
     temp = SX1276Read(REG_LR_MODEMSTAT);
     RSSI_loc = -157 + SX1276Read(REG_LR_RSSIVALUE);
-    if((temp & 0x01) | (temp & 0x02) | (RSSI_loc > RSSITarget)){
+    if((temp & 0x01) || (temp & 0x02) || (RSSI_loc > RSSITarget)){
         return 1; //Report that channel is active
     }    
     start_radio_cad();
@@ -660,8 +658,7 @@ void DIO0_Receive_ISR(void)
             queue_rx_led_event();
 #endif            
         }        
-    }
-rx_error:    
+    }    
     receive(0);
 }
 

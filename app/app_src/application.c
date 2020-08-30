@@ -393,15 +393,21 @@ static void cmdSend(char* cmd){
 	p1 = strstr(cmd,":");
     if(!p1){
         printf("NOT OK:%u\r\n", E_UNKNOWN);
+		return;
     }
     p1++;
 	memcpy(destaddr,p1,4);
 	//Now convert the string number to a int
 	tempaddr = strtoul(destaddr,&p2,16);
 	//Now find the message and queue it
-	p1 = strstr(cmd,"=") + 1;
+	p1 = strstr(cmd,"=");
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
+    }
+	p1++;
     needed_size = needed_packet_length(strlen(p1));
-	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
+	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -434,14 +440,18 @@ static void cmdSend(char* cmd){
  * \param [IN] At command.
  */
 static void cmdBcast(char* cmd){
-	char *p1,*p2;
+	char *p1;
     uint8_t needed_size;
 	//Now find the message and queue it
 	p1 = strstr(cmd,"=") + 1;
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
+    }
     needed_size = needed_packet_length(strlen(p1));
 	//Report error and reset state machine if length if bigger than payload max
-	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
-		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
+	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+		printf("NOT OK:%u\r\n", (uint16_t)MESSAGE_TOO_LONG);
 	}
 	else{
 		uint8_t buf_id;
@@ -651,12 +661,15 @@ static void cmdSendSink(char* cmd){
 	char *p1;
     uint8_t buf_id, needed_size;
 	p1 = strstr(atCommand,"=") + 1;
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
+    }
     needed_size = needed_packet_length(strlen(p1));
-	if((!p1) || (strlen(p1) > NWK_MAX_PAYLOAD_SIZE)){
+	if(strlen(p1) > NWK_MAX_PAYLOAD_SIZE){
 		printf("NOT OK:%u\r\n",MESSAGE_TOO_LONG);
 	}
 	else{
-        uint8_t buf_id;
         if(!get_free_tx_buffer(&buf_id)){
             printf("NOT OK:%u\r\n", NO_FREE_BUF);
             return;
@@ -794,6 +807,7 @@ static void cmdSetRFCH(char* cmd){
 	p1 = strstr(atCommand,"=") + 1;
     if(!p1){        
         printf("NOT OK:%u\r\n",BAD_COMMAND_FORMAT);
+        return;
     }
 	memcpy(CHstr,p1,2);
 	temp = (uint8_t)strtoul(CHstr,&p2,16) - 1;
@@ -833,6 +847,7 @@ static void cmdSetTX(char* cmd){
 	p1 = strstr(atCommand,"=") + 1;
     if(!p1){
         printf("NOT OK:%u\r\n",(uint16_t)TXOUTOFBOUNDS);
+        return;
     }
     memset(CHstr, 0 , sizeof(CHstr));
 	memcpy(CHstr,p1,2);
@@ -950,7 +965,13 @@ static void cmdSetBaud(char* atCommand)
     uint8_t tempbaud;
     char *ptr;
     ptr = strtok(atCommand,"=");
+    if(!ptr){
+        goto bad_cmd_format;
+    }
     ptr = strtok(NULL,"\r");
+    if(!ptr){
+        goto bad_cmd_format;
+    }
     tempbaud = (uint8_t)strtoul(ptr,NULL,10);
     if(tempbaud < UART_BAUD_SENTINAL){
         DATAEE_WriteByte_Platform(UARTBaud,tempbaud);
@@ -959,6 +980,8 @@ static void cmdSetBaud(char* atCommand)
     else{
         printf("NOT OK:%u\r\n", (uint16_t)ILLEGALPARAMETER);
     }
+bad_cmd_format:
+    printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
 }
 
 /*!
@@ -1129,19 +1152,21 @@ static void cmdSendPing(char *cmd){
     destaddr[4] = 0;
 	p1 = strstr(cmd,":");
     if(!p1){
-        printf("NOT OK:%u\r\n", E_UNKNOWN);
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
     }
     p1++;
 	memcpy(destaddr,p1,4);
 	//Now convert the string number to a int
 	tempaddr = strtoul(destaddr,&p2,16);
 	//Now find the message and queue it
-    needed_size = needed_packet_length(strlen(ping_str));
-	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
-		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
+    needed_size = needed_packet_length(sizeof(ping_str) - 1);
+	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+		printf("NOT OK:%u\r\n", (uint16_t)MESSAGE_TOO_LONG);
+        return;
 	}
     if(!get_free_tx_buffer(&buf_id)){
-        printf("NOT OK:%u\r\n", NO_FREE_BUF);
+        printf("NOT OK:%u\r\n", (uint16_t)NO_FREE_BUF);
         return;
     }
     memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
@@ -1608,7 +1633,7 @@ void bootLoadApplication(void)
     
     //Load the UART parity settings. Default is odd parity
     i = DATAEE_ReadByte_Platform(UARTParity);
-    if((i > UART_9BIT_EVEN_PARITY) | (UART_7BIT_MODE == i)){
+    if((i > UART_9BIT_EVEN_PARITY) || (UART_7BIT_MODE == i)){
         i = UART_9BIT_EVEN_PARITY;
         DATAEE_WriteByte_Platform(UARTParity,UART_9BIT_EVEN_PARITY);
     }
@@ -1920,7 +1945,7 @@ static void handle_rx_regs(){
  * \param [IN] None.
  */
 static void fill_rx_regs(){
-    uint8_t i = 0, dest_ptr = RX_WORD1;
+    uint8_t dest_ptr = RX_WORD1;
     if(rx_ctl_mb_regs[RX_CONTROL]){
         return;
     }
