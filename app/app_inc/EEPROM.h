@@ -82,6 +82,9 @@ extern "C" {
 #define NETkey15      NETkey14   + 1
 #define RSSI_GOOD     NETkey15   + 1
     
+#define MCAST_GRP_ID_MSB RSSI_GOOD + 1
+#define MCAST_GRP_ID_LSB MCAST_GRP_ID_MSB +1
+    
 enum{
     EEPROM_BOOTLOADER,
     EEPROM_SERIAL,
