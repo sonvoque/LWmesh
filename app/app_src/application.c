@@ -94,7 +94,7 @@ static void reset_handler(void){
 static void app_aes_encrypt(uint8_t* data, uint8_t size){
     struct AES_ctx ctx;
     struct app_header_t *apphdr = (struct app_header_t*)data;
-    uint16_t iv[16];
+    uint8_t iv[16];
     apphdr->iv_seed = rand();
     apphdr->crc16 = crc16_app((data + AES_BLOCKLEN), size, 0); //Compute CRC before encryption
     /*Fill the IV*/
@@ -115,7 +115,7 @@ static void app_aes_encrypt(uint8_t* data, uint8_t size){
 static uint8_t app_aes_decrypt(uint8_t* data, uint8_t size){
     struct AES_ctx ctx;
     struct app_header_t *apphdr = (struct app_header_t*)data;
-    uint16_t iv[16];
+    uint8_t iv[16];
     uint16_t crc16_cal;
     /*Fill the IV*/
     for(uint8_t i = 0; i < 8; i++){
