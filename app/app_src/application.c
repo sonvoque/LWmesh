@@ -246,10 +246,12 @@ static void free_tx_buffer(NWK_DataReq_t *req, bool ack){
             struct msg_ack_t msg_ack_obj; 
             //Found the tx buffer we need to free
             tx_buffer[buf_id].free = 1;
-            msg_ack_obj.dest_addr = req->dstAddr;
-            msg_ack_obj.msgid = tx_buffer[buf_id].msgid;
-            msg_ack_obj.status = ack;
-            CircularBufferPushBack(&msg_ack_queue_context, &msg_ack_obj);
+            if(!(req->options & NWK_OPT_MULTICAST)){
+                msg_ack_obj.dest_addr = req->dstAddr;
+                msg_ack_obj.msgid = tx_buffer[buf_id].msgid;
+                msg_ack_obj.status = ack;
+                CircularBufferPushBack(&msg_ack_queue_context, &msg_ack_obj);
+            }            
             return;
         }
         buf_id++;
@@ -592,7 +594,7 @@ static void cmdGetMcastId(char* cmd){
 	printf("MCAST Groups:\r\n");
     for(uint8_t i = 0; i < NWK_GROUPS_AMOUNT; i++){
         if(0xFFFF != *grp_id_ptr){
-            printf("%u\r\n", (uint16_t)*grp_id_ptr);
+            printf("0x%X\r\n", (uint16_t)*grp_id_ptr);
         }
         grp_id_ptr++;
     }
@@ -668,6 +670,9 @@ static void cmdRecv(){
             uint8_t i = 0;
             //Found first RX message to be sent to the user
             printf("%04X:", rx_buffer[buf_id].rx_ind.srcAddr);
+            if(rx_buffer[buf_id].rx_ind.options & NWK_OPT_MULTICAST){
+                printf("MCAST:");
+            }
             while((rx_buffer[buf_id].rx_ind.size--) && 
                     rx_buffer[buf_id].payload[i]){
                 putch(rx_buffer[buf_id].payload[i++]);
@@ -1304,7 +1309,8 @@ static uint8_t executeATCommand(char* cmd){
     switch(*(cmd+1))
     {
         case 'S':
-        	if((strstr(cmd,"+SEND:")) || (strstr(cmd,"+SENDU:"))){
+        	if((strstr(cmd,"+SEND:")) || (strstr(cmd,"+SENDU:")) || 
+                    (strstr(cmd,"+SENDM:"))){
         		cmdSend(cmd);
         	}
         	else if(strstr(cmd,"+SETSINK")){
