@@ -60,6 +60,7 @@
 bool NWK_GroupIsMember(uint16_t group);
 bool NWK_GroupAdd(uint16_t group);
 bool NWK_GroupRemove(uint16_t group);
+uint16_t* NWK_GroupTable(void);
 
 void nwkGroupInit(void);
 

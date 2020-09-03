@@ -125,4 +125,12 @@ static bool nwkGroupSwitch(uint16_t from, uint16_t to)
   return false;
 }
 
+/*************************************************************************//**
+  @brief Returns a pointer to the Group Id table
+  @param[in] void
+  @return Pointer to the group id tab;e
+*****************************************************************************/
+uint16_t* NWK_GroupTable(void){
+    return (&nwkGroups);
+}
 #endif // NWK_ENABLE_MULTICAST

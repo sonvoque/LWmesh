@@ -80,9 +80,13 @@ enum ATTESTCASES{
 #define ROUTER          0
 #define ENDDEVICE       1
 #define AESKEYLEN       32
+
+#define MEMBER_RADIUS_MAX       16
+#define NONMEBER_RADIUS_MAX     16
 uint8_t currentAddr0 = 0x12,currentAddr1 = 0x34,currentNetID = 0x55,
         currentMsgID = 0;
 uint8_t sinkAddr0 = 0x00,sinkAddr1 = 0x00;
+uint16_t mcast_id;
 //Unit EUID
 uint8_t EUIDbyte[12];
 

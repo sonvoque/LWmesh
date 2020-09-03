@@ -50,6 +50,7 @@ extern "C" {
         BAD_COMMAND_FORMAT,
         CRC_OK,
         CRC_BAD,
+        MCAST_TABLE_FULL,
         E_UNKNOWN        
     };
 

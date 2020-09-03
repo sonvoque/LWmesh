@@ -81,7 +81,8 @@ void sync_eeprom(void){
         eeprom_write_flags.flag_netkey = 0;
     }
     else if(eeprom_write_flags.flag_netid){
-        DATAEE_WriteByte_Platform(networkID, currentNetID);
+        DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
+        DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
         eeprom_write_flags.flag_netid = 0;
     }
     else if(eeprom_write_flags.flag_sink){

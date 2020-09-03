@@ -94,7 +94,7 @@ static void reset_handler(void){
 static void app_aes_encrypt(uint8_t* data, uint8_t size){
     struct AES_ctx ctx;
     struct app_header_t *apphdr = (struct app_header_t*)data;
-    uint16_t iv[16];
+    uint8_t iv[16];
     apphdr->iv_seed = rand();
     apphdr->crc16 = crc16_app((data + AES_BLOCKLEN), size, 0); //Compute CRC before encryption
     /*Fill the IV*/
@@ -115,7 +115,7 @@ static void app_aes_encrypt(uint8_t* data, uint8_t size){
 static uint8_t app_aes_decrypt(uint8_t* data, uint8_t size){
     struct AES_ctx ctx;
     struct app_header_t *apphdr = (struct app_header_t*)data;
-    uint16_t iv[16];
+    uint8_t iv[16];
     uint16_t crc16_cal;
     /*Fill the IV*/
     for(uint8_t i = 0; i < 8; i++){
@@ -160,18 +160,36 @@ void appDataConf(NWK_DataReq_t *req)
     free_tx_buffer(req, ack);
 }
 
+static bool check_multicast_rx(NWK_DataInd_t *ind){
+    if((ind->options) & (NWK_OPT_MULTICAST)){
+        if(NWK_GroupIsMember(ind->dstAddr)){
+            return true; //Accept this multicast
+        }
+        else{
+            return false; //Not our multicast group
+        }
+    }
+    else{
+        return true;// Not a multicast
+    }
+}
+
 static bool appDataInd(NWK_DataInd_t *ind)
 {
     // process the frame
     uint8_t buf_id;
-    if(get_free_rx_buffer(&buf_id)){
-       uint8_t* dataptr = ind->data;
+    uint8_t* dataptr = ind->data;
+    if(!check_multicast_rx(ind)){
+        goto func_exit;
+    }
+    if(CRC_OK != app_aes_decrypt(dataptr, (ind->size - AES_BLOCKLEN))){
+            goto func_exit;
+    }
+    if(get_free_rx_buffer(&buf_id)){       
        memset(rx_buffer[buf_id].payload, 0 , sizeof(NWK_MAX_PAYLOAD_SIZE)); 
        rx_buffer[buf_id].rx_ind = *ind;
        ind->size -= AES_BLOCKLEN;
-       if(CRC_OK != app_aes_decrypt(dataptr, ind->size)){
-            goto func_exit_bad;
-        }
+       
        memcpy(rx_buffer[buf_id].payload,dataptr + AES_BLOCKLEN, 
                                           ind->size);
        CircularBufferPushBack(&rx_buffer_queue_context, &buf_id);
@@ -180,17 +198,20 @@ static bool appDataInd(NWK_DataInd_t *ind)
                                CircularBufferSize(&rx_buffer_queue_context);
 #endif
     }
-    return true;
-func_exit_bad:
+
+func_exit:
     return false;
 }
 
 static bool appManagementEp(NWK_DataInd_t *ind){
     //Check if there is Sink node command
     uint8_t* dataptr = ind->data;
+    if(!check_multicast_rx(ind)){
+        goto func_exit;
+    }
     ind->size -= AES_BLOCKLEN;
     if(CRC_OK != app_aes_decrypt(dataptr, ind->size)){
-        goto func_exit_bad;
+        goto func_exit;
     }
     uint8_t *ptr = (uint8_t*)strstr(dataptr + AES_BLOCKLEN,"SINK");
     if(ptr){
@@ -203,8 +224,6 @@ static bool appManagementEp(NWK_DataInd_t *ind){
     }
 func_exit:
     return true;
-func_exit_bad:
-    return false;
 }
 
 static bool get_free_tx_buffer(uint8_t *buf_id){
@@ -227,10 +246,12 @@ static void free_tx_buffer(NWK_DataReq_t *req, bool ack){
             struct msg_ack_t msg_ack_obj; 
             //Found the tx buffer we need to free
             tx_buffer[buf_id].free = 1;
-            msg_ack_obj.dest_addr = req->dstAddr;
-            msg_ack_obj.msgid = tx_buffer[buf_id].msgid;
-            msg_ack_obj.status = ack;
-            CircularBufferPushBack(&msg_ack_queue_context, &msg_ack_obj);
+            if(!(req->options & NWK_OPT_MULTICAST)){
+                msg_ack_obj.dest_addr = req->dstAddr;
+                msg_ack_obj.msgid = tx_buffer[buf_id].msgid;
+                msg_ack_obj.status = ack;
+                CircularBufferPushBack(&msg_ack_queue_context, &msg_ack_obj);
+            }            
             return;
         }
         buf_id++;
@@ -387,21 +408,34 @@ static void cmdI()
 static void cmdSend(char* cmd){
 	uint16_t tempaddr;
     uint8_t needed_size;
+    bool unacked = false, multicast = false;
 	char *p1,*p2;
 	char destaddr[5];
-        destaddr[4] = 0;
+    destaddr[4] = 0;
+    if((strstr(cmd,"+SENDU:"))){
+        unacked = true;
+    }
+    if((strstr(cmd,"+SENDM:"))){
+        multicast = true;
+    }
 	p1 = strstr(cmd,":");
     if(!p1){
         printf("NOT OK:%u\r\n", E_UNKNOWN);
+		return;
     }
     p1++;
 	memcpy(destaddr,p1,4);
 	//Now convert the string number to a int
 	tempaddr = strtoul(destaddr,&p2,16);
 	//Now find the message and queue it
-	p1 = strstr(cmd,"=") + 1;
+	p1 = strstr(cmd,"=");
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
+    }
+	p1++;
     needed_size = needed_packet_length(strlen(p1));
-	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
+	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -416,7 +450,14 @@ static void cmdSend(char* cmd){
 		tx_buffer[buf_id].nwkDataReq.dstAddr = tempaddr;
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
-        tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_ACK_REQUEST;
+        if(!multicast){
+            tx_buffer[buf_id].nwkDataReq.options = (unacked?0:NWK_OPT_ACK_REQUEST);
+        }
+        else{
+            tx_buffer[buf_id].nwkDataReq.options = NWK_OPT_MULTICAST;
+            tx_buffer[buf_id].nwkDataReq.memberRadius = MEMBER_RADIUS_MAX;
+            tx_buffer[buf_id].nwkDataReq.nonMemberRadius = NONMEBER_RADIUS_MAX;
+        }
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
         tx_buffer[buf_id].nwkDataReq.size = needed_size;
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
@@ -434,14 +475,18 @@ static void cmdSend(char* cmd){
  * \param [IN] At command.
  */
 static void cmdBcast(char* cmd){
-	char *p1,*p2;
+	char *p1;
     uint8_t needed_size;
 	//Now find the message and queue it
 	p1 = strstr(cmd,"=") + 1;
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
+    }
     needed_size = needed_packet_length(strlen(p1));
 	//Report error and reset state machine if length if bigger than payload max
-	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
-		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
+	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+		printf("NOT OK:%u\r\n", (uint16_t)MESSAGE_TOO_LONG);
 	}
 	else{
 		uint8_t buf_id;
@@ -508,7 +553,7 @@ static void cmdSetAddr(char* cmd){
  * \param [OUT] None.
  * \param [IN] At command.
  */
-static void cmdNaddr(){
+static void cmdNaddr(char* cmd){
 	printf("NADDR=%04X\r\n",pan_id);
 	return;
 }
@@ -520,18 +565,93 @@ static void cmdNaddr(){
  * \param [IN] At command.
  */
 static void cmdSetNaddr(char* cmd){
-	uint16_t tempaddr;
-	char *p1,*p2;
-	p1 = strstr(atCommand,"=") + 1;
+	char *p1;
+	p1 = strstr(atCommand,"=");
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        goto func_exit_bad;
+    }
+    p1++;
 	//Now convert the string number to an int
-	tempaddr = strtoul(p1,p2,16);
-	pan_id = tempaddr;
+	pan_id = strtoul(p1,NULL,16);
 	//Now copy to memory location in EEPROM
-	DATAEE_WriteByte_Platform(networkID,(pan_id >> 8) & 0xFF);
-    DATAEE_WriteByte_Platform(networkID_LSB,pan_id & 0xFF);
+    eeprom_write_flags.flag_netid = 1;	
     NWK_SetPanId(pan_id);
     PHY_Init();
 	printf("OK\r\n");
+func_exit_bad:
+	return;
+}
+
+/*!
+ * \brief Get node`s mcast group address
+ *
+ * \param [OUT] None.
+ * \param [IN] At command.
+ */
+static void cmdGetMcastId(char* cmd){
+    uint16_t *grp_id_ptr = NWK_GroupTable();
+	printf("MCAST Groups:\r\n");
+    for(uint8_t i = 0; i < NWK_GROUPS_AMOUNT; i++){
+        if(0xFFFF != *grp_id_ptr){
+            printf("0x%X\r\n", (uint16_t)*grp_id_ptr);
+        }
+        grp_id_ptr++;
+    }
+	return;
+}
+
+/*!
+ * \brief Set node`s mcast group address
+ *
+ * \param [OUT] None.
+ * \param [IN] At command.
+ */
+static void cmdAddMcastId(char* cmd){
+	char *p1;
+	p1 = strstr(atCommand,"=");
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        goto func_exit;
+    }
+    p1++;
+	//Now convert the string number to an int
+	mcast_id = strtoul(p1,NULL,16);
+    if(!NWK_GroupIsMember(mcast_id)){
+        if(!NWK_GroupAdd(mcast_id)){
+            printf("NOT OK:%u\r\n", (uint16_t)MCAST_TABLE_FULL);
+            goto func_exit;
+        }
+    }    
+	printf("OK\r\n");
+func_exit:    
+	return;
+}
+
+/*!
+ * \brief Remove node`s mcast group address
+ *
+ * \param [OUT] None.
+ * \param [IN] At command.
+ */
+static void cmdRemoveMcastId(char* cmd){
+	char *p1;
+	p1 = strstr(atCommand,"=");
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        goto func_exit;
+    }
+    p1++;
+	//Now convert the string number to an int
+	mcast_id = strtoul(p1,NULL,16);
+    if(NWK_GroupIsMember(mcast_id)){
+        if(!NWK_GroupRemove(mcast_id)){
+            printf("NOT OK:%u\r\n", (uint16_t)E_UNKNOWN);
+            goto func_exit;
+        }
+    }
+    printf("OK\r\n");
+func_exit:    
 	return;
 }
 
@@ -550,6 +670,9 @@ static void cmdRecv(){
             uint8_t i = 0;
             //Found first RX message to be sent to the user
             printf("%04X:", rx_buffer[buf_id].rx_ind.srcAddr);
+            if(rx_buffer[buf_id].rx_ind.options & NWK_OPT_MULTICAST){
+                printf("MCAST:");
+            }
             while((rx_buffer[buf_id].rx_ind.size--) && 
                     rx_buffer[buf_id].payload[i]){
                 putch(rx_buffer[buf_id].payload[i++]);
@@ -651,12 +774,15 @@ static void cmdSendSink(char* cmd){
 	char *p1;
     uint8_t buf_id, needed_size;
 	p1 = strstr(atCommand,"=") + 1;
+    if(!p1){
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
+    }
     needed_size = needed_packet_length(strlen(p1));
-	if((!p1) || (strlen(p1) > NWK_MAX_PAYLOAD_SIZE)){
+	if(strlen(p1) > NWK_MAX_PAYLOAD_SIZE){
 		printf("NOT OK:%u\r\n",MESSAGE_TOO_LONG);
 	}
 	else{
-        uint8_t buf_id;
         if(!get_free_tx_buffer(&buf_id)){
             printf("NOT OK:%u\r\n", NO_FREE_BUF);
             return;
@@ -794,6 +920,7 @@ static void cmdSetRFCH(char* cmd){
 	p1 = strstr(atCommand,"=") + 1;
     if(!p1){        
         printf("NOT OK:%u\r\n",BAD_COMMAND_FORMAT);
+        return;
     }
 	memcpy(CHstr,p1,2);
 	temp = (uint8_t)strtoul(CHstr,&p2,16) - 1;
@@ -833,6 +960,7 @@ static void cmdSetTX(char* cmd){
 	p1 = strstr(atCommand,"=") + 1;
     if(!p1){
         printf("NOT OK:%u\r\n",(uint16_t)TXOUTOFBOUNDS);
+        return;
     }
     memset(CHstr, 0 , sizeof(CHstr));
 	memcpy(CHstr,p1,2);
@@ -950,7 +1078,13 @@ static void cmdSetBaud(char* atCommand)
     uint8_t tempbaud;
     char *ptr;
     ptr = strtok(atCommand,"=");
+    if(!ptr){
+        goto bad_cmd_format;
+    }
     ptr = strtok(NULL,"\r");
+    if(!ptr){
+        goto bad_cmd_format;
+    }
     tempbaud = (uint8_t)strtoul(ptr,NULL,10);
     if(tempbaud < UART_BAUD_SENTINAL){
         DATAEE_WriteByte_Platform(UARTBaud,tempbaud);
@@ -959,6 +1093,8 @@ static void cmdSetBaud(char* atCommand)
     else{
         printf("NOT OK:%u\r\n", (uint16_t)ILLEGALPARAMETER);
     }
+bad_cmd_format:
+    printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
 }
 
 /*!
@@ -1129,19 +1265,21 @@ static void cmdSendPing(char *cmd){
     destaddr[4] = 0;
 	p1 = strstr(cmd,":");
     if(!p1){
-        printf("NOT OK:%u\r\n", E_UNKNOWN);
+        printf("NOT OK:%u\r\n", (uint16_t)BAD_COMMAND_FORMAT);
+        return;
     }
     p1++;
 	memcpy(destaddr,p1,4);
 	//Now convert the string number to a int
 	tempaddr = strtoul(destaddr,&p2,16);
 	//Now find the message and queue it
-    needed_size = needed_packet_length(strlen(ping_str));
-	if((!p1) || (needed_size > NWK_MAX_PAYLOAD_SIZE)){
-		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
+    needed_size = needed_packet_length(sizeof(ping_str) - 1);
+	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+		printf("NOT OK:%u\r\n", (uint16_t)MESSAGE_TOO_LONG);
+        return;
 	}
     if(!get_free_tx_buffer(&buf_id)){
-        printf("NOT OK:%u\r\n", NO_FREE_BUF);
+        printf("NOT OK:%u\r\n", (uint16_t)NO_FREE_BUF);
         return;
     }
     memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
@@ -1171,7 +1309,8 @@ static uint8_t executeATCommand(char* cmd){
     switch(*(cmd+1))
     {
         case 'S':
-        	if(strstr(cmd,"+SEND:")){
+        	if((strstr(cmd,"+SEND:")) || (strstr(cmd,"+SENDU:")) || 
+                    (strstr(cmd,"+SENDM:"))){
         		cmdSend(cmd);
         	}
         	else if(strstr(cmd,"+SETSINK")){
@@ -1256,13 +1395,22 @@ static uint8_t executeATCommand(char* cmd){
             else if(strstr(cmd,"+MSGACK?")){
         		cmdGetMsgAck(cmd);
         	}
+            else if(strstr(cmd,"+MCASTID?")){
+        		cmdGetMcastId(cmd);
+        	}
+            else if(strstr(cmd,"+MCASTADD=")){
+        		cmdAddMcastId(cmd);
+        	}
+            else if(strstr(cmd,"+MCASTREM=")){
+        		cmdRemoveMcastId(cmd);
+        	}
             else{
                 goto undefcmd;
             }
             break;
         case 'N':
         	if(strstr(cmd,"+NADDR?")){
-				cmdNaddr();
+				cmdNaddr(cmd);
 			}
 			else if(strstr(cmd,"+NADDR=")){
 				cmdSetNaddr(cmd);
@@ -1608,7 +1756,7 @@ void bootLoadApplication(void)
     
     //Load the UART parity settings. Default is odd parity
     i = DATAEE_ReadByte_Platform(UARTParity);
-    if((i > UART_9BIT_EVEN_PARITY) | (UART_7BIT_MODE == i)){
+    if((i > UART_9BIT_EVEN_PARITY) || (UART_7BIT_MODE == i)){
         i = UART_9BIT_EVEN_PARITY;
         DATAEE_WriteByte_Platform(UARTParity,UART_9BIT_EVEN_PARITY);
     }
@@ -1629,7 +1777,11 @@ void bootLoadApplication(void)
         DATAEE_WriteByte_Platform(RSSI_GOOD, temp1);
     }
     PHY_Set_Packet_Rssi_Threshold(temp1);
-        
+    
+    //Load the mcast group id
+    mcast_id = (DATAEE_ReadByte_Platform(MCAST_GRP_ID_MSB) << 8) | 
+                DATAEE_ReadByte_Platform(MCAST_GRP_ID_LSB);
+    NWK_GroupAdd(mcast_id);
 #ifdef MBRTU
     /*Load the MB RTU address from EEPROM*/
     mb_rtu_addr = DATAEE_ReadByte_Platform(MBADDR);
@@ -1920,7 +2072,7 @@ static void handle_rx_regs(){
  * \param [IN] None.
  */
 static void fill_rx_regs(){
-    uint8_t i = 0, dest_ptr = RX_WORD1;
+    uint8_t dest_ptr = RX_WORD1;
     if(rx_ctl_mb_regs[RX_CONTROL]){
         return;
     }
