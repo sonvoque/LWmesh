@@ -42,7 +42,7 @@ extern "C" {
     
 #define atCommandLen 80 
 #define atCommandMaxTimeout 1000
-#define payloadSizeMax 64
+#define payloadSizeMax (NWK_FRAME_MAX_PAYLOAD_SIZE - AES_BLOCKLEN)
     
 //Uart mode of operations
 enum UART_PARITY_ENUM {
@@ -206,6 +206,16 @@ __pack struct app_header_t{
 };
 
 #ifdef MBRTU
+/*******************************************************************************
+ * End point interpretation
+ ******************************************************************************/
+enum{
+    TX_UCAST_ACK = 1,
+    TX_UCAST_NOACK,
+    TX_MCAST,
+    TX_BCAST
+}MB_TX_TYPE_ENCODING;
+
 #define READ_ONLY_REG_NUM     16
 #define READ_ONLY_REG_BASE    0
 #define READ_ONLY_REG_START   1
@@ -281,7 +291,7 @@ enum{
     RW_MB_MAX_LOOP_TIME
 }MB_RW_REGS;
 
-#define TX_REG_NUM     35
+#define TX_REG_NUM     58
 #define TX_REG_BASE    2000
 #define TX_REG_START   2001
 #define TX_REG_END     (TX_REG_START + TX_REG_NUM)
@@ -292,7 +302,7 @@ enum{
     TX_WORD1
 }MB_TX_REGS;
 
-#define RX_REG_NUM     36
+#define RX_REG_NUM     59
 #define RX_REG_BASE    3000
 #define RX_REG_START   3001
 #define RX_REG_END     (RX_REG_START + RX_REG_NUM)
