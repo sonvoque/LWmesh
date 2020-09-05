@@ -52,7 +52,7 @@
 #include "sysTypes.h"
 
 /*- Definitions ------------------------------------------------------------*/
-#define NWK_FRAME_MAX_PAYLOAD_SIZE   127
+#define NWK_FRAME_MAX_PAYLOAD_SIZE   128
 
 /*- Types ------------------------------------------------------------------*/
 __pack typedef struct NwkFrameHeader_t

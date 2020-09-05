@@ -42,7 +42,7 @@ extern "C" {
     
 #define atCommandLen 80 
 #define atCommandMaxTimeout 1000
-#define payloadSizeMax 64
+#define payloadSizeMax (NWK_FRAME_MAX_PAYLOAD_SIZE - AES_BLOCKLEN)
     
 //Uart mode of operations
 enum UART_PARITY_ENUM {
@@ -206,6 +206,16 @@ __pack struct app_header_t{
 };
 
 #ifdef MBRTU
+/*******************************************************************************
+ * End point interpretation
+ ******************************************************************************/
+enum{
+    TX_UCAST_ACK = 1,
+    TX_UCAST_NOACK,
+    TX_MCAST,
+    TX_BCAST
+}MB_TX_TYPE_ENCODING;
+
 #define READ_ONLY_REG_NUM     16
 #define READ_ONLY_REG_BASE    0
 #define READ_ONLY_REG_START   1
@@ -254,7 +264,7 @@ enum{
     WO_SET_SINK
 }MB_WO_REGS;
 
-#define RW_REG_NUM     19
+#define RW_REG_NUM     31
 #define RW_REG_BASE    1000
 #define RW_REG_START   1001
 #define RW_REG_END     (RW_REG_START + RW_REG_NUM)
@@ -278,10 +288,22 @@ enum{
     RW_MB_RSSI_ACCEPT,
     RW_MB_SOFT_RESET,
     RW_MB_MIN_LOOP_TIME,
-    RW_MB_MAX_LOOP_TIME
+    RW_MB_MAX_LOOP_TIME,
+    RW_MB_MCASTID_1,
+    RW_MB_MCASTID_2,
+    RW_MB_MCASTID_3,
+    RW_MB_MCASTID_4,
+    RW_MB_MCASTID_5,
+    RW_MB_MCASTID_6,
+    RW_MB_MCASTID_7,
+    RW_MB_MCASTID_8,
+    RW_MB_MCASTID_9,
+    RW_MB_MCASTID_10,
+    RW_MB_MCASTID_KEY1,
+    RW_MB_MCASTID_KEY2
 }MB_RW_REGS;
 
-#define TX_REG_NUM     35
+#define TX_REG_NUM     58
 #define TX_REG_BASE    2000
 #define TX_REG_START   2001
 #define TX_REG_END     (TX_REG_START + TX_REG_NUM)
@@ -292,7 +314,7 @@ enum{
     TX_WORD1
 }MB_TX_REGS;
 
-#define RX_REG_NUM     36
+#define RX_REG_NUM     59
 #define RX_REG_BASE    3000
 #define RX_REG_START   3001
 #define RX_REG_END     (RX_REG_START + RX_REG_NUM)

@@ -57,7 +57,7 @@
 #include "nwkDataReq.h"
 
 /*- Definitions ------------------------------------------------------------*/
-#define NWK_MAX_PAYLOAD_SIZE            (127 - 16/*NwkFrameHeader_t*/ - 2/*crc*/)
+#define NWK_MAX_PAYLOAD_SIZE            (NWK_FRAME_MAX_PAYLOAD_SIZE - 16/*NwkFrameHeader_t*/ - 2/*crc*/)
 
 #define NWK_BROADCAST_PANID             0xffff
 #define NWK_BROADCAST_ADDR              0xffff

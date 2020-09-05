@@ -136,8 +136,16 @@ static uint8_t app_aes_decrypt(uint8_t* data, uint8_t size){
  * \param [IN] Data length.
  */
 static uint8_t needed_packet_length(uint8_t data_len){
-    return (AES_BLOCKLEN + data_len + 
-            (AES_BLOCKLEN - (data_len % AES_BLOCKLEN)));
+    uint8_t rc = 0;
+    uint8_t i = data_len % AES_BLOCKLEN;
+    if(i){
+        rc = AES_BLOCKLEN + data_len + 
+            (AES_BLOCKLEN - (data_len % AES_BLOCKLEN));
+    }
+    else{
+        rc = AES_BLOCKLEN + data_len;
+    }
+    return (rc);
 }
 
 void appDataConf(NWK_DataReq_t *req)
@@ -435,7 +443,7 @@ static void cmdSend(char* cmd){
     }
 	p1++;
     needed_size = needed_packet_length(strlen(p1));
-	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+	if(needed_size > (NWK_FRAME_MAX_PAYLOAD_SIZE - 4*AES_BLOCKLEN)){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -485,7 +493,7 @@ static void cmdBcast(char* cmd){
     }
     needed_size = needed_packet_length(strlen(p1));
 	//Report error and reset state machine if length if bigger than payload max
-	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+	if(needed_size > (NWK_FRAME_MAX_PAYLOAD_SIZE - 4*AES_BLOCKLEN)){
 		printf("NOT OK:%u\r\n", (uint16_t)MESSAGE_TOO_LONG);
 	}
 	else{
@@ -1810,6 +1818,9 @@ void bootLoadApplication(void)
     read_write_mb_regs[RW_MB_BAUD_RATE] = uart_baud_rate;
     read_write_mb_regs[RW_MB_PARITY]    = curent_parity;
     read_write_mb_regs[RW_MB_RSSI_ACCEPT] = PHY_Get_Packet_Rssi_Threshold();
+    for(i = 0; i < NWK_GROUPS_AMOUNT; i++){
+        read_write_mb_regs[RW_MB_MCASTID_1 + i] = 0xFFFF;
+    }
     
     /*Initialize the MB stack*/
     TMR3_SetInterruptHandler(prvvTIMERExpiredISR);
@@ -1866,6 +1877,28 @@ static uint8_t keycmp(uint16_t* key, uint16_t* new, uint8_t size){
     }
     return 0;
 }
+
+/*!
+ * \brief Compute the option flags for tx
+ *
+ * \param [OUT] option flags.
+ * \param [IN] tx control reg.
+ */
+static inline uint8_t compute_option(uint16_t tx_ctl){
+    uint8_t options;
+    switch(tx_ctl){
+        case TX_BCAST:
+        case TX_UCAST_NOACK:
+            options = 0; break;
+        case TX_MCAST:
+            options = NWK_OPT_MULTICAST; break;        
+        case TX_UCAST_ACK:
+        default:
+            options = NWK_OPT_ACK_REQUEST;            
+    }
+    return options;
+}
+
 /*!
  * \brief Handle writes to write only regs
  *
@@ -2005,10 +2038,23 @@ static void handle_rw_regs(){
         read_write_mb_regs[RW_MB_SOFT_RESET] = 0;
         need_reset = 1;
     }
+    
+    /*Check if the MCAST ids were updated*/
+    if((0xAAAA == read_write_mb_regs[RW_MB_MCASTID_KEY1]) && 
+            (0x5555 == read_write_mb_regs[RW_MB_MCASTID_KEY2])){
+        nwkGroupInit();
+        for(uint8_t i = 0; i < NWK_GROUPS_AMOUNT; i++){
+            if(0xffff != read_write_mb_regs[RW_MB_MCASTID_1 + i]){
+                NWK_GroupAdd(read_write_mb_regs[RW_MB_MCASTID_1 + i]);
+            }
+        }
+    }
     read_write_mb_regs[RW_MB_ADDR_KEY1] = 0;
     read_write_mb_regs[RW_MB_ADDR_KEY2] = 0;
     read_write_mb_regs[RW_MB_UART_KEY1] = 0;
     read_write_mb_regs[RW_MB_UART_KEY2] = 0;
+    read_write_mb_regs[RW_MB_MCASTID_KEY1] = 0;
+    read_write_mb_regs[RW_MB_MCASTID_KEY2] = 0;
 }
 
 /*!
@@ -2018,26 +2064,27 @@ static void handle_rw_regs(){
  * \param [IN] None.
  */
 static void handle_tx_regs(){
-    uint8_t msg[payloadSizeMax], i = 0, src_ptr = TX_WORD1;
+    uint8_t i = AES_BLOCKLEN, src_ptr = TX_WORD1;
     uint8_t buf_id, needed_size;
     if(!tx_ctl_mb_regs[TX_CONTROL]){
         return; //Nothing to do
-    }
-    while(i < payloadSizeMax){
-        msg[i++] = tx_ctl_mb_regs[src_ptr] >> 8;
-        msg[i++] = tx_ctl_mb_regs[src_ptr++];
-    }    
-    needed_size = needed_packet_length(payloadSizeMax);
+    }        
+    needed_size = needed_packet_length(NWK_FRAME_MAX_PAYLOAD_SIZE - 
+                                                                3*AES_BLOCKLEN);
     if(get_free_tx_buffer(&buf_id)){  
-        memset(&tx_buffer[buf_id].payload, 0, NWK_MAX_PAYLOAD_SIZE);
-		memcpy(&tx_buffer[buf_id].payload + AES_BLOCKLEN,msg,payloadSizeMax);
+        memset(&tx_buffer[buf_id].payload, 0, NWK_FRAME_MAX_PAYLOAD_SIZE);
+        while(i < payloadSizeMax){
+            tx_buffer[buf_id].payload[i++] = tx_ctl_mb_regs[src_ptr] >> 8;
+            tx_buffer[buf_id].payload[i++] = tx_ctl_mb_regs[src_ptr++];
+        }
         app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
-        tx_buffer[buf_id].nwkDataReq.dstAddr = tx_ctl_mb_regs[TX_DEST];
+        tx_buffer[buf_id].nwkDataReq.dstAddr = 
+                ((TX_BCAST == tx_ctl_mb_regs[TX_CONTROL])? 
+                    NWK_BROADCAST_ADDR:tx_ctl_mb_regs[TX_DEST]);
         tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
         tx_buffer[buf_id].nwkDataReq.options = 
-                (tx_ctl_mb_regs[TX_DEST] == NWK_BROADCAST_ADDR)?
-                    0:NWK_OPT_ACK_REQUEST;
+                compute_option(tx_ctl_mb_regs[TX_CONTROL]);
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
         tx_buffer[buf_id].nwkDataReq.size = needed_size;
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
@@ -2083,7 +2130,7 @@ static void fill_rx_regs(){
             uint8_t i = 0;
             //Found first RX message to be sent to the user
             rx_ctl_mb_regs[RX_SRC_ADDR] = rx_buffer[buf_id].rx_ind.srcAddr;            
-            while(rx_buffer[buf_id].rx_ind.size--){
+            while((rx_buffer[buf_id].rx_ind.size--) && (dest_ptr < RX_REG_NUM)){
                 rx_ctl_mb_regs[dest_ptr]    = 
                         (rx_buffer[buf_id].payload[i++] << 8) & 0xFF00;
                 rx_ctl_mb_regs[dest_ptr++] |= rx_buffer[buf_id].payload[i++];

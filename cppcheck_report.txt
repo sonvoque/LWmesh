@@ -14,7 +14,7 @@
 [aes/aes_src/AES.c:350]: (style) The scope of the variable 'b' can be reduced.
 [aes/aes_src/AES.c:350]: (style) The scope of the variable 'c' can be reduced.
 [aes/aes_src/AES.c:350]: (style) The scope of the variable 'd' can be reduced.
-[app/app_src/application.c:2061]: (style) Variable 'count' is modified but its new value is never used.
+[app/app_src/application.c:2108]: (style) Variable 'count' is modified but its new value is never used.
 [modbus/mb.c:228]: (style) The scope of the variable 'i' can be reduced.
 [modbus/mb.c:340]: (style) The scope of the variable 'i' can be reduced.
 [modbus/rtu/mbcrc.c:89]: (style) The scope of the variable 'iIndex' can be reduced.
@@ -42,7 +42,7 @@
 [PIC18F26K42/mcc_generated_files/crc.c:119]: (style) The function 'CRC_Start' is never used.
 [app/app_src/circular buffer.c:66]: (style) The function 'CircularBufferClear' is never used.
 [app/app_src/circular buffer.c:101]: (style) The function 'CircularBufferPeek' is never used.
-[phy/sx1216/phy_src/phy.c:687]: (style) The function 'DIO2_FHSS_ISR' is never used.
+[phy/sx1216/phy_src/phy.c:690]: (style) The function 'DIO2_FHSS_ISR' is never used.
 [PIC18F26K42/mcc_generated_files/dma1.c:125]: (style) The function 'DMA1_GetDestinationPointer' is never used.
 [PIC18F26K42/mcc_generated_files/dma1.c:120]: (style) The function 'DMA1_GetSourcePointer' is never used.
 [PIC18F26K42/mcc_generated_files/dma1.c:59]: (style) The function 'DMA1_Initialize' is never used.
@@ -68,7 +68,7 @@
 [nwk/nwk_src/nwk.c:160]: (style) The function 'NWK_SleepReq' is never used.
 [nwk/nwk_src/nwk.c:152]: (style) The function 'NWK_Unlock' is never used.
 [nwk/nwk_src/nwk.c:168]: (style) The function 'NWK_WakeupReq' is never used.
-[phy/sx1216/phy_src/phy.c:837]: (style) The function 'PHY_SetTxPower' is never used.
+[phy/sx1216/phy_src/phy.c:840]: (style) The function 'PHY_SetTxPower' is never used.
 [PIC18F26K42/mcc_generated_files/pin_manager.c:134]: (style) The function 'PIN_MANAGER_IOC' is never used.
 [PIC18F26K42/mcc_generated_files/spi1.c:95]: (style) The function 'SPI1_Close' is never used.
 [PIC18F26K42/mcc_generated_files/spi1.c:108]: (style) The function 'SPI1_ExchangeBlock' is never used.
@@ -98,7 +98,7 @@
 [PIC18F27K42/mcc_generated_files/tmr5.c:157]: (style) The function 'TMR5_HasOverflowOccured' is never used.
 [PIC18F27K42/mcc_generated_files/tmr5.c:142]: (style) The function 'TMR5_Reload' is never used.
 [PIC18F27K42/mcc_generated_files/tmr5.c:147]: (style) The function 'TMR5_StartSinglePulseAcquisition' is never used.
-[app/app_src/application.c:1848]: (style) The function 'UART1_framing_error_handler' is never used.
+[app/app_src/application.c:1859]: (style) The function 'UART1_framing_error_handler' is never used.
 [PIC18F26K42/mcc_generated_files/uart1.c:184]: (style) The function 'UART1_get_last_status' is never used.
 [PIC18F26K42/mcc_generated_files/uart1.c:179]: (style) The function 'UART1_is_tx_done' is never used.
 [phy/sx1216/phy_src/phy.c:427]: (style) The function 'available' is never used.
@@ -106,17 +106,17 @@
 [phy/sx1216/phy_src/phy.c:561]: (style) The function 'cad_done_isr' is never used.
 [phy/sx1216/phy_src/phy.c:366]: (style) The function 'disableCrc' is never used.
 [modbus/mb.c:273]: (style) The function 'eMBClose' is never used.
-[app/app_src/application.c:2181]: (style) The function 'eMBRegHoldingCB' is never used.
+[app/app_src/application.c:2228]: (style) The function 'eMBRegHoldingCB' is never used.
 [modbus/mb.c:226]: (style) The function 'eMBRegisterCB' is never used.
 [modbus/mb.c:197]: (style) The function 'eMBTCPInit' is never used.
 [phy/sx1216/phy_src/phy.c:343]: (style) The function 'getSyncWord' is never used.
 [PIC18F26K42/mcc_generated_files/uart1.c:237]: (style) The function 'getch' is never used.
 [modbus/functions/mbutils.c:117]: (style) The function 'prveMBError2Exception' is never used.
 [phy/sx1216/phy_src/phy.c:432]: (style) The function 'read' is never used.
-[phy/sx1216/phy_src/phy.c:881]: (style) The function 'readAllReg' is never used.
+[phy/sx1216/phy_src/phy.c:884]: (style) The function 'readAllReg' is never used.
 [phy/sx1216/phy_src/phy.c:588]: (style) The function 'rx_timeout_isr' is never used.
-[app/app_src/application.c:1614]: (style) The function 'sendOKMessage' is never used.
-[app/app_src/application.c:1629]: (style) The function 'sendUARTMessage' is never used.
+[app/app_src/application.c:1622]: (style) The function 'sendOKMessage' is never used.
+[app/app_src/application.c:1637]: (style) The function 'sendUARTMessage' is never used.
 [phy/sx1216/phy_src/phy.c:131]: (style) The function 'sleep' is never used.
 [PIC18F26K42/test.c:29]: (style) The function 'test_init' is never used.
 [PIC18F26K42/test.c:37]: (style) The function 'test_send' is never used.
