@@ -641,6 +641,9 @@ void DIO0_Receive_ISR(void)
         // received a packet
         // read packet length
         packetLength = SX1276Read(REG_LR_RXNBBYTES);
+        if(packetLength > sizeof(phyRxBuffer)){
+            packetLength = sizeof(phyRxBuffer);
+        }
         
         // set FIFO address to current RX address
         SX1276Write(REG_LR_FIFOADDRPTR, SX1276Read(REG_LR_FIFORXCURRENTADDR));                

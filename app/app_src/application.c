@@ -443,7 +443,7 @@ static void cmdSend(char* cmd){
     }
 	p1++;
     needed_size = needed_packet_length(strlen(p1));
-	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+	if(needed_size > (NWK_FRAME_MAX_PAYLOAD_SIZE - 4*AES_BLOCKLEN)){
 		printf("NOT OK:%u\r\n", MESSAGE_TOO_LONG);
 	}
 	else{
@@ -493,7 +493,7 @@ static void cmdBcast(char* cmd){
     }
     needed_size = needed_packet_length(strlen(p1));
 	//Report error and reset state machine if length if bigger than payload max
-	if(needed_size > NWK_MAX_PAYLOAD_SIZE){
+	if(needed_size > (NWK_FRAME_MAX_PAYLOAD_SIZE - 4*AES_BLOCKLEN)){
 		printf("NOT OK:%u\r\n", (uint16_t)MESSAGE_TOO_LONG);
 	}
 	else{
