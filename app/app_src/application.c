@@ -1818,6 +1818,9 @@ void bootLoadApplication(void)
     read_write_mb_regs[RW_MB_BAUD_RATE] = uart_baud_rate;
     read_write_mb_regs[RW_MB_PARITY]    = curent_parity;
     read_write_mb_regs[RW_MB_RSSI_ACCEPT] = PHY_Get_Packet_Rssi_Threshold();
+    for(i = 0; i < NWK_GROUPS_AMOUNT; i++){
+        read_write_mb_regs[RW_MB_MCASTID_1 + i] = 0xFFFF;
+    }
     
     /*Initialize the MB stack*/
     TMR3_SetInterruptHandler(prvvTIMERExpiredISR);
@@ -2035,10 +2038,23 @@ static void handle_rw_regs(){
         read_write_mb_regs[RW_MB_SOFT_RESET] = 0;
         need_reset = 1;
     }
+    
+    /*Check if the MCAST ids were updated*/
+    if((0xAAAA == read_write_mb_regs[RW_MB_MCASTID_KEY1]) && 
+            (0x5555 == read_write_mb_regs[RW_MB_MCASTID_KEY2])){
+        nwkGroupInit();
+        for(uint8_t i = 0; i < NWK_GROUPS_AMOUNT; i++){
+            if(0xffff != read_write_mb_regs[RW_MB_MCASTID_1 + i]){
+                NWK_GroupAdd(read_write_mb_regs[RW_MB_MCASTID_1 + i]);
+            }
+        }
+    }
     read_write_mb_regs[RW_MB_ADDR_KEY1] = 0;
     read_write_mb_regs[RW_MB_ADDR_KEY2] = 0;
     read_write_mb_regs[RW_MB_UART_KEY1] = 0;
     read_write_mb_regs[RW_MB_UART_KEY2] = 0;
+    read_write_mb_regs[RW_MB_MCASTID_KEY1] = 0;
+    read_write_mb_regs[RW_MB_MCASTID_KEY2] = 0;
 }
 
 /*!
