@@ -213,7 +213,8 @@ enum{
     TX_UCAST_ACK = 1,
     TX_UCAST_NOACK,
     TX_MCAST,
-    TX_BCAST
+    TX_BCAST,
+    TX_PING
 }MB_TX_TYPE_ENCODING;
 
 #define READ_ONLY_REG_NUM     16
@@ -264,7 +265,7 @@ enum{
     WO_SET_SINK
 }MB_WO_REGS;
 
-#define RW_REG_NUM     31
+#define RW_REG_NUM     32
 #define RW_REG_BASE    1000
 #define RW_REG_START   1001
 #define RW_REG_END     (RW_REG_START + RW_REG_NUM)
@@ -300,7 +301,8 @@ enum{
     RW_MB_MCASTID_9,
     RW_MB_MCASTID_10,
     RW_MB_MCASTID_KEY1,
-    RW_MB_MCASTID_KEY2
+    RW_MB_MCASTID_KEY2,
+    RW_MB_ACK_STAT
 }MB_RW_REGS;
 
 #define TX_REG_NUM     58

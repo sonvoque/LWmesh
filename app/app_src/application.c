@@ -1803,7 +1803,8 @@ void bootLoadApplication(void)
                                     FirmwareVersionMinor;
     read_only_mb_regs[RO_REGION]  = NA;
     read_only_mb_regs[RO_MODE]    = MODE_GetValue()? ROUTER:ENDDEVICE;
-    read_only_mb_regs[RO_SADDR]   = (currentAddr0 << 8) | currentAddr1;
+    read_only_mb_regs[RO_TX_MSG_ID]   = 0xFFFF;
+    read_only_mb_regs[RO_SADDR]       = (currentAddr0 << 8) | currentAddr1;
     read_only_mb_regs[RO_ADDR_DEBUG1] = 0xAA55;
     read_only_mb_regs[RO_ADDR_DEBUG2] = 0x55AA;
     
@@ -1893,6 +1894,7 @@ static inline uint8_t compute_option(uint16_t tx_ctl){
         case TX_MCAST:
             options = NWK_OPT_MULTICAST; break;        
         case TX_UCAST_ACK:
+        case TX_PING:
         default:
             options = NWK_OPT_ACK_REQUEST;            
     }
@@ -2049,6 +2051,24 @@ static void handle_rw_regs(){
             }
         }
     }
+    /*Check if message status is to be reported*/
+    if(read_write_mb_regs[RW_MB_ACK_STAT]){
+        read_write_mb_regs[RW_MB_ACK_STAT] = 0;
+        if(!CircularBufferEmpty(&msg_ack_queue_context)){
+            struct msg_ack_t msg_ack_obj;
+            CircularBufferPopFront(&msg_ack_queue_context, &msg_ack_obj);
+            if(msg_ack_obj.status){
+                read_only_mb_regs[RO_RX_MSG_ID] = 0x8000 | msg_ack_obj.msgid;
+            }
+            else{
+                read_only_mb_regs[RO_RX_MSG_ID] = msg_ack_obj.msgid;
+            }            
+        }
+        else{
+            read_only_mb_regs[RO_RX_MSG_ID] = 0xFFFF;
+        }
+    }
+    
     read_write_mb_regs[RW_MB_ADDR_KEY1] = 0;
     read_write_mb_regs[RW_MB_ADDR_KEY2] = 0;
     read_write_mb_regs[RW_MB_UART_KEY1] = 0;
@@ -2073,16 +2093,24 @@ static void handle_tx_regs(){
                                                                 3*AES_BLOCKLEN);
     if(get_free_tx_buffer(&buf_id)){  
         memset(&tx_buffer[buf_id].payload, 0, NWK_FRAME_MAX_PAYLOAD_SIZE);
-        while(i < payloadSizeMax){
-            tx_buffer[buf_id].payload[i++] = tx_ctl_mb_regs[src_ptr] >> 8;
-            tx_buffer[buf_id].payload[i++] = tx_ctl_mb_regs[src_ptr++];
+        if(TX_PING == tx_ctl_mb_regs[TX_CONTROL]){
+            memcpy((&tx_buffer[buf_id].payload + AES_BLOCKLEN), 
+                    "PING", sizeof("PING"));
         }
+        else{
+            while(i < (NWK_FRAME_MAX_PAYLOAD_SIZE - 3*AES_BLOCKLEN)){
+                tx_buffer[buf_id].payload[i++] = tx_ctl_mb_regs[src_ptr] >> 8;
+                tx_buffer[buf_id].payload[i++] = tx_ctl_mb_regs[src_ptr++];
+            }
+        }        
         app_aes_encrypt(&tx_buffer[buf_id].payload, needed_size - AES_BLOCKLEN);
         tx_buffer[buf_id].nwkDataReq.dstAddr = 
                 ((TX_BCAST == tx_ctl_mb_regs[TX_CONTROL])? 
                     NWK_BROADCAST_ADDR:tx_ctl_mb_regs[TX_DEST]);
-        tx_buffer[buf_id].nwkDataReq.dstEndpoint = DATA_EP;
-        tx_buffer[buf_id].nwkDataReq.srcEndpoint = DATA_EP;
+        tx_buffer[buf_id].nwkDataReq.dstEndpoint = 
+                ((TX_PING == tx_ctl_mb_regs[TX_CONTROL])?MANAGEMENT_EP:DATA_EP);
+        tx_buffer[buf_id].nwkDataReq.srcEndpoint = 
+                ((TX_PING == tx_ctl_mb_regs[TX_CONTROL])?MANAGEMENT_EP:DATA_EP);
         tx_buffer[buf_id].nwkDataReq.options = 
                 compute_option(tx_ctl_mb_regs[TX_CONTROL]);
         tx_buffer[buf_id].nwkDataReq.data = &tx_buffer[buf_id].payload;
@@ -2090,8 +2118,9 @@ static void handle_tx_regs(){
         tx_buffer[buf_id].nwkDataReq.confirm = appDataConf;
         tx_buffer[buf_id].msgid = msgIDCounter++;
         NWK_DataReq(&tx_buffer[buf_id].nwkDataReq);
-    }
-    tx_ctl_mb_regs[RO_TX_MSG_ID] = tx_buffer[buf_id].msgid;
+        //Save the message id in the MODBUS reg map
+        tx_ctl_mb_regs[RO_TX_MSG_ID] = tx_buffer[buf_id].msgid;
+    }    
     tx_ctl_mb_regs[TX_CONTROL] = 0;
 }
 
