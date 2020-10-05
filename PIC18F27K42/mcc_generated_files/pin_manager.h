@@ -13,12 +13,12 @@
   @Description
     This header file provides APIs for driver for .
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.3
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.80.0
         Device            :  PIC18F27K42
         Driver Version    :  2.11
     The generated drivers are tested against the following:
-        Compiler          :  XC8 2.20 and above
-        MPLAB 	          :  MPLAB X 5.40	
+        Compiler          :  XC8 2.10 and above
+        MPLAB 	          :  MPLAB X 5.30	
 */
 
 /*
@@ -145,6 +145,46 @@
 #define LED_SetAnalogMode()      do { ANSELAbits.ANSELA3 = 1; } while(0)
 #define LED_SetDigitalMode()     do { ANSELAbits.ANSELA3 = 0; } while(0)
 
+// get/set SCL aliases
+#define SCL_TRIS                 TRISAbits.TRISA6
+#define SCL_LAT                  LATAbits.LATA6
+#define SCL_PORT                 PORTAbits.RA6
+#define SCL_WPU                  WPUAbits.WPUA6
+#define SCL_OD                   ODCONAbits.ODCA6
+#define SCL_ANS                  ANSELAbits.ANSELA6
+#define SCL_SetHigh()            do { LATAbits.LATA6 = 1; } while(0)
+#define SCL_SetLow()             do { LATAbits.LATA6 = 0; } while(0)
+#define SCL_Toggle()             do { LATAbits.LATA6 = ~LATAbits.LATA6; } while(0)
+#define SCL_GetValue()           PORTAbits.RA6
+#define SCL_SetDigitalInput()    do { TRISAbits.TRISA6 = 1; } while(0)
+#define SCL_SetDigitalOutput()   do { TRISAbits.TRISA6 = 0; } while(0)
+#define SCL_SetPullup()          do { WPUAbits.WPUA6 = 1; } while(0)
+#define SCL_ResetPullup()        do { WPUAbits.WPUA6 = 0; } while(0)
+#define SCL_SetPushPull()        do { ODCONAbits.ODCA6 = 0; } while(0)
+#define SCL_SetOpenDrain()       do { ODCONAbits.ODCA6 = 1; } while(0)
+#define SCL_SetAnalogMode()      do { ANSELAbits.ANSELA6 = 1; } while(0)
+#define SCL_SetDigitalMode()     do { ANSELAbits.ANSELA6 = 0; } while(0)
+
+// get/set SDA aliases
+#define SDA_TRIS                 TRISAbits.TRISA7
+#define SDA_LAT                  LATAbits.LATA7
+#define SDA_PORT                 PORTAbits.RA7
+#define SDA_WPU                  WPUAbits.WPUA7
+#define SDA_OD                   ODCONAbits.ODCA7
+#define SDA_ANS                  ANSELAbits.ANSELA7
+#define SDA_SetHigh()            do { LATAbits.LATA7 = 1; } while(0)
+#define SDA_SetLow()             do { LATAbits.LATA7 = 0; } while(0)
+#define SDA_Toggle()             do { LATAbits.LATA7 = ~LATAbits.LATA7; } while(0)
+#define SDA_GetValue()           PORTAbits.RA7
+#define SDA_SetDigitalInput()    do { TRISAbits.TRISA7 = 1; } while(0)
+#define SDA_SetDigitalOutput()   do { TRISAbits.TRISA7 = 0; } while(0)
+#define SDA_SetPullup()          do { WPUAbits.WPUA7 = 1; } while(0)
+#define SDA_ResetPullup()        do { WPUAbits.WPUA7 = 0; } while(0)
+#define SDA_SetPushPull()        do { ODCONAbits.ODCA7 = 0; } while(0)
+#define SDA_SetOpenDrain()       do { ODCONAbits.ODCA7 = 1; } while(0)
+#define SDA_SetAnalogMode()      do { ANSELAbits.ANSELA7 = 1; } while(0)
+#define SDA_SetDigitalMode()     do { ANSELAbits.ANSELA7 = 0; } while(0)
+
 // get/set RB0 procedures
 #define RB0_SetHigh()            do { LATBbits.LATB0 = 1; } while(0)
 #define RB0_SetLow()             do { LATBbits.LATB0 = 0; } while(0)
@@ -168,6 +208,18 @@
 #define RB1_ResetPullup()           do { WPUBbits.WPUB1 = 0; } while(0)
 #define RB1_SetAnalogMode()         do { ANSELBbits.ANSELB1 = 1; } while(0)
 #define RB1_SetDigitalMode()        do { ANSELBbits.ANSELB1 = 0; } while(0)
+
+// get/set RB2 procedures
+#define RB2_SetHigh()            do { LATBbits.LATB2 = 1; } while(0)
+#define RB2_SetLow()             do { LATBbits.LATB2 = 0; } while(0)
+#define RB2_Toggle()             do { LATBbits.LATB2 = ~LATBbits.LATB2; } while(0)
+#define RB2_GetValue()              PORTBbits.RB2
+#define RB2_SetDigitalInput()    do { TRISBbits.TRISB2 = 1; } while(0)
+#define RB2_SetDigitalOutput()   do { TRISBbits.TRISB2 = 0; } while(0)
+#define RB2_SetPullup()             do { WPUBbits.WPUB2 = 1; } while(0)
+#define RB2_ResetPullup()           do { WPUBbits.WPUB2 = 0; } while(0)
+#define RB2_SetAnalogMode()         do { ANSELBbits.ANSELB2 = 1; } while(0)
+#define RB2_SetDigitalMode()        do { ANSELBbits.ANSELB2 = 0; } while(0)
 
 // get/set DIO0 aliases
 #define DIO0_TRIS                 TRISBbits.TRISB4
@@ -316,18 +368,6 @@
 #define NSS_SetOpenDrain()       do { ODCONCbits.ODCC6 = 1; } while(0)
 #define NSS_SetAnalogMode()      do { ANSELCbits.ANSELC6 = 1; } while(0)
 #define NSS_SetDigitalMode()     do { ANSELCbits.ANSELC6 = 0; } while(0)
-
-// get/set RC7 procedures
-#define RC7_SetHigh()            do { LATCbits.LATC7 = 1; } while(0)
-#define RC7_SetLow()             do { LATCbits.LATC7 = 0; } while(0)
-#define RC7_Toggle()             do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0)
-#define RC7_GetValue()              PORTCbits.RC7
-#define RC7_SetDigitalInput()    do { TRISCbits.TRISC7 = 1; } while(0)
-#define RC7_SetDigitalOutput()   do { TRISCbits.TRISC7 = 0; } while(0)
-#define RC7_SetPullup()             do { WPUCbits.WPUC7 = 1; } while(0)
-#define RC7_ResetPullup()           do { WPUCbits.WPUC7 = 0; } while(0)
-#define RC7_SetAnalogMode()         do { ANSELCbits.ANSELC7 = 1; } while(0)
-#define RC7_SetDigitalMode()        do { ANSELCbits.ANSELC7 = 0; } while(0)
 
 /**
    @Param
