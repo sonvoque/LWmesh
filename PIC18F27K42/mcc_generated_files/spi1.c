@@ -14,7 +14,7 @@
     This header file provides implementations for driver APIs for SPI1.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.80.0
-        Device            :  PIC18F26K42
+        Device            :  PIC18F27K42
         Driver Version    :  1.0.0
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.10 and above or later
@@ -58,7 +58,7 @@ typedef struct {
 
 //con0 == SPIxCON0, con1 == SPIxCON1, con2 == SPIxCON2, baud == SPIxBAUD, operation == Master/Slave
 static const spi1_configuration_t spi1_configuration[] = {   
-    { 0x82, 0xc0, 0x3, 0x3, 0 }
+    { 0x82, 0x40, 0x0, 0x5, 0 }
 };
 
 void SPI1_Initialize(void)

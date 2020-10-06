@@ -209,18 +209,6 @@
 #define RB1_SetAnalogMode()         do { ANSELBbits.ANSELB1 = 1; } while(0)
 #define RB1_SetDigitalMode()        do { ANSELBbits.ANSELB1 = 0; } while(0)
 
-// get/set RB2 procedures
-#define RB2_SetHigh()            do { LATBbits.LATB2 = 1; } while(0)
-#define RB2_SetLow()             do { LATBbits.LATB2 = 0; } while(0)
-#define RB2_Toggle()             do { LATBbits.LATB2 = ~LATBbits.LATB2; } while(0)
-#define RB2_GetValue()              PORTBbits.RB2
-#define RB2_SetDigitalInput()    do { TRISBbits.TRISB2 = 1; } while(0)
-#define RB2_SetDigitalOutput()   do { TRISBbits.TRISB2 = 0; } while(0)
-#define RB2_SetPullup()             do { WPUBbits.WPUB2 = 1; } while(0)
-#define RB2_ResetPullup()           do { WPUBbits.WPUB2 = 0; } while(0)
-#define RB2_SetAnalogMode()         do { ANSELBbits.ANSELB2 = 1; } while(0)
-#define RB2_SetDigitalMode()        do { ANSELBbits.ANSELB2 = 0; } while(0)
-
 // get/set DIO0 aliases
 #define DIO0_TRIS                 TRISBbits.TRISB4
 #define DIO0_LAT                  LATBbits.LATB4
@@ -368,6 +356,18 @@
 #define NSS_SetOpenDrain()       do { ODCONCbits.ODCC6 = 1; } while(0)
 #define NSS_SetAnalogMode()      do { ANSELCbits.ANSELC6 = 1; } while(0)
 #define NSS_SetDigitalMode()     do { ANSELCbits.ANSELC6 = 0; } while(0)
+
+// get/set RC7 procedures
+#define RC7_SetHigh()            do { LATCbits.LATC7 = 1; } while(0)
+#define RC7_SetLow()             do { LATCbits.LATC7 = 0; } while(0)
+#define RC7_Toggle()             do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0)
+#define RC7_GetValue()              PORTCbits.RC7
+#define RC7_SetDigitalInput()    do { TRISCbits.TRISC7 = 1; } while(0)
+#define RC7_SetDigitalOutput()   do { TRISCbits.TRISC7 = 0; } while(0)
+#define RC7_SetPullup()             do { WPUCbits.WPUC7 = 1; } while(0)
+#define RC7_ResetPullup()           do { WPUCbits.WPUC7 = 0; } while(0)
+#define RC7_SetAnalogMode()         do { ANSELCbits.ANSELC7 = 1; } while(0)
+#define RC7_SetDigitalMode()        do { ANSELCbits.ANSELC7 = 0; } while(0)
 
 /**
    @Param
