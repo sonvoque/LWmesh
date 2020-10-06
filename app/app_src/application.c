@@ -25,6 +25,7 @@ Copyright 2020 Samuel Ramrajkar
 #include "uart_default_control.h"
 #include "AES.h"
 #include "wdt.h"
+#include "I2C_EEPROM.h"
 
 #define swap_16(x) ((x << 8) | (x >> 8))
 
@@ -1251,6 +1252,11 @@ static void cmdTest(char* cmd){
     switch(testcase){
         case WDTTEST:
             while(1);
+            break;
+        case EETEST:
+            eeprom_wr_byte(0xAAAA, 0xAA);
+            __delay_ms(60);
+            testcase = eeprom_rd_byte(0xAAAA);
             break;
         default:
             printf("NOT OK %u\r\n", ILLEGALPARAMETER);
